@@ -14,21 +14,17 @@ import {
 import DatePickerWithRange from "@/components/dashboard/date-range-picker";
 
 // Define the order data structure
-interface Order {
+interface Expense {
   name: string;
   type: "Fixed Cost" | "Variable Cost" | "Staff" | "Software" | "Marketing" | "Operating Expenses" | "Taxes" | "Other";
   amount: number;
   amount_type: "dollar" | "percentage";
 }
 
-interface ExpenseTableProps {
-  orders: Order[];
-}
-
 // Define the context type
 type ExpenseFilterContextType = {
-  selectedType: Order['type'] | 'All';
-  setSelectedType: (type: Order['type'] | 'All') => void;
+  selectedType: Expense['type'] | 'All';
+  setSelectedType: (type: Expense['type'] | 'All') => void;
 };
 
 // Create the context
@@ -36,7 +32,7 @@ const ExpenseFilterContext = createContext<ExpenseFilterContextType | undefined>
 
 // Create a provider component
 export function ExpenseFilterProvider({ children }: { children: ReactNode }) {
-  const [selectedType, setSelectedType] = useState<Order['type'] | 'All'>('All');
+  const [selectedType, setSelectedType] = useState<Expense['type'] | 'All'>('All');
 
   return (
     <ExpenseFilterContext.Provider value={{ selectedType, setSelectedType }}>
@@ -54,14 +50,10 @@ export function useExpenseFilter() {
   return context;
 }
 
-export function ExpenseFilter({ orders }: ExpenseTableProps) {
+export function ExpenseFilter() {
   const { selectedType, setSelectedType } = useExpenseFilter();
 
-  const filteredOrders = selectedType === 'All' 
-    ? orders 
-    : orders.filter(order => order.type === selectedType);
-
-  const expenseTypes: (Order['type'] | 'All')[] = [
+  const expenseTypes: (Expense['type'] | 'All')[] = [
     "All",
     "Fixed Cost",
     "Variable Cost",

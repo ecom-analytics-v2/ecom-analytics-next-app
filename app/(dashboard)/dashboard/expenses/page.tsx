@@ -1,14 +1,21 @@
-
-import { ExpensePieChart } from "./expense-pie-chart"
+import { ExpensePieChart } from "./expense-pie-chart";
 import { ExpenseAreaChart } from "./expense-area-chart";
 import { DateRangeProvider } from "@/components/dashboard/date-range-context";
-import { ExpenseFilterProvider, ExpenseFilter } from './expense-filter';
-import { ExpenseTable } from './expense-table';
+import { ExpenseFilterProvider, ExpenseFilter } from "./expense-filter";
+import { ExpenseTable } from "./expense-table";
 
 // Updated Expense interface
 interface Expense {
   name: string;
-  type: "Fixed Cost" | "Variable Cost" | "Staff" | "Software" | "Marketing" | "Operating Expenses" | "Taxes" | "Other";
+  type:
+    | "Fixed Cost"
+    | "Variable Cost"
+    | "Staff"
+    | "Software"
+    | "Marketing"
+    | "Operating Expenses"
+    | "Taxes"
+    | "Other";
   amount: number;
   amount_type: "dollar" | "percentage";
   dollar_amount: number;
@@ -24,7 +31,7 @@ const expenses: Expense[] = [
     amount: 5000,
     amount_type: "dollar",
     dollar_amount: 5000,
-    percentage_amount: 10.42
+    percentage_amount: 10.42,
   },
   {
     name: "Insurance",
@@ -32,7 +39,7 @@ const expenses: Expense[] = [
     amount: 1000,
     amount_type: "dollar",
     dollar_amount: 1000,
-    percentage_amount: 2.08
+    percentage_amount: 2.08,
   },
   {
     name: "Equipment Lease",
@@ -40,9 +47,9 @@ const expenses: Expense[] = [
     amount: 1500,
     amount_type: "dollar",
     dollar_amount: 1500,
-    percentage_amount: 3.13
+    percentage_amount: 3.13,
   },
-  
+
   // Variable Costs
   {
     name: "Raw Materials",
@@ -50,15 +57,15 @@ const expenses: Expense[] = [
     amount: 15,
     amount_type: "percentage",
     dollar_amount: 7200,
-    percentage_amount: 15
+    percentage_amount: 15,
   },
   {
     name: "Shipping",
     type: "Variable Cost",
-    amount: 8.50,
+    amount: 8.5,
     amount_type: "dollar",
-    dollar_amount: 8.50,
-    percentage_amount: 0.02
+    dollar_amount: 8.5,
+    percentage_amount: 0.02,
   },
   {
     name: "Packaging",
@@ -66,9 +73,9 @@ const expenses: Expense[] = [
     amount: 2,
     amount_type: "dollar",
     dollar_amount: 2,
-    percentage_amount: 0.004
+    percentage_amount: 0.004,
   },
-  
+
   // Staff
   {
     name: "Salaries",
@@ -76,7 +83,7 @@ const expenses: Expense[] = [
     amount: 25000,
     amount_type: "dollar",
     dollar_amount: 25000,
-    percentage_amount: 52.08
+    percentage_amount: 52.08,
   },
   {
     name: "Employee Benefits",
@@ -84,7 +91,7 @@ const expenses: Expense[] = [
     amount: 5000,
     amount_type: "dollar",
     dollar_amount: 5000,
-    percentage_amount: 10.42
+    percentage_amount: 10.42,
   },
   {
     name: "Contractor Payments",
@@ -92,9 +99,9 @@ const expenses: Expense[] = [
     amount: 3000,
     amount_type: "dollar",
     dollar_amount: 3000,
-    percentage_amount: 6.25
+    percentage_amount: 6.25,
   },
-  
+
   // Software
   {
     name: "CRM Subscription",
@@ -102,7 +109,7 @@ const expenses: Expense[] = [
     amount: 199,
     amount_type: "dollar",
     dollar_amount: 199,
-    percentage_amount: 0.04
+    percentage_amount: 0.04,
   },
   {
     name: "Accounting Software",
@@ -110,7 +117,7 @@ const expenses: Expense[] = [
     amount: 50,
     amount_type: "dollar",
     dollar_amount: 50,
-    percentage_amount: 0.01
+    percentage_amount: 0.01,
   },
   {
     name: "Design Tools",
@@ -118,9 +125,9 @@ const expenses: Expense[] = [
     amount: 75,
     amount_type: "dollar",
     dollar_amount: 75,
-    percentage_amount: 0.02
+    percentage_amount: 0.02,
   },
-  
+
   // Marketing
   {
     name: "Social Media Ads",
@@ -128,7 +135,7 @@ const expenses: Expense[] = [
     amount: 1000,
     amount_type: "dollar",
     dollar_amount: 1000,
-    percentage_amount: 2.08
+    percentage_amount: 2.08,
   },
   {
     name: "Email Marketing Platform",
@@ -136,7 +143,7 @@ const expenses: Expense[] = [
     amount: 150,
     amount_type: "dollar",
     dollar_amount: 150,
-    percentage_amount: 0.03
+    percentage_amount: 0.03,
   },
   {
     name: "Influencer Partnerships",
@@ -144,9 +151,9 @@ const expenses: Expense[] = [
     amount: 2000,
     amount_type: "dollar",
     dollar_amount: 2000,
-    percentage_amount: 4.17
+    percentage_amount: 4.17,
   },
-  
+
   // Operating Expenses
   {
     name: "Utilities",
@@ -154,7 +161,7 @@ const expenses: Expense[] = [
     amount: 800,
     amount_type: "dollar",
     dollar_amount: 800,
-    percentage_amount: 1.67
+    percentage_amount: 1.67,
   },
   {
     name: "Office Supplies",
@@ -162,7 +169,7 @@ const expenses: Expense[] = [
     amount: 200,
     amount_type: "dollar",
     dollar_amount: 200,
-    percentage_amount: 0.42
+    percentage_amount: 0.42,
   },
   {
     name: "Maintenance",
@@ -170,9 +177,9 @@ const expenses: Expense[] = [
     amount: 500,
     amount_type: "dollar",
     dollar_amount: 500,
-    percentage_amount: 1.04
+    percentage_amount: 1.04,
   },
-  
+
   // Taxes
   {
     name: "Income Tax",
@@ -180,7 +187,7 @@ const expenses: Expense[] = [
     amount: 20,
     amount_type: "percentage",
     dollar_amount: 10000,
-    percentage_amount: 20
+    percentage_amount: 20,
   },
   {
     name: "Sales Tax",
@@ -188,7 +195,7 @@ const expenses: Expense[] = [
     amount: 8.5,
     amount_type: "percentage",
     dollar_amount: 4250,
-    percentage_amount: 8.5
+    percentage_amount: 8.5,
   },
   {
     name: "Property Tax",
@@ -196,9 +203,9 @@ const expenses: Expense[] = [
     amount: 3000,
     amount_type: "dollar",
     dollar_amount: 3000,
-    percentage_amount: 6.25
+    percentage_amount: 6.25,
   },
-  
+
   // Other
   {
     name: "Legal Fees",
@@ -206,7 +213,7 @@ const expenses: Expense[] = [
     amount: 1500,
     amount_type: "dollar",
     dollar_amount: 1500,
-    percentage_amount: 3.13
+    percentage_amount: 3.13,
   },
   {
     name: "Professional Development",
@@ -214,7 +221,7 @@ const expenses: Expense[] = [
     amount: 500,
     amount_type: "dollar",
     dollar_amount: 500,
-    percentage_amount: 1.04
+    percentage_amount: 1.04,
   },
   {
     name: "Miscellaneous",
@@ -222,7 +229,7 @@ const expenses: Expense[] = [
     amount: 300,
     amount_type: "dollar",
     dollar_amount: 300,
-    percentage_amount: 0.63
+    percentage_amount: 0.63,
   },
 ];
 
@@ -230,36 +237,29 @@ export default function Dashboard() {
   return (
     <DateRangeProvider>
       <ExpenseFilterProvider>
-    <div className="flex min-h-screen w-full flex-col bg-muted/40 relative overflow-y-auto">
-      <div className="flex flex-col sm:gap-4 sm:py-4">
+        <div className="flex min-h-screen w-full flex-col bg-muted/40 relative overflow-y-auto">
+          <div className="flex flex-col sm:gap-4 sm:py-4">
+            <main className="relative flex-1 gap-4 px-4 sm:px-6 items-center md:gap-8 ">
+              <ExpenseFilter />
 
+              <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 items-end ">
+                  <div className="sm:col-span-3">
+                    <ExpenseAreaChart expenses={expenses} />
+                  </div>
 
-        <main className="relative flex-1 gap-4 px-4 sm:px-6 items-center md:gap-8 ">
-                  <ExpenseFilter orders={expenses} />
+                  <div className="sm:col-span-1 w-full">
+                    <ExpensePieChart orders={expenses} />
+                  </div>
+                </div>
 
-          <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-            
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 items-end ">
-              <div className="sm:col-span-3">
-                <ExpenseAreaChart expenses={expenses}/>
+                <ExpenseTable orders={expenses} />
               </div>
-              
-                          <div className="sm:col-span-1 w-full">
-              <ExpensePieChart orders={expenses} />
-            </div>
-              
-            </div>
-            
-            <ExpenseTable orders={expenses} />
+              <div></div>
+            </main>
           </div>
-          <div>
-            
-            
-          </div>
-        </main>
-      </div>
-    </div>
-    </ExpenseFilterProvider>
+        </div>
+      </ExpenseFilterProvider>
     </DateRangeProvider>
-  )
+  );
 }

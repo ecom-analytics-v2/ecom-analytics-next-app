@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import * as React from "react";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 import {
   Card,
@@ -10,22 +10,30 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-import { formatCurrency } from "@/lib/utils"
-import { useDateRange } from "@/components/dashboard/date-range-context"
-import { useState } from "react"
-import { useExpenseFilter } from "./expense-filter"
+} from "@/components/ui/chart";
+import { formatCurrency } from "@/lib/utils";
+import { useDateRange } from "@/components/dashboard/date-range-context";
+import { useState } from "react";
+import { useExpenseFilter } from "./expense-filter";
 
 // Reuse the Expense interface
 interface Expense {
   name: string;
-  type: "Fixed Cost" | "Variable Cost" | "Staff" | "Software" | "Marketing" | "Operating Expenses" | "Taxes" | "Other";
+  type:
+    | "Fixed Cost"
+    | "Variable Cost"
+    | "Staff"
+    | "Software"
+    | "Marketing"
+    | "Operating Expenses"
+    | "Taxes"
+    | "Other";
   amount: number;
   amount_type: "dollar" | "percentage";
 }
@@ -39,15 +47,15 @@ const chartConfig: ChartConfig = {
     label: "Variable Cost",
     color: "hsl(var(--chart-2))",
   },
-  "Staff": {
+  Staff: {
     label: "Staff",
     color: "hsl(var(--chart-3))",
   },
-  "Software": {
+  Software: {
     label: "Software",
     color: "hsl(var(--chart-4))",
   },
-  "Marketing": {
+  Marketing: {
     label: "Marketing",
     color: "hsl(var(--chart-5))",
   },
@@ -55,15 +63,15 @@ const chartConfig: ChartConfig = {
     label: "Operating Expenses",
     color: "hsl(var(--chart-6))",
   },
-  "Taxes": {
+  Taxes: {
     label: "Taxes",
     color: "hsl(var(--chart-7))",
   },
-  "Other": {
+  Other: {
     label: "Other",
     color: "hsl(var(--chart-8))",
   },
-}
+};
 
 const TOTAL_REVENUE = 100000; // Assuming total revenue of $100,000
 
@@ -85,39 +93,39 @@ export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
     const data: any[] = [];
     for (let i = 0; i < dataPoints; i++) {
       const date = new Date(start.getTime() + i * interval);
-      const dataPoint: any = { date: date.toISOString().split('T')[0] };
-      
+      const dataPoint: any = { date: date.toISOString().split("T")[0] };
+
       if (selectedType === "All") {
-        Object.keys(chartConfig).forEach(type => {
+        Object.keys(chartConfig).forEach((type) => {
           dataPoint[type] = 0;
         });
       } else {
         dataPoint[selectedType] = 0;
       }
-      
-      expenses.forEach(expense => {
+
+      expenses.forEach((expense) => {
         if (selectedType === "All" || expense.type === selectedType) {
-          const amount = expense.amount_type === "percentage" ? (expense.amount / 100) * TOTAL_REVENUE : expense.amount;
+          const amount =
+            expense.amount_type === "percentage"
+              ? (expense.amount / 100) * TOTAL_REVENUE
+              : expense.amount;
           dataPoint[expense.type] = (dataPoint[expense.type] || 0) + amount / dataPoints;
         }
       });
-      
+
       data.push(dataPoint);
     }
 
     setChartData(data);
   }, [expenses, dateRange.startDate, dateRange.endDate, selectedType]);
 
-  const totalExpenses = React.useMemo(() => {
-    return expenses.reduce((sum, expense) => sum + (expense.amount_type === "percentage" ? (expense.amount / 100) * TOTAL_REVENUE : expense.amount), 0);
-  }, [expenses]);
-
   return (
     <Card className="flex flex-col h-[400px]">
       <CardHeader className="items-center pb-0">
         <CardTitle>Expense Area Chart</CardTitle>
         <CardDescription>
-          Showing expenses from {new Date(dateRange.startDate).toLocaleDateString()} to {new Date(dateRange.endDate).toLocaleDateString()}
+          Showing expenses from {new Date(dateRange.startDate).toLocaleDateString()} to{" "}
+          {new Date(dateRange.endDate).toLocaleDateString()}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -138,7 +146,9 @@ export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                tickFormatter={(value) =>
+                  new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                }
               />
               <YAxis
                 tickLine={false}
@@ -147,8 +157,39 @@ export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
                 tickFormatter={(value) => `$${value.toLocaleString()}`}
               />
               <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent />}
+                cursor={{ stroke: "var(--border)", strokeWidth: 1 }}
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="rounded-lg border bg-background p-2 shadow-sm">
+                        <div className="text-sm font-medium mb-2">
+                          {new Date(label).toLocaleDateString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </div>
+                        <div className="space-y-1">
+                          {payload.map((entry, index) => (
+                            <div key={`item-${index}`} className="grid grid-cols-2 gap-2 text-sm">
+                              <div className="flex items-center">
+                                <div
+                                  className="mr-2 h-2 w-2 rounded-full"
+                                  style={{ backgroundColor: entry.color }}
+                                />
+                                <span className="font-medium">{entry.name}</span>
+                              </div>
+                              <div className="text-right font-medium">
+                                {formatCurrency(entry.value as number)}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
               />
               {(selectedType === "All" ? Object.keys(chartConfig) : [selectedType]).map((key) => (
                 <Area
@@ -166,5 +207,5 @@ export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }
