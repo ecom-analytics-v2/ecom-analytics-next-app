@@ -1,0 +1,1 @@
+ALTER TABLE "teams" ADD COLUMN "monthly_revenue" integer;

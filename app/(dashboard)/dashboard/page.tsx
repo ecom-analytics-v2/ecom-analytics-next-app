@@ -1,8 +1,11 @@
+
+
 import { redirect } from 'next/navigation';
 import { Settings } from './settings';
 import { getTeamForUser, getUser } from '@/lib/db/queries';
+import { Charts } from './charts';
 
-export default async function SettingsPage() {
+export default async function OverviewPage() {
   const user = await getUser();
 
   if (!user) {
@@ -15,5 +18,9 @@ export default async function SettingsPage() {
     throw new Error('Team not found');
   }
 
-  return <Settings teamData={teamData} />;
+  return (
+   
+      <Charts />
+    
+  )
 }
