@@ -2,43 +2,28 @@
 
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { differenceInDays } from "date-fns";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { formatCurrency } from "@/lib/utils";
 import { useDateRange } from "@/components/dashboard/date-range-context";
-import { useState } from "react";
 import { useExpenseFilter } from "./expense-filter";
+import { Expense } from "@/lib/db/schema/expenses";
+import { ExpenseType } from "@/types/expenseTypes";
 
-// Reuse the Expense interface
-interface Expense {
-  name: string;
-  type:
-    | "Fixed Cost"
-    | "Variable Cost"
-    | "Staff"
-    | "Software"
-    | "Marketing"
-    | "Operating Expenses"
-    | "Taxes"
-    | "Other";
-  amount: number;
-  amount_type: "dollar" | "percentage";
+/**
+ * Represents a data point for the expense area chart.
+ */
+interface ChartDataPoint {
+  date: string;
+  [key: string]: number | string;
 }
 
-const chartConfig: ChartConfig = {
+/**
+ * Configuration for chart colors and labels based on expense types.
+ */
+const chartConfig: Record<ExpenseType, { label: string; color: string }> = {
   "Fixed Cost": {
     label: "Fixed Cost",
     color: "hsl(var(--chart-1))",
@@ -73,43 +58,60 @@ const chartConfig: ChartConfig = {
   },
 };
 
-const TOTAL_REVENUE = 100000; // Assuming total revenue of $100,000
+/**
+ * Props for the ExpenseAreaChart component.
+ */
+interface ExpenseAreaChartProps {
+  expenses: Expense[];
+  teamId: number;
+  totalRevenue: number;
+}
 
-export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
-  const [chartData, setChartData] = useState<any[]>([]);
+/**
+ * ExpenseAreaChart component displays an area chart of expenses over time.
+ * It allows filtering by expense type and date range.
+ *
+ * @param {ExpenseAreaChartProps} props - The component props
+ * @returns {JSX.Element} The rendered ExpenseAreaChart component
+ */
+export function ExpenseAreaChart({ expenses, totalRevenue }: ExpenseAreaChartProps) {
+  const [chartData, setChartData] = React.useState<ChartDataPoint[]>([]);
   const { dateRange } = useDateRange();
-  const { selectedType } = useExpenseFilter();
+  const { selectedTypes } = useExpenseFilter();
 
+  /**
+   * Effect to calculate and update chart data based on expenses, date range, and selected types.
+   */
   React.useEffect(() => {
+    if (!dateRange.endDate || !dateRange.startDate) return;
+
     const start = new Date(dateRange.startDate);
     const end = new Date(dateRange.endDate);
-    const daysDifference = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    const daysDifference = differenceInDays(end, start) + 1;
+    const adjustmentFactor = daysDifference / 30; // Assuming original data is for 30 days
 
     // Calculate appropriate number of data points
     let dataPoints = Math.min(Math.max(Math.floor(daysDifference / 7), 7), 52);
 
     const interval = (end.getTime() - start.getTime()) / (dataPoints - 1);
 
-    const data: any[] = [];
+    const data: ChartDataPoint[] = [];
     for (let i = 0; i < dataPoints; i++) {
       const date = new Date(start.getTime() + i * interval);
-      const dataPoint: any = { date: date.toISOString().split("T")[0] };
+      const dataPoint: ChartDataPoint = {
+        date: date.toISOString().split("T")[0],
+      };
 
-      if (selectedType === "All") {
-        Object.keys(chartConfig).forEach((type) => {
-          dataPoint[type] = 0;
-        });
-      } else {
-        dataPoint[selectedType] = 0;
-      }
+      // Initialize selected expense types
+      (selectedTypes.length === 0 ? Object.keys(chartConfig) : selectedTypes).forEach((type) => {
+        dataPoint[type] = 0;
+      });
 
       expenses.forEach((expense) => {
-        if (selectedType === "All" || expense.type === selectedType) {
-          const amount =
-            expense.amount_type === "percentage"
-              ? (expense.amount / 100) * TOTAL_REVENUE
-              : expense.amount;
-          dataPoint[expense.type] = (dataPoint[expense.type] || 0) + amount / dataPoints;
+        if (selectedTypes.length === 0 || selectedTypes.includes(expense.type as ExpenseType)) {
+          const amount = parseFloat(expense.amount) * adjustmentFactor;
+          dataPoint[expense.type] =
+            ((dataPoint[expense.type] as number) || 0) + amount / dataPoints;
         }
       });
 
@@ -117,7 +119,7 @@ export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
     }
 
     setChartData(data);
-  }, [expenses, dateRange.startDate, dateRange.endDate, selectedType]);
+  }, [expenses, dateRange, selectedTypes, totalRevenue]);
 
   return (
     <Card className="flex flex-col h-[400px]">
@@ -170,20 +172,26 @@ export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
                           })}
                         </div>
                         <div className="space-y-1">
-                          {payload.map((entry, index) => (
-                            <div key={`item-${index}`} className="grid grid-cols-2 gap-2 text-sm">
-                              <div className="flex items-center">
-                                <div
-                                  className="mr-2 h-2 w-2 rounded-full"
-                                  style={{ backgroundColor: entry.color }}
-                                />
-                                <span className="font-medium">{entry.name}</span>
+                          {payload
+                            .filter(
+                              (entry) =>
+                                selectedTypes.length === 0 ||
+                                selectedTypes.includes(entry.name as ExpenseType)
+                            )
+                            .map((entry, index) => (
+                              <div key={`item-${index}`} className="grid grid-cols-2 gap-2 text-sm">
+                                <div className="flex items-center">
+                                  <div
+                                    className="mr-2 h-2 w-2 rounded-full"
+                                    style={{ backgroundColor: entry.color }}
+                                  />
+                                  <span className="font-medium">{entry.name}</span>
+                                </div>
+                                <div className="text-right font-medium">
+                                  {formatCurrency(entry.value as number)}
+                                </div>
                               </div>
-                              <div className="text-right font-medium">
-                                {formatCurrency(entry.value as number)}
-                              </div>
-                            </div>
-                          ))}
+                            ))}
                         </div>
                       </div>
                     );
@@ -191,17 +199,19 @@ export function ExpenseAreaChart({ expenses }: { expenses: Expense[] }) {
                   return null;
                 }}
               />
-              {(selectedType === "All" ? Object.keys(chartConfig) : [selectedType]).map((key) => (
-                <Area
-                  key={key}
-                  type="monotone"
-                  dataKey={key}
-                  stackId="1"
-                  stroke={chartConfig[key as keyof typeof chartConfig].color}
-                  fill={chartConfig[key as keyof typeof chartConfig].color}
-                  fillOpacity={0.4}
-                />
-              ))}
+              {(selectedTypes.length === 0 ? Object.keys(chartConfig) : selectedTypes).map(
+                (key) => (
+                  <Area
+                    key={key}
+                    type="monotone"
+                    dataKey={key}
+                    stackId="1"
+                    stroke={chartConfig[key as ExpenseType].color}
+                    fill={chartConfig[key as ExpenseType].color}
+                    fillOpacity={0.4}
+                  />
+                )
+              )}
             </AreaChart>
           </ResponsiveContainer>
         </ChartContainer>

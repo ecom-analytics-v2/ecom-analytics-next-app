@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { differenceInDays } from "date-fns";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -20,27 +20,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Expense } from "@/lib/db/schema/expenses";
+import { formatCurrency } from "@/lib/utils";
+import { ExpenseType } from "@/types/expenseTypes";
 
 // Update the Order interface to match the new Expense structure
-interface Order {
-  name: string;
-  type:
-    | "Fixed Cost"
-    | "Variable Cost"
-    | "Staff"
-    | "Software"
-    | "Marketing"
-    | "Operating Expenses"
-    | "Taxes"
-    | "Other";
-  amount: number;
-  amount_type: "dollar" | "percentage";
-  dollar_amount: number;
-  percentage_amount: number;
-}
 
 interface ExpenseTableProps {
-  orders: Order[];
+  expenses: Expense[];
+  teamId: number;
+  totalRevenue: number;
 }
 
 type SortOption = "most-expensive" | "least-expensive" | "alphabetical" | "reverse-alphabetical";
@@ -52,35 +41,68 @@ const sortOptionLabels: Record<SortOption, string> = {
   "reverse-alphabetical": "Z-A",
 };
 
-export function ExpenseTable({ orders }: ExpenseTableProps) {
-  const { dateRange } = useDateRange();
-  const { selectedType } = useExpenseFilter();
-  const [sortOption, setSortOption] = useState<SortOption>("most-expensive");
+/**
+ * Adjusts and formats an expense amount based on a given adjustment factor.
+ * @param amount - The original expense amount as a string.
+ * @param adjustmentFactor - The factor to adjust the amount by.
+ * @returns A formatted string representing the adjusted amount.
+ */
+function adjustAndFormatExpense(amount: string, adjustmentFactor: number): string {
+  const numericAmount = parseFloat(amount);
+  if (isNaN(numericAmount)) return "0.00";
+  const adjustedAmount = numericAmount * adjustmentFactor;
+  return formatCurrency(adjustedAmount);
+}
 
-  const adjustedOrders = useMemo(() => {
-    if (!dateRange.endDate || !dateRange.startDate) return orders;
+// Create a new type for adjusted expenses
+type AdjustedExpense = Expense & {
+  dollar_amount: string;
+  percentage_amount: number;
+};
+
+/**
+ * ExpenseTable component displays a table of expenses with sorting and filtering capabilities.
+ * @param totalRevenue - The total revenue for the selected period.
+ * @param expenses - An array of Expense objects to be displayed.
+ */
+export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
+  const { dateRange } = useDateRange();
+  const { selectedTypes } = useExpenseFilter();
+  const [sortOption, setSortOption] = useState<SortOption>("most-expensive");
+  const [adjustedExpenses, setAdjustedExpenses] = useState<AdjustedExpense[]>([]);
+
+  // Effect to adjust expenses based on the selected date range
+  useEffect(() => {
+    if (!dateRange.endDate || !dateRange.startDate) return;
 
     const daysInRange = differenceInDays(dateRange.endDate, dateRange.startDate) + 1;
     const adjustmentFactor = daysInRange / 30; // Assuming original data is for 30 days
 
-    return orders.map((order) => ({
-      ...order,
-      dollar_amount: order.dollar_amount * adjustmentFactor,
-      percentage_amount: order.percentage_amount, // Percentage remains the same
-    }));
-  }, [orders, dateRange]);
+    const adjusted = expenses.map((expense): AdjustedExpense => {
+      const adjustedAmount = adjustAndFormatExpense(expense.amount, adjustmentFactor);
+      const numericAmount = parseFloat(adjustedAmount.replace(/[^0-9.-]+/g, ""));
+      return {
+        ...expense,
+        dollar_amount: adjustedAmount,
+        percentage_amount: (numericAmount / totalRevenue) * 100,
+      };
+    });
 
-  const sortedAndFilteredOrders = useMemo(() => {
+    setAdjustedExpenses(adjusted);
+  }, [expenses, dateRange, totalRevenue]);
+
+  // Memoized and sorted expenses based on selected filters and sort option
+  const sortedAndFilteredExpenses = useMemo(() => {
     let result =
-      selectedType === "All"
-        ? adjustedOrders
-        : adjustedOrders.filter((order) => order.type === selectedType);
+      selectedTypes.length === 0
+        ? adjustedExpenses
+        : adjustedExpenses.filter((expense) => selectedTypes.includes(expense.type as ExpenseType));
 
     switch (sortOption) {
       case "most-expensive":
-        return result.sort((a, b) => b.dollar_amount - a.dollar_amount);
+        return result.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
       case "least-expensive":
-        return result.sort((a, b) => a.dollar_amount - b.dollar_amount);
+        return result.sort((a, b) => parseFloat(a.amount) - parseFloat(b.amount));
       case "alphabetical":
         return result.sort((a, b) => a.name.localeCompare(b.name));
       case "reverse-alphabetical":
@@ -88,7 +110,7 @@ export function ExpenseTable({ orders }: ExpenseTableProps) {
       default:
         return result;
     }
-  }, [adjustedOrders, selectedType, sortOption]);
+  }, [adjustedExpenses, selectedTypes, sortOption]);
 
   return (
     <div>
@@ -101,6 +123,7 @@ export function ExpenseTable({ orders }: ExpenseTableProps) {
                 Breakdown of your business expenses for the selected period.
               </CardDescription>
             </div>
+            {/* Dropdown menu for sorting options */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
@@ -125,30 +148,37 @@ export function ExpenseTable({ orders }: ExpenseTableProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead className="hidden sm:table-cell">Type</TableHead>
-                <TableHead className="text-right">Dollar Amount</TableHead>
-                <TableHead className="text-right">Percentage</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sortedAndFilteredOrders.map((order, index) => (
-                <TableRow key={index} className={index % 2 === 0 ? "bg-accent/20" : ""}>
-                  <TableCell>
-                    <div className="font-normal">{order.name}</div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">{order.type}</TableCell>
-                  <TableCell className="text-right">${order.dollar_amount.toFixed(2)}</TableCell>
-                  <TableCell className="text-right">
-                    {order.percentage_amount.toFixed(2)}%
-                  </TableCell>
+          {sortedAndFilteredExpenses.length === 0 ? (
+            <p className="text-center py-8 text-muted-foreground">
+              You do not have any expenses for the selected period.
+            </p>
+          ) : (
+            // Table displaying the sorted and filtered expenses
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="hidden sm:table-cell">Category</TableHead>
+                  <TableHead className="text-right">Dollar Amount</TableHead>
+                  <TableHead className="text-right">Percentage</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {sortedAndFilteredExpenses.map((expense, index) => (
+                  <TableRow key={index} className={index % 2 === 0 ? "bg-accent/20" : ""}>
+                    <TableCell>
+                      <div className="font-normal">{expense.name}</div>
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell">{expense.type}</TableCell>
+                    <TableCell className="text-right">{expense.dollar_amount}</TableCell>
+                    <TableCell className="text-right">
+                      {expense.percentage_amount.toFixed(2)}%
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </CardContent>
       </Card>
     </div>

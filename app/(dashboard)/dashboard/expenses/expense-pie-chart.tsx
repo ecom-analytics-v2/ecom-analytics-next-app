@@ -1,56 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
-import { differenceInDays } from "date-fns";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { formatCurrency } from "@/lib/utils";
 import { useDateRange } from "@/components/dashboard/date-range-context";
-import { cn } from "@/lib/utils";
+import { useExpenseFilter } from "./expense-filter";
+import { Expense } from "@/lib/db/schema/expenses";
+import { ExpenseType } from "@/types/expenseTypes";
 
-// Define the Order interface
-interface Order {
-  name: string;
-  type:
-    | "Fixed Cost"
-    | "Variable Cost"
-    | "Staff"
-    | "Software"
-    | "Marketing"
-    | "Operating Expenses"
-    | "Taxes"
-    | "Other";
-  amount: number;
-  amount_type: "dollar" | "percentage";
-}
-
-interface ExpenseChartProps {
-  orders: Order[];
-}
-
-const TOTAL_REVENUE = 100000; // Assuming total revenue of $100,000
-
-const chartConfig: ChartConfig = {
-  expenses: {
-    label: "Expenses",
-  },
+const chartConfig: Record<ExpenseType, { label: string; color: string }> = {
   "Fixed Cost": {
     label: "Fixed Cost",
     color: "hsl(var(--chart-1))",
@@ -85,52 +46,58 @@ const chartConfig: ChartConfig = {
   },
 };
 
-export function ExpensePieChart({ orders }: ExpenseChartProps) {
+interface ChartDataItem {
+  type: ExpenseType;
+  expenses: number;
+  formattedExpenses: string;
+  fill: string;
+}
+
+interface ExpensePieChartProps {
+  expenses: Expense[];
+  teamId: number;
+  totalRevenue: number;
+}
+
+export function ExpensePieChart({ expenses, totalRevenue }: ExpensePieChartProps) {
+  const [chartData, setChartData] = React.useState<ChartDataItem[]>([]);
   const { dateRange } = useDateRange();
+  const { selectedTypes } = useExpenseFilter();
 
-  const adjustedOrders = React.useMemo(() => {
-    if (!dateRange.endDate || !dateRange.startDate) return orders;
+  React.useEffect(() => {
+    if (!dateRange.endDate || !dateRange.startDate) return;
 
-    const daysInRange = differenceInDays(dateRange.endDate, dateRange.startDate) + 1;
-    const adjustmentFactor = daysInRange / 30; // Assuming original data is for 30 days
+    const start = new Date(dateRange.startDate);
+    const end = new Date(dateRange.endDate);
+    const daysDifference = (end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1;
+    const adjustmentFactor = daysDifference / 30; // Assuming original data is for 30 days
 
-    return orders.map((order) => ({
-      ...order,
-      amount: order.amount_type === "dollar" ? order.amount * adjustmentFactor : order.amount, // Percentage remains the same
-    }));
-  }, [orders, dateRange]);
+    const groupedExpenses: Partial<Record<ExpenseType, number>> = {};
 
-  const calculateActualAmount = (order: Order) => {
-    if (order.amount_type === "percentage") {
-      return (order.amount / 100) * TOTAL_REVENUE;
-    }
-    return order.amount;
-  };
+    expenses.forEach((expense) => {
+      if (selectedTypes.length === 0 || selectedTypes.includes(expense.type as ExpenseType)) {
+        const amount = parseFloat(expense.amount) * adjustmentFactor;
+        groupedExpenses[expense.type as ExpenseType] =
+          (groupedExpenses[expense.type as ExpenseType] || 0) + amount;
+      }
+    });
 
-  const chartData = React.useMemo(() => {
-    const groupedExpenses = adjustedOrders.reduce(
-      (acc, order) => {
-        const actualAmount = calculateActualAmount(order);
-        if (!acc[order.type]) {
-          acc[order.type] = 0;
-        }
-        acc[order.type] += actualAmount;
-        return acc;
-      },
-      {} as Record<Order["type"], number>
-    );
-
-    return Object.entries(groupedExpenses).map(([type, amount]) => ({
-      type,
+    const newChartData: ChartDataItem[] = Object.entries(groupedExpenses).map(([type, amount]) => ({
+      type: type as ExpenseType,
       expenses: amount,
       formattedExpenses: formatCurrency(amount),
-      fill: chartConfig[type as keyof typeof chartConfig].color,
+      fill: chartConfig[type as ExpenseType].color,
     }));
-  }, [adjustedOrders]);
 
-  const totalExpenses = React.useMemo(() => {
-    return chartData.reduce((sum, item) => sum + item.expenses, 0);
-  }, [chartData]);
+    setChartData(newChartData);
+  }, [expenses, dateRange, selectedTypes, totalRevenue]);
+
+  const totalExpenses = React.useMemo(
+    () => chartData.reduce((sum, item) => sum + item.expenses, 0),
+    [chartData]
+  );
+
+  const hasExpenses = chartData.length > 0;
 
   return (
     <Card className="flex flex-col h-[400px]">
@@ -142,72 +109,79 @@ export function ExpensePieChart({ orders }: ExpenseChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square">
-          <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={({ active, payload }) => {
-                if (active && payload && payload.length) {
-                  const data = payload[0].payload;
-                  return (
-                    <div className="rounded-lg border bg-background p-2 shadow-sm">
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="flex items-center">
-                          <div
-                            className="mr-2 h-2 w-2 rounded-full"
-                            style={{ backgroundColor: data.fill }}
-                          />
-                          <span className="font-medium">{data.type}</span>
-                        </div>
-                        <div className="text-right font-medium">
-                          {formatCurrency(data.expenses)}
+        {hasExpenses ? (
+          <ChartContainer config={chartConfig} className="mx-auto aspect-square">
+            <PieChart>
+              <ChartTooltip
+                cursor={false}
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    const data = payload[0].payload as ChartDataItem;
+                    return (
+                      <div className="rounded-lg border bg-background p-2 shadow-sm">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="flex items-center">
+                            <div
+                              className="mr-2 h-2 w-2 rounded-full"
+                              style={{ backgroundColor: data.fill }}
+                            />
+                            <span className="font-medium">{data.type}</span>
+                          </div>
+                          <div className="text-right font-medium">{data.formattedExpenses}</div>
                         </div>
                       </div>
-                    </div>
-                  );
-                }
-                return null;
-              }}
-            />
-            <Pie
-              data={chartData}
-              dataKey="expenses"
-              nameKey="type"
-              innerRadius={60}
-              strokeWidth={0}
-            >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                      >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-foreground text-2xl font-bold"
-                        >
-                          ${totalExpenses.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
-                        >
-                          Total Expenses
-                        </tspan>
-                      </text>
                     );
                   }
+                  return null;
                 }}
               />
-            </Pie>
-          </PieChart>
-        </ChartContainer>
+              <Pie
+                data={chartData}
+                dataKey="expenses"
+                nameKey="type"
+                innerRadius={80}
+                strokeWidth={0}
+              >
+                <Label
+                  content={({ viewBox }) => {
+                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                      return (
+                        <text
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                        >
+                          <tspan
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            className="fill-foreground text-lg font-bold"
+                          >
+                            {formatCurrency(totalExpenses)}
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy || 0) + 24}
+                            className="fill-muted-foreground"
+                          >
+                            Total Expenses
+                          </tspan>
+                        </text>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+              </Pie>
+            </PieChart>
+          </ChartContainer>
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-muted-foreground text-center">
+              No expenses found for the selected categories and date range.
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
