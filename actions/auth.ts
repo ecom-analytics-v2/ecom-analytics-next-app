@@ -22,11 +22,20 @@ import { getUser, getUserWithTeam } from "@/lib/db/queries";
 import { validatedAction } from "@/lib/auth/middleware";
 import { logActivity } from "./activity";
 
+// Schema for sign-in data validation
 const signInSchema = z.object({
   email: z.string().email().min(3).max(255),
   password: z.string().min(8).max(100),
 });
 
+/**
+ * Handles user sign-in process.
+ *
+ * @param {Object} data - The sign-in form data.
+ * @param {FormData} formData - Additional form data for redirection.
+ * @returns {Promise<Object>} An object containing an error message if sign-in fails.
+ * @throws {Error} Redirects to dashboard on successful sign-in.
+ */
 export const signIn = validatedAction(signInSchema, async (data, formData) => {
   const { email, password } = data;
 
@@ -67,24 +76,35 @@ export const signIn = validatedAction(signInSchema, async (data, formData) => {
   redirect("/dashboard");
 });
 
+// Schema for sign-up data validation
 const signUpSchema = z.object({
+  name: z.string().min(1).max(50),
   email: z.string().email(),
   password: z.string().min(8),
   inviteId: z.string().optional(),
 });
 
+/**
+ * Handles user sign-up process.
+ *
+ * @param {Object} data - The sign-up form data.
+ * @param {FormData} formData - Additional form data for redirection.
+ * @returns {Promise<Object>} An object containing an error message if sign-up fails.
+ * @throws {Error} Redirects to dashboard on successful sign-up.
+ */
 export const signUp = validatedAction(signUpSchema, async (data, formData) => {
-  const { email, password, inviteId } = data;
+  const { name, email, password, inviteId } = data;
 
   const existingUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
   if (existingUser.length > 0) {
-    return { error: "Failed to create user. Please try again." };
+    return { error: "You already have an account. Please sign in." };
   }
 
   const passwordHash = await hashPassword(password);
 
   const newUser: NewUser = {
+    name,
     email,
     passwordHash,
     role: "owner", // Default role, will be overridden if there's an invitation
@@ -123,6 +143,8 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
         .set({ status: "accepted" })
         .where(eq(invitations.id, invitation.id));
 
+      await db.update(users).set({ activeTeamId: teamId }).where(eq(users.id, createdUser.id));
+
       await logActivity(teamId, createdUser.id, ActivityType.ACCEPT_INVITATION);
 
       [createdTeam] = await db.select().from(teams).where(eq(teams.id, teamId)).limit(1);
@@ -132,7 +154,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
   } else {
     // Create a new team if there's no invitation
     const newTeam: NewTeam = {
-      name: `${email}'s Team`,
+      name: `${name}'s Team`,
     };
 
     [createdTeam] = await db.insert(teams).values(newTeam).returning();
@@ -144,6 +166,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
     teamId = createdTeam.id;
     userRole = "owner";
 
+    await db.update(users).set({ activeTeamId: teamId }).where(eq(users.id, createdUser.id));
     await logActivity(teamId, createdUser.id, ActivityType.CREATE_TEAM);
   }
 
@@ -168,9 +191,15 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
   redirect("/dashboard");
 });
 
+/**
+ * Handles user sign-out process.
+ *
+ * @throws {Error} Redirects to sign-in page after signing out.
+ */
 export async function signOut() {
   const user = (await getUser()) as User;
   const userWithTeam = await getUserWithTeam(user.id);
   await logActivity(userWithTeam?.teamId, user.id, ActivityType.SIGN_OUT);
   (await cookies()).delete("session");
+  redirect("/sign-in");
 }

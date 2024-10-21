@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, format, compareDesc, compareAsc } from "date-fns";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -32,33 +32,26 @@ interface ExpenseTableProps {
   totalRevenue: number;
 }
 
-type SortOption = "most-expensive" | "least-expensive" | "alphabetical" | "reverse-alphabetical";
+type SortOption =
+  | "most-expensive"
+  | "least-expensive"
+  | "alphabetical"
+  | "reverse-alphabetical"
+  | "newest"
+  | "oldest";
 
 const sortOptionLabels: Record<SortOption, string> = {
   "most-expensive": "Most Expensive",
   "least-expensive": "Least Expensive",
   alphabetical: "A-Z",
   "reverse-alphabetical": "Z-A",
+  newest: "Newest First",
+  oldest: "Oldest First",
 };
 
-/**
- * Adjusts and formats an expense amount based on a given adjustment factor.
- * @param amount - The original expense amount as a string.
- * @param adjustmentFactor - The factor to adjust the amount by.
- * @returns A formatted string representing the adjusted amount.
- */
-function adjustAndFormatExpense(amount: string, adjustmentFactor: number): string {
-  const numericAmount = parseFloat(amount);
-  if (isNaN(numericAmount)) return "0.00";
-  const adjustedAmount = numericAmount * adjustmentFactor;
-  return formatCurrency(adjustedAmount);
-}
-
-// Create a new type for adjusted expenses
-type AdjustedExpense = Expense & {
-  dollar_amount: string;
+interface AdjustedExpense extends Expense {
   percentage_amount: number;
-};
+}
 
 /**
  * ExpenseTable component displays a table of expenses with sorting and filtering capabilities.
@@ -71,25 +64,18 @@ export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
   const [sortOption, setSortOption] = useState<SortOption>("most-expensive");
   const [adjustedExpenses, setAdjustedExpenses] = useState<AdjustedExpense[]>([]);
 
-  // Effect to adjust expenses based on the selected date range
+  // Effect to calculate percentage amounts
   useEffect(() => {
-    if (!dateRange.endDate || !dateRange.startDate) return;
-
-    const daysInRange = differenceInDays(dateRange.endDate, dateRange.startDate) + 1;
-    const adjustmentFactor = daysInRange / 30; // Assuming original data is for 30 days
-
     const adjusted = expenses.map((expense): AdjustedExpense => {
-      const adjustedAmount = adjustAndFormatExpense(expense.amount, adjustmentFactor);
-      const numericAmount = parseFloat(adjustedAmount.replace(/[^0-9.-]+/g, ""));
+      const numericAmount = parseFloat(expense.amount);
       return {
         ...expense,
-        dollar_amount: adjustedAmount,
         percentage_amount: (numericAmount / totalRevenue) * 100,
       };
     });
 
     setAdjustedExpenses(adjusted);
-  }, [expenses, dateRange, totalRevenue]);
+  }, [expenses, totalRevenue]);
 
   // Memoized and sorted expenses based on selected filters and sort option
   const sortedAndFilteredExpenses = useMemo(() => {
@@ -107,6 +93,10 @@ export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
         return result.sort((a, b) => a.name.localeCompare(b.name));
       case "reverse-alphabetical":
         return result.sort((a, b) => b.name.localeCompare(a.name));
+      case "newest":
+        return result.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+      case "oldest":
+        return result.sort((a, b) => compareAsc(new Date(a.date), new Date(b.date)));
       default:
         return result;
     }
@@ -143,6 +133,12 @@ export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
                 <DropdownMenuItem onClick={() => setSortOption("reverse-alphabetical")}>
                   Z-A
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSortOption("newest")}>
+                  Newest First
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSortOption("oldest")}>
+                  Oldest First
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -153,7 +149,6 @@ export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
               You do not have any expenses for the selected period.
             </p>
           ) : (
-            // Table displaying the sorted and filtered expenses
             <Table>
               <TableHeader>
                 <TableRow>
@@ -161,6 +156,7 @@ export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
                   <TableHead className="hidden sm:table-cell">Category</TableHead>
                   <TableHead className="text-right">Dollar Amount</TableHead>
                   <TableHead className="text-right">Percentage</TableHead>
+                  <TableHead className="hidden md:table-cell text-right">Date</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -170,9 +166,14 @@ export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
                       <div className="font-normal">{expense.name}</div>
                     </TableCell>
                     <TableCell className="hidden sm:table-cell">{expense.type}</TableCell>
-                    <TableCell className="text-right">{expense.dollar_amount}</TableCell>
+                    <TableCell className="text-right">
+                      {formatCurrency(parseFloat(expense.amount))}
+                    </TableCell>
                     <TableCell className="text-right">
                       {expense.percentage_amount.toFixed(2)}%
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell text-right">
+                      {format(new Date(expense.date), "MMM d, yyyy")}
                     </TableCell>
                   </TableRow>
                 ))}

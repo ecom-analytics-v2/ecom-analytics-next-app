@@ -14,12 +14,12 @@ import { ExpensePieChartSkeleton } from "./skeletons/expense-pie-chart-skeleton"
 export default async function Dashboard() {
   const user = await getUser();
   if (!user) {
-    redirect("/login");
+    redirect("/sign-in");
   }
 
   const userWithTeam = await getUserWithTeam(user.id);
   if (!userWithTeam) {
-    redirect("/login");
+    redirect("/sign-in");
   }
 
   const expenses = await getAllTeamExpenses(user.id);

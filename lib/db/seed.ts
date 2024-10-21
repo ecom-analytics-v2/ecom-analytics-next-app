@@ -2,7 +2,6 @@ import { stripe } from "../payments/stripe";
 import { db } from "./drizzle";
 import { users, teams, teamMembers, expenses } from "./schema";
 import { hashPassword } from "@/lib/auth/session";
-import { sql } from "drizzle-orm";
 import { NewExpense } from "./schema/expenses";
 
 async function createStripeProducts() {
@@ -45,9 +44,9 @@ async function createSampleExpenses() {
   console.log("Creating sample expenses...");
 
   const currentDate = new Date();
-  const sixMonthsAgo = new Date(
+  const threeMonthsAgo = new Date(
     currentDate.getFullYear(),
-    currentDate.getMonth() - 6,
+    currentDate.getMonth() - 3,
     currentDate.getDate()
   );
 
@@ -239,8 +238,15 @@ async function createSampleExpenses() {
 
   for (const expense of sampleExpenses) {
     const randomDate = new Date(
-      sixMonthsAgo.getTime() + Math.random() * (currentDate.getTime() - sixMonthsAgo.getTime())
+      threeMonthsAgo.getTime() + Math.random() * (currentDate.getTime() - threeMonthsAgo.getTime())
     );
+
+    // Generate a random time for the timestamp
+    const randomHours = Math.floor(Math.random() * 24);
+    const randomMinutes = Math.floor(Math.random() * 60);
+    const randomSeconds = Math.floor(Math.random() * 60);
+
+    randomDate.setHours(randomHours, randomMinutes, randomSeconds);
 
     await db.insert(expenses).values({
       teamId: 1,
@@ -251,6 +257,7 @@ async function createSampleExpenses() {
       date: randomDate,
       createdBy: 1,
       notes: expense.notes,
+      timestamp: randomDate, // Add the timestamp field
     } as NewExpense);
   }
 
@@ -258,6 +265,7 @@ async function createSampleExpenses() {
 }
 
 async function seed() {
+  const name = "Bob Smith";
   const email = "test@test.com";
   const password = "admin123";
   const passwordHash = await hashPassword(password);
@@ -267,6 +275,7 @@ async function seed() {
     .insert(users)
     .values([
       {
+        name: name,
         email: email,
         passwordHash: passwordHash,
         role: "owner",

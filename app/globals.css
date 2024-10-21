@@ -37,6 +37,14 @@
     --chart-8: 30 85% 55%;
     --chart-9: 220 70% 50%;
     --chart-10: 340 80% 65%;
+    --sidebar-background: 212 16% 15%; /* Same as main background */
+    --sidebar-foreground: 60 36% 96%; /* Same as main foreground */
+    --sidebar-primary: 6 78% 57%; /* Same as main primary */
+    --sidebar-primary-foreground: 0 0% 100%; /* Same as main primary-foreground */
+    --sidebar-accent: 212 16% 13%; /* Slightly darker than main background */
+    --sidebar-accent-foreground: 60 36% 96%; /* Same as main foreground */
+    --sidebar-border: 212 6% 20%; /* Same as main border */
+    --sidebar-ring: 6 78% 57%; /* Same as main ring */
   }
 
   .dark {
@@ -72,6 +80,14 @@
     --chart-8: 30 85% 55%;
     --chart-9: 220 70% 50%;
     --chart-10: 340 80% 65%;
+    --sidebar-background: 212 16% 13%; /* Slightly darker than main background */
+    --sidebar-foreground: 60 36% 96%; /* Same as main foreground */
+    --sidebar-primary: 6 78% 57%; /* Same as main primary */
+    --sidebar-primary-foreground: 0 0% 100%; /* Same as main primary-foreground */
+    --sidebar-accent: 212 16% 22%; /* Even darker than sidebar background */
+    --sidebar-accent-foreground: 60 36% 96%; /* Same as main foreground */
+    --sidebar-border: 212 16% 20%; /* Same as main border */
+    --sidebar-ring: 6 78% 57%;
   }
 }
 

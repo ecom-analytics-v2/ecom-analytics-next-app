@@ -3,6 +3,8 @@ import { db } from "./drizzle";
 import { activityLogs, expenses, teamMembers, teams, users } from "./schema";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/auth/session";
+import { SignJWT } from "jose";
+import { User } from "./schema/users";
 
 export async function getUser() {
   const sessionCookie = (await cookies()).get("session");
@@ -20,7 +22,15 @@ export async function getUser() {
   }
 
   const user = await db
-    .select()
+    .select({
+      id: users.id,
+      name: users.name,
+      email: users.email,
+      role: users.role,
+      activeTeamId: users.activeTeamId,
+      createdAt: users.createdAt,
+      updatedAt: users.updatedAt,
+    })
     .from(users)
     .where(and(eq(users.id, sessionData.user.id), isNull(users.deletedAt)))
     .limit(1);
@@ -30,6 +40,21 @@ export async function getUser() {
   }
 
   return user[0];
+}
+
+export async function setSession(user: User, activeTeamId: number) {
+  const token = await new SignJWT({ user: { id: user.id, activeTeamId } })
+    .setProtectedHeader({ alg: "HS256" })
+    .setExpirationTime("1d")
+    .sign(new TextEncoder().encode(process.env.JWT_SECRET));
+
+  (await cookies()).set("session", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 86400,
+    path: "/",
+  });
 }
 
 export async function getTeamByStripeCustomerId(customerId: string) {
