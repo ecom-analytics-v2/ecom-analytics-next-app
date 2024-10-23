@@ -1,14 +1,11 @@
-import Stripe from 'stripe';
-import { redirect } from 'next/navigation';
-import { Team } from '@/lib/db/schema';
-import {
-  getTeamByStripeCustomerId,
-  getUser,
-  updateTeamSubscription,
-} from '@/lib/db/queries';
+import Stripe from "stripe";
+import { redirect } from "next/navigation";
+import { Team } from "@/lib/db/schema";
+import { getTeamByStripeCustomerId, updateTeamSubscription } from "@/actions/team";
+import { getUser } from "@/actions/user";
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20',
+  apiVersion: "2024-06-20",
 });
 
 export async function createCheckoutSession({
@@ -25,14 +22,14 @@ export async function createCheckoutSession({
   }
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
+    payment_method_types: ["card"],
     line_items: [
       {
         price: priceId,
         quantity: 1,
       },
     ],
-    mode: 'subscription',
+    mode: "subscription",
     success_url: `${process.env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.BASE_URL}/pricing`,
     customer: team.stripeCustomerId || undefined,
@@ -48,7 +45,7 @@ export async function createCheckoutSession({
 
 export async function createCustomerPortalSession(team: Team) {
   if (!team.stripeCustomerId || !team.stripeProductId) {
-    redirect('/pricing');
+    redirect("/pricing");
   }
 
   let configuration: Stripe.BillingPortal.Configuration;
@@ -72,13 +69,13 @@ export async function createCustomerPortalSession(team: Team) {
 
     configuration = await stripe.billingPortal.configurations.create({
       business_profile: {
-        headline: 'Manage your subscription',
+        headline: "Manage your subscription",
       },
       features: {
         subscription_update: {
           enabled: true,
-          default_allowed_updates: ['price', 'quantity', 'promotion_code'],
-          proration_behavior: 'create_prorations',
+          default_allowed_updates: ["price", "quantity", "promotion_code"],
+          proration_behavior: "create_prorations",
           products: [
             {
               product: product.id,
@@ -88,16 +85,10 @@ export async function createCustomerPortalSession(team: Team) {
         },
         subscription_cancel: {
           enabled: true,
-          mode: 'at_period_end',
+          mode: "at_period_end",
           cancellation_reason: {
             enabled: true,
-            options: [
-              'too_expensive',
-              'missing_features',
-              'switched_service',
-              'unused',
-              'other',
-            ],
+            options: ["too_expensive", "missing_features", "switched_service", "unused", "other"],
           },
         },
       },
@@ -111,9 +102,7 @@ export async function createCustomerPortalSession(team: Team) {
   });
 }
 
-export async function handleSubscriptionChange(
-  subscription: Stripe.Subscription
-) {
+export async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   const customerId = subscription.customer as string;
   const subscriptionId = subscription.id;
   const status = subscription.status;
@@ -121,11 +110,11 @@ export async function handleSubscriptionChange(
   const team = await getTeamByStripeCustomerId(customerId);
 
   if (!team) {
-    console.error('Team not found for Stripe customer:', customerId);
+    console.error("Team not found for Stripe customer:", customerId);
     return;
   }
 
-  if (status === 'active' || status === 'trialing') {
+  if (status === "active" || status === "trialing") {
     const plan = subscription.items.data[0]?.plan;
     await updateTeamSubscription(team.id, {
       stripeSubscriptionId: subscriptionId,
@@ -133,7 +122,7 @@ export async function handleSubscriptionChange(
       planName: (plan?.product as Stripe.Product).name,
       subscriptionStatus: status,
     });
-  } else if (status === 'canceled' || status === 'unpaid') {
+  } else if (status === "canceled" || status === "unpaid") {
     await updateTeamSubscription(team.id, {
       stripeSubscriptionId: null,
       stripeProductId: null,
@@ -145,15 +134,14 @@ export async function handleSubscriptionChange(
 
 export async function getStripePrices() {
   const prices = await stripe.prices.list({
-    expand: ['data.product'],
+    expand: ["data.product"],
     active: true,
-    type: 'recurring',
+    type: "recurring",
   });
 
   return prices.data.map((price) => ({
     id: price.id,
-    productId:
-      typeof price.product === 'string' ? price.product : price.product.id,
+    productId: typeof price.product === "string" ? price.product : price.product.id,
     unitAmount: price.unit_amount,
     currency: price.currency,
     interval: price.recurring?.interval,
@@ -164,7 +152,7 @@ export async function getStripePrices() {
 export async function getStripeProducts() {
   const products = await stripe.products.list({
     active: true,
-    expand: ['data.default_price'],
+    expand: ["data.default_price"],
   });
 
   return products.data.map((product) => ({
@@ -172,8 +160,6 @@ export async function getStripeProducts() {
     name: product.name,
     description: product.description,
     defaultPriceId:
-      typeof product.default_price === 'string'
-        ? product.default_price
-        : product.default_price?.id,
+      typeof product.default_price === "string" ? product.default_price : product.default_price?.id,
   }));
 }

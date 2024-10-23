@@ -3,8 +3,8 @@
 import { z } from "zod";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/lib/db/drizzle";
-import { teamMembers, invitations, ActivityType, users } from "@/lib/db/schema";
-import { getUserWithTeam } from "@/lib/db/queries";
+import { teamMembers, invitations, ActivityType, users, teams } from "@/lib/db/schema";
+import { getUserWithTeam } from "@/actions/user";
 import { validatedActionWithUser } from "@/lib/auth/middleware";
 import { logActivity } from "./activity";
 
@@ -31,6 +31,32 @@ export const removeTeamMember = validatedActionWithUser(
     return { success: "Team member removed successfully" };
   }
 );
+
+export async function getUserTeams(userId: number) {
+  const userTeams = await db
+    .select({
+      id: teams.id,
+      name: teams.name,
+      createdAt: teams.createdAt,
+      updatedAt: teams.updatedAt,
+      stripeCustomerId: teams.stripeCustomerId,
+      stripeSubscriptionId: teams.stripeSubscriptionId,
+      stripeProductId: teams.stripeProductId,
+      planName: teams.planName,
+      subscriptionStatus: teams.subscriptionStatus,
+      monthlyRevenue: teams.monthlyRevenue,
+    })
+    .from(teamMembers)
+    .innerJoin(teams, eq(teamMembers.teamId, teams.id))
+    .where(eq(teamMembers.userId, userId));
+
+  return userTeams;
+}
+
+export async function getTeam(teamId: number) {
+  const team = await db.select().from(teams).where(eq(teams.id, teamId)).limit(1);
+  return team[0];
+}
 
 const inviteTeamMemberSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -92,3 +118,75 @@ export const inviteTeamMember = validatedActionWithUser(
     return { success: "Invitation sent successfully" };
   }
 );
+
+export async function getTeamByStripeCustomerId(customerId: string) {
+  const result = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.stripeCustomerId, customerId))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function updateTeamSubscription(
+  teamId: number,
+  subscriptionData: {
+    stripeSubscriptionId: string | null;
+    stripeProductId: string | null;
+    planName: string | null;
+    subscriptionStatus: string;
+  }
+) {
+  await db
+    .update(teams)
+    .set({
+      ...subscriptionData,
+      updatedAt: new Date(),
+    })
+    .where(eq(teams.id, teamId));
+}
+
+export async function getTeamForUser(userId: number) {
+  const user = await db.query.users.findFirst({
+    where: eq(users.id, userId),
+    columns: {
+      activeTeamId: true,
+    },
+  });
+
+  if (!user || !user.activeTeamId) {
+    return null;
+  }
+
+  const team = await db.query.teams.findFirst({
+    where: eq(teams.id, user.activeTeamId),
+    with: {
+      teamMembers: {
+        with: {
+          user: {
+            columns: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return team;
+}
+
+export async function getActiveTeamForUser(userId: number) {
+  const user = await getUserWithTeam(userId);
+  if (!user || !user.teamId) {
+    throw new Error("User not found or has no active team");
+  }
+  const team = await getTeam(user.teamId);
+  if (!team) {
+    throw new Error("Active team not found");
+  }
+  return team;
+}

@@ -1,82 +1,73 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import * as React from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BarChart2, DollarSign, CreditCard, ShoppingBag, TrendingUp, FileText } from "lucide-react";
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon: LucideIcon;
-    items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
-}) {
-  const pathname = usePathname();
+const navItems = [
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: BarChart2,
+  },
+  {
+    title: "Revenue",
+    url: "/dashboard/revenue",
+    icon: DollarSign,
+  },
+  {
+    title: "Expenses",
+    url: "/dashboard/expenses",
+    icon: CreditCard,
+  },
+  {
+    title: "Products",
+    url: "/dashboard/products",
+    icon: ShoppingBag,
+  },
+  {
+    title: "Trajectories",
+    url: "/dashboard/trajectories",
+    icon: TrendingUp,
+  },
+  {
+    title: "Reports",
+    url: "/dashboard/reports",
+    icon: FileText,
+  },
+];
 
-  const isActive = (url: string) => pathname === url;
+export function NavMain() {
+  const pathname = usePathname();
 
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => {
-          const active = isActive(item.url);
+        {navItems.map((item) => {
+          const isActive = pathname === item.url;
           return (
-            <Collapsible key={item.title} asChild defaultOpen={active}>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  tooltip={item.title}
-                  className={active ? "bg-sidebar-accent" : ""}
-                >
-                  <a href={item.url}>
-                    <item.icon className={active ? "text-primary" : ""} />
-                    <span>{item.title}</span>
-                  </a>
-                </SidebarMenuButton>
-                {item.items?.length ? (
-                  <>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuAction className="data-[state=open]:rotate-90">
-                        <ChevronRight />
-                        <span className="sr-only">Toggle</span>
-                      </SidebarMenuAction>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.items?.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>
-                                <span>{subItem.title}</span>
-                              </a>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  </>
-                ) : null}
-              </SidebarMenuItem>
-            </Collapsible>
+            <SidebarMenuItem key={item.url}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                className={isActive ? "bg-sidebar-accent" : ""}
+              >
+                <Link href={item.url}>
+                  <item.icon className={isActive ? "text-primary" : ""} />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           );
         })}
       </SidebarMenu>

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, addDays, isSameDay } from "date-fns";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
@@ -88,18 +88,19 @@ export function ExpenseAreaChart({ expenses, totalRevenue }: ExpenseAreaChartPro
     const start = new Date(dateRange.startDate);
     const end = new Date(dateRange.endDate);
     const daysDifference = differenceInDays(end, start) + 1;
-    const adjustmentFactor = daysDifference / 30; // Assuming original data is for 30 days
 
-    // Calculate appropriate number of data points
-    let dataPoints = Math.min(Math.max(Math.floor(daysDifference / 7), 7), 52);
-
-    const interval = (end.getTime() - start.getTime()) / (dataPoints - 1);
+    // Process expenses to handle recurring and one-time expenses
+    const processedExpenses: ProcessedExpense[] = expenses.map((expense) => ({
+      ...expense,
+      processedAmount: parseFloat(expense.amount),
+      isRecurring: expense.frequency !== "one_time" && expense.frequency !== "per_order",
+    }));
 
     const data: ChartDataPoint[] = [];
-    for (let i = 0; i < dataPoints; i++) {
-      const date = new Date(start.getTime() + i * interval);
+    for (let i = 0; i < daysDifference; i++) {
+      const currentDate = addDays(start, i);
       const dataPoint: ChartDataPoint = {
-        date: date.toISOString().split("T")[0],
+        date: currentDate.toISOString().split("T")[0],
       };
 
       // Initialize selected expense types
@@ -107,11 +108,20 @@ export function ExpenseAreaChart({ expenses, totalRevenue }: ExpenseAreaChartPro
         dataPoint[type] = 0;
       });
 
-      expenses.forEach((expense) => {
+      processedExpenses.forEach((expense) => {
         if (selectedTypes.length === 0 || selectedTypes.includes(expense.type as ExpenseType)) {
-          const amount = parseFloat(expense.amount) * adjustmentFactor;
-          dataPoint[expense.type] =
-            ((dataPoint[expense.type] as number) || 0) + amount / dataPoints;
+          if (expense.isRecurring) {
+            // For recurring expenses, add the daily amount
+            const dailyAmount = expense.processedAmount / 30; // Assuming monthly recurring
+            dataPoint[expense.type] = ((dataPoint[expense.type] as number) || 0) + dailyAmount;
+          } else {
+            // For one-time expenses, add the full amount on the specific date
+            const expenseDate = new Date(expense.date);
+            if (isSameDay(currentDate, expenseDate)) {
+              dataPoint[expense.type] =
+                ((dataPoint[expense.type] as number) || 0) + expense.processedAmount;
+            }
+          }
         }
       });
 
@@ -122,7 +132,7 @@ export function ExpenseAreaChart({ expenses, totalRevenue }: ExpenseAreaChartPro
   }, [expenses, dateRange, selectedTypes, totalRevenue]);
 
   return (
-    <Card className="flex flex-col h-[400px]">
+    <Card className="flex flex-col h-[400px] ">
       <CardHeader className="items-center pb-0">
         <CardTitle>Expense Area Chart</CardTitle>
         <CardDescription>
@@ -132,90 +142,95 @@ export function ExpenseAreaChart({ expenses, totalRevenue }: ExpenseAreaChartPro
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer config={chartConfig} className="aspect-auto h-full w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart
-              data={chartData}
-              margin={{
-                left: 12,
-                right: 12,
-                top: 12,
-                bottom: 12,
-              }}
-            >
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="date"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) =>
-                  new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric" })
-                }
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => `$${value.toLocaleString()}`}
-              />
-              <ChartTooltip
-                cursor={{ stroke: "var(--border)", strokeWidth: 1 }}
-                content={({ active, payload, label }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="rounded-lg border bg-background p-2 shadow-sm">
-                        <div className="text-sm font-medium mb-2">
-                          {new Date(label).toLocaleDateString("en-US", {
-                            month: "long",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
-                        </div>
-                        <div className="space-y-1">
-                          {payload
-                            .filter(
-                              (entry) =>
-                                selectedTypes.length === 0 ||
-                                selectedTypes.includes(entry.name as ExpenseType)
-                            )
-                            .map((entry, index) => (
-                              <div key={`item-${index}`} className="grid grid-cols-2 gap-2 text-sm">
-                                <div className="flex items-center">
-                                  <div
-                                    className="mr-2 h-2 w-2 rounded-full"
-                                    style={{ backgroundColor: entry.color }}
-                                  />
-                                  <span className="font-medium">{entry.name}</span>
-                                </div>
-                                <div className="text-right font-medium">
-                                  {formatCurrency(entry.value as number)}
-                                </div>
-                              </div>
-                            ))}
-                        </div>
+          <AreaChart
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+              top: 12,
+              bottom: 12,
+            }}
+            width={1000}
+            height={300}
+            className="mx-auto"
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) =>
+                new Date(value).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+              }
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => `$${value.toLocaleString()}`}
+            />
+            <ChartTooltip
+              cursor={{ stroke: "var(--border)", strokeWidth: 1 }}
+              content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="rounded-lg border bg-background p-2 shadow-sm">
+                      <div className="text-sm font-medium mb-2">
+                        {new Date(label).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
                       </div>
-                    );
-                  }
-                  return null;
-                }}
+                      <div className="space-y-1">
+                        {payload
+                          .filter(
+                            (entry) =>
+                              selectedTypes.length === 0 ||
+                              selectedTypes.includes(entry.name as ExpenseType)
+                          )
+                          .map((entry, index) => (
+                            <div key={`item-${index}`} className="grid grid-cols-2 gap-2 text-sm">
+                              <div className="flex items-center">
+                                <div
+                                  className="mr-2 h-2 w-2 rounded-full"
+                                  style={{ backgroundColor: entry.color }}
+                                />
+                                <span className="font-medium">{entry.name}</span>
+                              </div>
+                              <div className="text-right font-medium">
+                                {formatCurrency(entry.value as number)}
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            {(selectedTypes.length === 0 ? Object.keys(chartConfig) : selectedTypes).map((key) => (
+              <Area
+                key={key}
+                type="monotone"
+                dataKey={key}
+                stackId="1"
+                stroke={chartConfig[key as ExpenseType].color}
+                fill={chartConfig[key as ExpenseType].color}
+                fillOpacity={0.4}
               />
-              {(selectedTypes.length === 0 ? Object.keys(chartConfig) : selectedTypes).map(
-                (key) => (
-                  <Area
-                    key={key}
-                    type="monotone"
-                    dataKey={key}
-                    stackId="1"
-                    stroke={chartConfig[key as ExpenseType].color}
-                    fill={chartConfig[key as ExpenseType].color}
-                    fillOpacity={0.4}
-                  />
-                )
-              )}
-            </AreaChart>
-          </ResponsiveContainer>
+            ))}
+          </AreaChart>
         </ChartContainer>
       </CardContent>
     </Card>
   );
+}
+
+// Add this interface to represent a processed expense
+interface ProcessedExpense extends Expense {
+  processedAmount: number;
+  isRecurring: boolean;
 }

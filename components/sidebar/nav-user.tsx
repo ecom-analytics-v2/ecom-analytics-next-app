@@ -19,12 +19,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { signOut } from "@/actions/auth";
+import { getUser } from "@/actions/user";
+import { User } from "@/lib/db/schema";
 
-import { useUser } from "@/lib/auth";
-
-export function NavUser() {
+export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
-  const { user } = useUser();
 
   if (!user) return null;
 

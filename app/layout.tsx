@@ -1,25 +1,21 @@
-import './globals.css';
-import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
-import { UserProvider } from '@/lib/auth';
-import { getUser } from '@/lib/db/queries';
+import "./globals.css";
+import type { Metadata, Viewport } from "next";
+import { Manrope } from "next/font/google";
+import { UserProvider } from "@/lib/auth";
+import { getUser } from "@/actions/user";
 
 export const metadata: Metadata = {
-  title: 'Next.js SaaS Starter',
-  description: 'Get started quickly with Next.js, Postgres, and Stripe.',
+  title: "ScaleSage | AI-Powered PnL",
+  description: "ScaleSage is a platform for AI-powered PnL analysis and optimization.",
 };
 
 export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-const manrope = Manrope({ subsets: ['latin'] });
+const manrope = Manrope({ subsets: ["latin"] });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   let userPromise = getUser();
 
   return (

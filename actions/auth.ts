@@ -18,7 +18,7 @@ import { comparePasswords, hashPassword, setSession } from "@/lib/auth/session";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { createCheckoutSession } from "@/lib/payments/stripe";
-import { getUser, getUserWithTeam } from "@/lib/db/queries";
+import { getUser, getUserWithTeam } from "@/actions/user";
 import { validatedAction } from "@/lib/auth/middleware";
 import { logActivity } from "./activity";
 
@@ -103,22 +103,9 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
 
   const passwordHash = await hashPassword(password);
 
-  const newUser: NewUser = {
-    name,
-    email,
-    passwordHash,
-    role: "owner", // Default role, will be overridden if there's an invitation
-  };
-
-  const [createdUser] = await db.insert(users).values(newUser).returning();
-
-  if (!createdUser) {
-    return { error: "Failed to create user. Please try again." };
-  }
-
   let teamId: number;
   let userRole: string;
-  let createdTeam: typeof teams.$inferSelect | null = null;
+  let createdTeam: typeof teams.$inferSelect;
 
   if (inviteId) {
     // Check if there's a valid invitation
@@ -143,31 +130,36 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
         .set({ status: "accepted" })
         .where(eq(invitations.id, invitation.id));
 
-      await db.update(users).set({ activeTeamId: teamId }).where(eq(users.id, createdUser.id));
-
-      await logActivity(teamId, createdUser.id, ActivityType.ACCEPT_INVITATION);
-
       [createdTeam] = await db.select().from(teams).where(eq(teams.id, teamId)).limit(1);
+
+      if (!createdTeam) {
+        return { error: "Failed to find the invited team. Please try again." };
+      }
     } else {
-      return { error: "Invalid or expired invitation." };
+      // If the invitation is invalid, create a new team for the user
+      [createdTeam] = await createNewTeam(name);
+      teamId = createdTeam.id;
+      userRole = "owner";
     }
   } else {
     // Create a new team if there's no invitation
-    const newTeam: NewTeam = {
-      name: `${name}'s Team`,
-    };
-
-    [createdTeam] = await db.insert(teams).values(newTeam).returning();
-
-    if (!createdTeam) {
-      return { error: "Failed to create team. Please try again." };
-    }
-
+    [createdTeam] = await createNewTeam(name);
     teamId = createdTeam.id;
     userRole = "owner";
+  }
 
-    await db.update(users).set({ activeTeamId: teamId }).where(eq(users.id, createdUser.id));
-    await logActivity(teamId, createdUser.id, ActivityType.CREATE_TEAM);
+  const newUser: NewUser = {
+    name,
+    email,
+    passwordHash,
+    role: userRole,
+    activeTeamId: teamId,
+  };
+
+  const [createdUser] = await db.insert(users).values(newUser).returning();
+
+  if (!createdUser) {
+    return { error: "Failed to create user. Please try again." };
   }
 
   const newTeamMember: NewTeamMember = {
@@ -179,6 +171,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
   await Promise.all([
     db.insert(teamMembers).values(newTeamMember),
     logActivity(teamId, createdUser.id, ActivityType.SIGN_UP),
+    logActivity(teamId, createdUser.id, ActivityType.CREATE_TEAM),
     setSession(createdUser),
   ]);
 
@@ -190,6 +183,21 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
 
   redirect("/dashboard");
 });
+
+// Helper function to create a new team
+async function createNewTeam(userName: string) {
+  const newTeam: NewTeam = {
+    name: `${userName}'s Team`,
+  };
+
+  const [createdTeam] = await db.insert(teams).values(newTeam).returning();
+
+  if (!createdTeam) {
+    throw new Error("Failed to create team. Please try again.");
+  }
+
+  return [createdTeam];
+}
 
 /**
  * Handles user sign-out process.

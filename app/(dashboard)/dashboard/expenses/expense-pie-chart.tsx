@@ -4,12 +4,13 @@ import * as React from "react";
 import { Label, Pie, PieChart } from "recharts";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { ChartContainer, ChartLegend, ChartTooltip } from "@/components/ui/chart";
 import { formatCurrency } from "@/lib/utils";
 import { useDateRange } from "@/components/dashboard/date-range-context";
 import { useExpenseFilter } from "./expense-filter";
 import { Expense } from "@/lib/db/schema/expenses";
 import { ExpenseType } from "@/types/expenseTypes";
+import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 const chartConfig: Record<ExpenseType, { label: string; color: string }> = {
   "Fixed Cost": {
@@ -59,6 +60,25 @@ interface ExpensePieChartProps {
   totalRevenue: number;
 }
 
+type CustomLegendProps = {
+  payload?: Payload[];
+};
+
+const renderLegend: React.FC<CustomLegendProps> = ({ payload }) => {
+  if (!payload) return null;
+
+  return (
+    <ul className="grid grid-cols-2 gap-4 m-auto pb-6">
+      {payload.map((entry, index) => (
+        <li key={`item-${index}`} className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
+          <span className="">{entry.value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 export function ExpensePieChart({ expenses, totalRevenue }: ExpensePieChartProps) {
   const [chartData, setChartData] = React.useState<ChartDataItem[]>([]);
   const { dateRange } = useDateRange();
@@ -100,7 +120,7 @@ export function ExpensePieChart({ expenses, totalRevenue }: ExpensePieChartProps
   const hasExpenses = chartData.length > 0;
 
   return (
-    <Card className="flex flex-col h-[400px]">
+    <Card className="flex h-full flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>Expense Categories</CardTitle>
         <CardDescription>
@@ -110,8 +130,8 @@ export function ExpensePieChart({ expenses, totalRevenue }: ExpensePieChartProps
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         {hasExpenses ? (
-          <ChartContainer config={chartConfig} className="mx-auto aspect-square">
-            <PieChart>
+          <ChartContainer config={chartConfig} className="mx-auto h-full w-full">
+            <PieChart className="w-full h-full">
               <ChartTooltip
                 cursor={false}
                 content={({ active, payload }) => {
@@ -140,7 +160,9 @@ export function ExpensePieChart({ expenses, totalRevenue }: ExpensePieChartProps
                 dataKey="expenses"
                 nameKey="type"
                 innerRadius={80}
+                outerRadius={120}
                 strokeWidth={0}
+                className="w-full h-full"
               >
                 <Label
                   content={({ viewBox }) => {
@@ -173,6 +195,7 @@ export function ExpensePieChart({ expenses, totalRevenue }: ExpensePieChartProps
                   }}
                 />
               </Pie>
+              <ChartLegend content={renderLegend} />
             </PieChart>
           </ChartContainer>
         ) : (

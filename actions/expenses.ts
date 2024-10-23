@@ -4,7 +4,7 @@ import { z } from "zod";
 import { eq, and, gte, lte } from "drizzle-orm";
 import { db } from "@/lib/db/drizzle";
 import { expenses, NewExpense, Expense } from "@/lib/db/schema/expenses";
-import { getUserWithTeam } from "@/lib/db/queries";
+import { getUserWithTeam } from "./user";
 
 export async function addExpense(data: NewExpense, userId: number) {
   const userWithTeam = await getUserWithTeam(userId);

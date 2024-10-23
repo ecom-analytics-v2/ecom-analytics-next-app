@@ -3,13 +3,13 @@ import { ExpenseAreaChart } from "./expense-area-chart";
 import { DateRangeProvider } from "@/components/dashboard/date-range-context";
 import { ExpenseFilterProvider, ExpenseFilter } from "./expense-filter";
 import { ExpenseTable } from "./expense-table";
-import { getUser } from "@/lib/db/queries";
+import { getUser, getUserWithTeam } from "@/actions/user";
 import { getAllTeamExpenses } from "@/actions/expenses";
 import { redirect } from "next/navigation";
-import { getUserWithTeam } from "@/lib/db/queries";
 import { ExpenseTableSkeleton } from "./skeletons/expense-table-skeleton";
 import { ExpenseAreaChartSkeleton } from "./skeletons/expense-area-chart-skeleton";
 import { ExpensePieChartSkeleton } from "./skeletons/expense-pie-chart-skeleton";
+import { ExpenseBarChart } from "./expense-bar-chart";
 
 export default async function Dashboard() {
   const user = await getUser();
@@ -36,7 +36,7 @@ export default async function Dashboard() {
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 items-end ">
                   <div className="sm:col-span-3">
                     {userWithTeam.teamId ? (
-                      <ExpenseAreaChart
+                      <ExpenseBarChart
                         totalRevenue={1000000}
                         expenses={expenses}
                         teamId={userWithTeam.teamId}
@@ -46,7 +46,7 @@ export default async function Dashboard() {
                     )}
                   </div>
 
-                  <div className="sm:col-span-1 w-full">
+                  <div className="sm:col-span-1 w-full h-full">
                     {userWithTeam.teamId ? (
                       <ExpensePieChart
                         totalRevenue={1000000}

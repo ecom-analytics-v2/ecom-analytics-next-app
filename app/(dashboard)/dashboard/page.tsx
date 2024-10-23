@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { Settings } from "./settings";
-import { getTeamForUser, getUser } from "@/lib/db/queries";
+import { getUser } from "@/actions/user";
+import { getTeamForUser } from "@/actions/team";
 import { Charts } from "./charts";
 
 export default async function OverviewPage() {

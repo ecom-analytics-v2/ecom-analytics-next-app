@@ -6,7 +6,7 @@ import { verifyToken } from "@/lib/auth/session";
 import { SignJWT } from "jose";
 import { User } from "./schema/users";
 
-export async function getUser() {
+export async function getUser(): Promise<User | null> {
   const sessionCookie = (await cookies()).get("session");
   if (!sessionCookie || !sessionCookie.value) {
     return null;
@@ -39,7 +39,7 @@ export async function getUser() {
     return null;
   }
 
-  return user[0];
+  return user[0] as User;
 }
 
 export async function setSession(user: User, activeTeamId: number) {
