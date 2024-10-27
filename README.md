@@ -1,21 +1,15 @@
 # Scale Sage
 
-This is a starter template for building a SaaS application using **Next.js** with support for authentication, Stripe integration for payments, and a dashboard for logged-in users.
-
-**Demo: [https://next-saas-start.vercel.app/](https://next-saas-start.vercel.app/)**
-
 <details>
-  <summary>Why did I make this?</summary>
-  
-  In 2020, I made a course called "React 2025" which showed how to build a SaaS application with Next.js, Stripe, and other tools.
+  <summary>Why am I doing this project on the side?</summary>
 
-Well, it's almost 2025 and React 19 has brought so many amazing new features I didn't predict! This repo is a demonstration of the latest React and Next.js patterns. These patterns can drastically simplify some common tasks in building your SaaS, like building forms, talking to your database, and more.
+I've been dabbling in ecommerce / working in the industry since the start of covid. To me, the most interesting part of ecommerce is the data. I've always felt that if you can collect the right data, you can make better decisions.
 
-For example, React now has built in hooks like `useActionState` to handle inline form errors and pending states. React Server Actions can replace a lot of boilerplate code needed to call an API Route from the client-side. And finally, the React `use` hook combined with Next.js makes it incredibly easy to build a powerful `useUser()` hook.
+I've been using Shopify for a long time now, and I've learned a lot from using it. However, I've also felt that there are some gaps in the standard reporting tools. Recently (last year or so) some of the bigger players in the industry started to release their own PnL systems, and I thought "I could build something like that".
 
-We're able to fetch the user from our Postgres database in the root layout, but _not_ await the `Promise`. Instead, we forward the `Promise` to a React context provider, where we can "unwrap" it and awaited the streamed in data. This means we can have the best of both worlds: easy code to fetch data from our database (e.g. `getUser()`) and a React hook we can use in Client Components (e.g. `useUser()`).
+The end product I'm trying to build is a PnL system for ecommerce businesses. It will be a self serve product that will integrate with Shopify and other platforms (most likely meta, tiktok, etc). I'd like it to aggregate all of your ecommerce and marketing data into a single place so that you and your team can make better decisions. I'd also like to implement some kind of AI to help with the reporting process.
 
-Fun fact: the majority of the UI for this application was built with [v0](https://v0.dev) 🤯 [More details here](https://x.com/leeerob/status/1835777934361084316) if you want to learn about this repo.
+P.S My objective is to roll out an MVP as fast as possible (within 30 days of starting the project). It is not to demonstrate the best practices of web development.
 
 </details>
 
@@ -83,44 +77,6 @@ Optionally, you can listen for Stripe webhooks locally through their CLI to hand
 stripe listen --forward-to localhost:3000/api/stripe/webhook
 ```
 
-## Testing Payments
+**Note:** This is a work in progress. I'll be updating this README as I build the project.
 
-To test Stripe payments, use the following test card details:
-
-- Card Number: `4242 4242 4242 4242`
-- Expiration: Any future date
-- CVC: Any 3-digit number
-
-## Going to Production
-
-When you're ready to deploy your SaaS application to production, follow these steps:
-
-### Set up a production Stripe webhook
-
-1. Go to the Stripe Dashboard and create a new webhook for your production environment.
-2. Set the endpoint URL to your production API route (e.g., `https://yourdomain.com/api/stripe/webhook`).
-3. Select the events you want to listen for (e.g., `checkout.session.completed`, `customer.subscription.updated`).
-
-### Deploy to Vercel
-
-1. Push your code to a GitHub repository.
-2. Connect your repository to Vercel and deploy it.
-3. Follow the Vercel deployment process, which will guide you through setting up your project.
-
-### Add environment variables
-
-In your Vercel project settings (or during deployment), add all the necessary environment variables. Make sure to update the values for the production environment, including:
-
-1. `BASE_URL`: Set this to your production domain.
-2. `STRIPE_SECRET_KEY`: Use your Stripe secret key for the production environment.
-3. `STRIPE_WEBHOOK_SECRET`: Use the webhook secret from the production webhook you created in step 1.
-4. `POSTGRES_URL`: Set this to your production database URL.
-5. `AUTH_SECRET`: Set this to a random string. `openssl rand -base64 32` will generate one.
-
-## Other Templates
-
-While this template is intentionally minimal and to be used as a learning resource, there are other paid versions in the community which are more full-featured:
-
-- https://achromatic.dev
-- https://shipfa.st
-- https://makerkit.dev
+**Note:** I started this project in September 2024 from a nextjs / stripe template (this was to save time as stripe is a pain in the ass to implement). I'll be slowly building this up to be more like the final product.
