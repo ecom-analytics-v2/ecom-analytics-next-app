@@ -9,8 +9,16 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
+import { getUser } from "@/actions/user";
+import { redirect } from "next/navigation";
 
-export default function Dashboard({ children }: { children: React.ReactNode }) {
+export default async function Dashboard({ children }: { children: React.ReactNode }) {
+  const user = await getUser();
+
+  console.log(user?.activeTeamId);
+  if (!user?.activeTeamId) {
+    redirect("/stores");
+  }
   return (
     <SidebarProvider>
       <AppSidebar />
