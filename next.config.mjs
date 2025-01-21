@@ -1,6 +1,6 @@
+import "./src/env.js";
 
-const nextConfig = {
+/** @type {import("next").NextConfig} */
+const config = {};
 
-};
-
-export default nextConfig;
+export default config;
