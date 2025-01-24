@@ -22,8 +22,10 @@ const updatePasswordSchema = z
   });
 
 export async function getUser(): Promise<User | null> {
+  console.log(await cookies());
   const sessionCookie = (await cookies()).get("session");
   if (!sessionCookie || !sessionCookie.value) {
+    console.log("no session cookie");
     return null;
   }
 

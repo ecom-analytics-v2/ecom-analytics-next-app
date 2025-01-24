@@ -6,6 +6,7 @@ import { activityLogs } from "./activityLogs";
 import { expenses } from "./expenses";
 import { invitations } from "./invitations";
 import { metaAccounts } from "./metaAccounts";
+import { shopifyAccounts } from "./shopifyAccounts";
 import { teamMembers } from "./teamMembers";
 
 export const teams = pgTable("teams", {
@@ -27,6 +28,7 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
   invitations: many(invitations),
   expenses: many(expenses),
   metaAccount: one(metaAccounts),
+  shopifyAccount: one(shopifyAccounts),
 }));
 
 // Create Zod schemas for insert and select operations

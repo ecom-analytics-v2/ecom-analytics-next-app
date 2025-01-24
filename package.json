@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbo -p 3049",
+    "dev": "next dev --turbo -p 443 --experimental-https",
     "build": "next build",
     "start": "next start -p 3049",
     "db:setup": "npx tsx lib/db/setup.ts",
@@ -30,6 +30,7 @@
     "@radix-ui/react-tabs": "^1.1.1",
     "@radix-ui/react-toast": "^1.2.2",
     "@radix-ui/react-tooltip": "^1.1.3",
+    "@shopify/app-bridge-react": "^4.1.6",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.64.2",

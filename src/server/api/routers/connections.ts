@@ -1,7 +1,13 @@
 import { getUserWithTeam } from "@/actions/user";
-import { metaAccounts } from "@/lib/db/schema";
+import { env } from "@/env";
+import { metaAccounts, shopifyAccounts } from "@/lib/db/schema";
 import { initMetaOAuth } from "@/lib/integrations/meta";
-import { ConnectionStatus, GetConnectionStatusSchema } from "@/types/api/connections-router";
+import { initShopifyOAuth } from "@/lib/integrations/shopify";
+import {
+  ConnectionStatus,
+  ConnectShopifySchema,
+  GetConnectionStatusSchema,
+} from "@/types/api/connections-router";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
@@ -41,9 +47,49 @@ const ConnectionsRouter = createTRPCRouter({
             },
           };
         }
+      } else if (input.connection === "shopify") {
+        const shopifyAccount = await ctx.db.query.shopifyAccounts.findFirst({
+          where: eq(shopifyAccounts.teamId, user.teamId),
+        });
+
+        if (!shopifyAccount) {
+          return {
+            state: "no_account" as ConnectionStatus,
+            connect_url: `${env.BASE_URL}/api/oauth/shopify/install`,
+          };
+        } else {
+          return {
+            state: "account_connected",
+            account_details: {
+              id: `local_${shopifyAccount.id}`,
+              name: shopifyAccount.shop,
+            },
+          };
+        }
       } else {
         throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid or unavailable provider" });
       }
+    }),
+  connectShopify: protectedProcedure
+    .input(ConnectShopifySchema)
+    .mutation(async ({ ctx, input }) => {
+      const user = await getUserWithTeam(ctx.session.user.id);
+      if (!user || !user.teamId)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You must be in a team to use this endpoint!",
+        });
+
+      const shopifyAccount = await ctx.db.query.shopifyAccounts.findFirst({
+        where: eq(shopifyAccounts.teamId, user.teamId),
+      });
+      if (shopifyAccount)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "This team already has a connected Shopify account!",
+        });
+
+      return { redirect_uri: initShopifyOAuth(input.shopify_shop) };
     }),
 });
 

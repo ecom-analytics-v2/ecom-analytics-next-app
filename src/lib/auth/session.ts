@@ -51,6 +51,6 @@ export async function setSession(user: NewUser) {
     expires: expiresInOneDay,
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
   });
 }

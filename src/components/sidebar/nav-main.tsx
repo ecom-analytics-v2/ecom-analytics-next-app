@@ -1,16 +1,23 @@
 "use client";
 
-import * as React from "react";
+import {
+  BarChart2,
+  Cog,
+  CreditCard,
+  DollarSign,
+  FileText,
+  ShoppingBag,
+  TrendingUp,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart2, DollarSign, CreditCard, ShoppingBag, TrendingUp, FileText } from "lucide-react";
 
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
 const navItems = [
@@ -43,6 +50,11 @@ const navItems = [
     title: "Reports",
     url: "/dashboard/reports",
     icon: FileText,
+  },
+  {
+    title: "Team Settings",
+    url: "/dashboard/settings",
+    icon: Cog,
   },
 ];
 

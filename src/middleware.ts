@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = pathname.startsWith(protectedRoutes);
 
   if (isProtectedRoute && !sessionCookie) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+    return NextResponse.json({ code: 403, message: "Unauthorized" }, { status: 403 });
   }
 
   let res = NextResponse.next();
@@ -27,9 +27,9 @@ export async function middleware(request: NextRequest) {
           ...parsed,
           expires: expiresInOneDay.toISOString(),
         }),
-        httpOnly: true,
+        httpOnly: false,
         secure: true,
-        sameSite: "lax",
+        sameSite: "none",
         expires: expiresInOneDay,
       });
     } catch (error) {
