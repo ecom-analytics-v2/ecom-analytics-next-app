@@ -6,7 +6,7 @@ import { activityLogs } from "./activityLogs";
 import { expenses } from "./expenses";
 import { invitations } from "./invitations";
 import { metaAccounts } from "./metaAccounts";
-import { shopifyAccounts } from "./shopifyAccounts";
+import { shopifyAccounts } from "./shopify/shopifyAccounts";
 import { teamMembers } from "./teamMembers";
 
 export const teams = pgTable("teams", {
