@@ -1,8 +1,10 @@
 import { env } from "@/env";
-import { and, eq } from "drizzle-orm";
+import { and, eq, SQL } from "drizzle-orm";
+import { NextRequest } from "next/server";
 import crypto from "node:crypto";
 import { db } from "../db/drizzle";
 import { shopifyWebhookSubscriptions } from "../db/schema";
+import { shopifyBulkOperations } from "../db/schema/shopify/shopifyBulkOperations";
 
 const shopifyRedirectUri = () => encodeURIComponent(`${env.BASE_URL}/api/oauth/shopify/callback`);
 const generateShopifyState = () => crypto.randomBytes(20).toString("hex");
@@ -176,10 +178,21 @@ export interface FormattedShopifyApiOrder {
   created_at: string;
 }
 
-const initReadAllShopifyOrders = async (
+interface ShopifyRunBulkOperationResponse {
+  bulkOperationRunQuery: {
+    bulkOperation: {
+      id: string;
+      status: string;
+    };
+    userErrors: any[];
+  };
+}
+
+export const runShopifyBulkOperation = async (
   access_token: string,
   shop: string,
-  shopify_account_id: number
+  shopify_account_id: number,
+  query: string
 ) => {
   //Make sure we are subscribed to the Webhook BULK_OPERATIONS_FINISH
   const whkSubscriptionExists = await db.query.shopifyWebhookSubscriptions.findFirst({
@@ -193,7 +206,7 @@ const initReadAllShopifyOrders = async (
       access_token,
       shop,
       "BULK_OPERATIONS_FINISH",
-      `${env.BASE_URL}/api/webhooks/shopify/bulk-operations-finish`
+      `https://9634-2a02-ab88-c11-1380-25a8-2721-650f-b3c3.ngrok-free.app/api/webhooks/shopify/bulk-operations-finish`
     );
     if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
 
@@ -207,7 +220,7 @@ const initReadAllShopifyOrders = async (
   const apiQuery = `mutation {
   bulkOperationRunQuery(
     query:"""
-    { orders(first: 250) { edges { node { id totalPriceSet { shopMoney { amount } } lineItems(first: 250) { nodes { id product { id } } } createdAt } } } }
+    ${query}
     """
   ) {
     bulkOperation {
@@ -220,9 +233,160 @@ const initReadAllShopifyOrders = async (
     }
   }
 }`;
-  const response = await queryShopifyApi<any>(access_token, shop, apiQuery);
+
+  const response = await queryShopifyApi<ShopifyRunBulkOperationResponse>(
+    access_token,
+    shop,
+    apiQuery
+  );
   if (!response) throw new Error("Failed to query Shopify API");
+
+  return response.data.bulkOperationRunQuery.bulkOperation;
 };
+
+interface ShopifyReadBulkOperationResponse {
+  node: ShopifyApiBulkOperation;
+}
+
+export interface ShopifyApiBulkOperation {
+  id: string;
+  url: null | string;
+  status: string;
+}
+
+export const readShopifyBulkOperation = async (
+  access_token: string,
+  shop: string,
+  bulk_operation_gid: string
+) => {
+  const apiQuery = `query {
+  node(id: "${bulk_operation_gid}") {
+    ... on BulkOperation {
+      id
+      status
+      url
+    }
+  }
+}`;
+  const response = await queryShopifyApi<ShopifyReadBulkOperationResponse>(
+    access_token,
+    shop,
+    apiQuery
+  );
+  if (!response) throw new Error("Failed to query Shopify API");
+
+  return response.data.node;
+};
+
+export const initReadAllShopifyOrders = async (
+  access_token: string,
+  shop: string,
+  shopify_account_id: number
+) => {
+  const apiQuery = `{
+      orders {
+        edges {
+          node {
+            id
+            totalPriceSet {
+              shopMoney {
+                amount
+              }
+            }
+            lineItems {
+              edges {
+                node {
+                  id
+                  product {
+                    id
+                  }
+                }
+              }
+            }
+            createdAt
+          }
+        }
+      }
+    }`;
+  const bulkOperation = await runShopifyBulkOperation(
+    access_token,
+    shop,
+    shopify_account_id,
+    apiQuery
+  );
+
+  await db.insert(shopifyBulkOperations).values({
+    shopifyGid: bulkOperation.id,
+    status: bulkOperation.status as unknown as SQL<unknown>,
+    local_purpose: "read_all_orders",
+    shopifyAccountId: shopify_account_id,
+  });
+
+  return bulkOperation;
+};
+
+interface BulkOrderLineData {
+  id: string;
+  totalPriceSet?: {
+    shopMoney: {
+      amount: string;
+    };
+  };
+  product?: {
+    id: string;
+  };
+  __parentId?: string;
+  createdAt?: string;
+}
+
+export const getBulkOperationResulsAsArray = async (result_url: string) => {
+  try {
+    const response = await fetch(result_url);
+    if (!response.ok) throw new Error("Unable to fetch results URL");
+
+    const data = await response.text();
+    const lines = data.split("\n").filter((l) => l.startsWith("{"));
+    const jsonLines = lines.map((l) => JSON.parse(l)) as BulkOrderLineData[];
+
+    return jsonLines;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+export const convertBulkOrdersResult = async (bulk_orders_data: BulkOrderLineData[]) => {
+  let ShopifyOrders: FormattedShopifyApiOrder[] = [];
+
+  for (let i = 0; i < bulk_orders_data.length; i++) {
+    let line_data = bulk_orders_data[i]!;
+
+    if (line_data.id.includes("/Order/")) {
+      ShopifyOrders.push({
+        id: line_data.id as string,
+        total_amount: line_data.totalPriceSet!.shopMoney.amount as string,
+        product_ids: [],
+        created_at: line_data.createdAt!,
+      });
+    } else if (line_data.id.includes("/LineItem/")) {
+      const ShopifyOrderIndex = ShopifyOrders.findIndex((o) => o.id === line_data.__parentId);
+      if (ShopifyOrderIndex === -1) continue;
+      if (!line_data.product) continue;
+
+      const existingProductIds = ShopifyOrders[ShopifyOrderIndex]?.product_ids ?? [];
+
+      //@ts-ignore
+      ShopifyOrders[ShopifyOrderIndex] = {
+        ...ShopifyOrders[ShopifyOrderIndex],
+        product_ids: [...existingProductIds, ...[line_data.product.id]],
+      };
+    }
+  }
+
+  return ShopifyOrders;
+};
+
+//{ orders(first: 250) { edges { node { id totalPriceSet { shopMoney { amount } } lineItems(first: 250) { nodes { id product { id } } } createdAt } } } }
 
 //This method can read a maximum of 250 orders at once
 export const readShopifyOrders = async (access_token: string, shop: string, since_date?: Date) => {
@@ -293,4 +457,38 @@ export const createShopifyWebhookSubscription = async (
     console.log(e);
     return false;
   }
+};
+
+interface ShopifyReadProductResponse {
+  product: null | ShopifyApiProduct;
+}
+
+export const readShopifyProduct = async (
+  access_token: string,
+  shop: string,
+  product_id: number
+) => {
+  try {
+    const apiQuery = `query { product(id: \"gid://shopify/Product/${product_id}\")  { id title handle } }`;
+    const response = await queryShopifyApi<ShopifyReadProductResponse>(
+      access_token,
+      shop,
+      apiQuery
+    );
+    if (!response) throw new Error("Failed to query Shopify API");
+
+    return response.data.product;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+export const verifyShopifyWebhook = (request: NextRequest) => {
+  const shopifyHmac = request.headers.get("x-shopify-hmac-sha256");
+  if (!shopifyHmac) return false;
+
+  const messageContent = JSON.stringify(request.body);
+
+  return validateShopifyMessage(shopifyHmac, messageContent);
 };

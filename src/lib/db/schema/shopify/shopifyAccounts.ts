@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { boolean, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { teams } from "../teams";
 import { users } from "../users";
+import { shopifyBulkOperations } from "./shopifyBulkOperations";
 import { shopifyOrders } from "./shopifyOrders";
 import { shopifyProducts } from "./shopifyProducts";
 import { shopifyWebhookSubscriptions } from "./shopifyWebhookSubscriptions";
@@ -26,4 +27,5 @@ export const shopifyAccountsRelations = relations(shopifyAccounts, ({ one, many 
   products: many(shopifyProducts),
   orders: many(shopifyOrders),
   webhookSubscriptions: many(shopifyWebhookSubscriptions),
+  bulkOperations: many(shopifyBulkOperations),
 }));
