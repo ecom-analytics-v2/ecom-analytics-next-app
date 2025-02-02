@@ -6,7 +6,7 @@ import { metaAccounts } from "../db/schema";
 const metaRedirectUri = () => encodeURIComponent(`${env.BASE_URL}/api/oauth/meta/callback`);
 
 export const initMetaOAuth = () => {
-  return `https://www.facebook.com/v21.0/dialog/oauth?client_id=${env.META_APP_ID}&redirect_uri=${metaRedirectUri()}&scope=email,ads_read,read_insights`;
+  return `https://www.facebook.com/v21.0/dialog/oauth?client_id=${env.META_APP_ID}&redirect_uri=${metaRedirectUri()}&scope=email,ads_read,ads_management,read_insights`;
 };
 
 const buildMetaHeaders = (access_token: string) => {
@@ -36,7 +36,7 @@ const buildMetaError = (error: MetaApiErrorResponse) => {
 interface MetaAccessTokenResponse {
   access_token: string;
   token_type: string;
-  expires_in: number; //Number of seconds until token expires
+  expires_in: undefined | null | number; //Number of seconds until token expires
 }
 
 export const getMetaAccessToken = async (code: string) => {
@@ -92,21 +92,25 @@ export const getMetaUser = async (access_token: string) => {
   }
 };
 
+interface MetaApiPaging {
+  cursors: {
+    before: string;
+    after: string;
+  };
+}
+
 ///
 /// Fetch a list of ad accounts
 ///
 
 interface MetaGetAdAccountsResponse {
-  data: {
-    account_id: string;
-    id: string;
-  }[];
-  paging: {
-    cursors: {
-      before: string;
-      after: string;
-    };
-  };
+  data: MetaApiAdAccount[];
+  paging: MetaApiPaging;
+}
+
+interface MetaApiAdAccount {
+  account_id: string;
+  id: string;
 }
 
 export const getMetaAdAccounts = async (access_token: string) => {
@@ -134,12 +138,75 @@ export const getMetaAdAccounts = async (access_token: string) => {
 /// Get campaigns under an ad account
 ///
 
+interface MetaGetAdCampaignsResponse {
+  data: MetaApiCampaign[];
+  paging: MetaApiPaging;
+}
+
+interface MetaApiCampaign {
+  id: string;
+  name: string;
+  created_time: string;
+  daily_budget: string;
+  objective: string;
+  status: "ACTIVE" | "PASUED" | "DELETED" | "ARCHIVED";
+}
+
 export const getMetaAdAccountCampaigns = async (access_token: string, ad_account_id: string) => {
   try {
-    const response = await fetch(`https://graph.facebook.com/v21.0/${ad_account_id}/campaigns`, {
-      headers: buildMetaHeaders(access_token),
-    });
+    const response = await fetch(
+      `https://graph.facebook.com/v21.0/${ad_account_id}/campaignsfields=id,name,created_time,daily_budget,objective,status`,
+      {
+        headers: buildMetaHeaders(access_token),
+      }
+    );
     let data;
+
+    if (response.ok) {
+      data = (await response.json()) as MetaGetAdCampaignsResponse;
+    } else {
+      data = (await response.json()) as MetaApiErrorResponse;
+      throw buildMetaError(data);
+    }
+
+    return data;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+interface MetaGetInsightsResponse {
+  data: MetaApiInsight[];
+  paging: MetaApiPaging;
+}
+
+interface MetaApiInsight {
+  spend: string;
+  date_start: string;
+  date_stop: string;
+}
+
+///
+/// Get Meta Object (ad_account_id, adset_id, campaign_id, ad_id) Spend
+///
+
+export const getMetaCampaignSpend = async (access_token: string, object_id: string) => {
+  try {
+    const response = await fetch(
+      `https://graph.facebook.com/v22.0/${object_id}/insights?fields=spend&date_preset=maximum&level=ad`,
+      {
+        headers: buildMetaHeaders(access_token),
+      }
+    );
+    let data;
+
+    if (response.ok) {
+      data = (await response.json()) as MetaGetInsightsResponse;
+    } else {
+      data = (await response.json()) as MetaApiErrorResponse;
+      throw buildMetaError(data);
+    }
 
     return data;
   } catch (e) {
@@ -149,7 +216,7 @@ export const getMetaAdAccountCampaigns = async (access_token: string, ad_account
 };
 
 ///
-/// Refresh Meta acccount ad token
+/// Refresh Meta acccount access token
 ///
 export const refreshMetaAuthorization = async (access_token: string) => {
   try {
@@ -197,12 +264,12 @@ export const refreshMetaAuthorizations = async () => {
       continue;
     }
 
-    const expiresSec = newAccessToken.expires_in * 60;
+    const expiresSec = newAccessToken.expires_in ? newAccessToken.expires_in * 60 : null;
     await db
       .update(metaAccounts)
       .set({
         accessToken: newAccessToken.access_token,
-        expiresAt: new Date(new Date().getTime() + expiresSec),
+        expiresAt: newAccessToken.expires_in ? new Date(new Date().getTime() + expiresSec!) : null,
       })
       .where(eq(metaAccounts.id, account.id));
   }

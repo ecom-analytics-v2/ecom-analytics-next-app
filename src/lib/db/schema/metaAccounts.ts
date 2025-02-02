@@ -12,7 +12,7 @@ export const metaAccounts = pgTable("meta_accounts", {
   teamId: serial("team_id")
     .notNull()
     .references(() => users.id),
-  expiresAt: timestamp("expires_at").notNull(),
+  expiresAt: timestamp("expires_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

@@ -57,14 +57,14 @@ export const GET = async (request: NextRequest) => {
       message: "This Meta ads account is already linked to a team!",
     });
 
-  const expiresMs = tokenData.expires_in * 60;
+  const expiresMs = tokenData.expires_in ? tokenData.expires_in * 60 : null;
   const metaAccount = await db
     .insert(metaAccounts)
     .values({
       accountId: metaUser.id,
       accountName: metaUser.name,
       accessToken: tokenData.access_token,
-      expiresAt: new Date(new Date().getTime() + expiresMs),
+      expiresAt: !tokenData.expires_in ? null : new Date(new Date().getTime() + expiresMs!),
       teamId: user.teamId,
     })
     .returning();

@@ -69,13 +69,47 @@ Finally, run the Next.js development server:
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
+Open [https://localhost](https://localhost) in your browser to see the app in action.
 
 Optionally, you can listen for Stripe webhooks locally through their CLI to handle subscription change events:
 
 ```bash
 stripe listen --forward-to localhost:3000/api/stripe/webhook
 ```
+
+## Required ENV variables for external integrations
+
+```
+SHOPIFY_CLIENT_ID=
+SHOPIFY_CLIENT_SECRET=
+
+META_APP_ID=
+META_APP_SECRET=
+```
+
+## Setting up your Shopify app
+
+shopify.app.toml.example contains an example Shopify app configuration
+
+You need to edit the values CLIENT_ID and edit the URLs to match your applications base URL
+
+You need to add the content of your BASE_URL to your Shopify App's "Allowed redirection URL(s)"
+on the Shopify developer dashboard
+
+## Setting up the app to run locally within the Shopify App Store
+
+Shopify will not allow a URL with HTTP or a PORT to render, to get around this
+we can create a local domain name, i.e fake-shopify-dev-app.local
+
+You can edit the file /etc/hosts to route fake-shopify-dev-app.local to 127.0.0.1 (i.e localhost)
+and while running the NextJS app on Port 443 with the experimental SSL flag, we can simulate this
+enough for it to load the app locally
+
+If you do not want to load the app in Shopify in a local env you can skip this and just use the
+URL https://localhost to access the app
+
+You need to use a service such as ngrok to forward Shopify webhook events to your local client
+and define the service base URL in the DEV_WEBHOOK_BASE_URL environment variable
 
 **Note:** This is a work in progress. I'll be updating this README as I build the project.
 

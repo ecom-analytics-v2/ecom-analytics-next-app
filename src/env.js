@@ -5,6 +5,7 @@ export const env = createEnv({
   server: {
     POSTGRES_URL: z.string().url(),
     BASE_URL: z.string(),
+    DEV_WEBHOOK_BASE_URL: z.string(),
     AUTH_SECRET: z.string(),
     META_APP_ID: z.string(),
     META_APP_SECRET: z.string(),
@@ -16,6 +17,7 @@ export const env = createEnv({
   runtimeEnv: {
     POSTGRES_URL: process.env.POSTGRES_URL,
     BASE_URL: process.env.BASE_URL,
+    DEV_WEBHOOK_BASE_URL: process.env.DEV_WEBHOOK_BASE_URL,
     AUTH_SECRET: process.env.AUTH_SECRET,
     META_APP_ID: process.env.META_APP_ID,
     META_APP_SECRET: process.env.META_APP_SECRET,

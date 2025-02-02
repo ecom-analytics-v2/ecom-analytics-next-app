@@ -7,6 +7,7 @@ import {
   validateShopifyMessage,
   validateShopifyShopUrl,
 } from "@/lib/integrations/shopify";
+import { syncShopify } from "@/lib/integrations/sync/sync-shopify";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
@@ -84,11 +85,22 @@ export const GET = async (request: NextRequest) => {
     );
   console.log(tokenData);
 
-  await db.insert(shopifyAccounts).values({
-    shop: shopUrl,
-    accessToken: tokenData.access_token,
-    teamId: user.teamId,
-  });
+  const insertedShopifyAccounts = await db
+    .insert(shopifyAccounts)
+    .values({
+      shop: shopUrl,
+      accessToken: tokenData.access_token,
+      teamId: user.teamId,
+    })
+    .returning();
+  const shopifyAccount = insertedShopifyAccounts.at(0);
+  if (!shopifyAccount)
+    return NextResponse.json(
+      { code: 500, message: "Internal Server Error: Failed to create local record" },
+      { status: 500 }
+    );
+
+  await syncShopify(shopifyAccount.id);
 
   return redirect("/dashboard/settings");
 };

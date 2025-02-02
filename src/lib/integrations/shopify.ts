@@ -10,7 +10,7 @@ const shopifyRedirectUri = () => encodeURIComponent(`${env.BASE_URL}/api/oauth/s
 const generateShopifyState = () => crypto.randomBytes(20).toString("hex");
 
 export const initShopifyOAuth = (shop_url: string) => {
-  return `https://${shop_url}/admin/oauth/authorize?client_id=${env.SHOPIFY_CLIENT_ID}&scope=read_orders&redirect_uri=${shopifyRedirectUri()}&state=${generateShopifyState()}`;
+  return `https://${shop_url}/admin/oauth/authorize?client_id=${env.SHOPIFY_CLIENT_ID}&scope=read_orders,read_all_orders,read_products&redirect_uri=${shopifyRedirectUri()}&state=${generateShopifyState()}`;
 };
 
 export const validateShopifyMessage = (hmac: string, message: string) => {
@@ -206,7 +206,7 @@ export const runShopifyBulkOperation = async (
       access_token,
       shop,
       "BULK_OPERATIONS_FINISH",
-      `https://9634-2a02-ab88-c11-1380-25a8-2721-650f-b3c3.ngrok-free.app/api/webhooks/shopify/bulk-operations-finish`
+      `${env.NODE_ENV === "development" ? env.DEV_WEBHOOK_BASE_URL : env.BASE_URL}/api/webhooks/shopify/bulk-operations-finish`
     );
     if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
 
@@ -448,7 +448,7 @@ export const createShopifyWebhookSubscription = async (
       shop,
       apiQuery
     );
-    if (!response) throw new Error("Failed to query Shopify API");
+    if (!response) throw new Error(`Failed to query Shopify API: ${JSON.stringify(response)}`);
 
     const webhookSubscriptionId = response.data.webhookSubscriptionCreate.webhookSubscription.id;
 

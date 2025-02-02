@@ -136,7 +136,7 @@ export const ensureShopifyWebhooks = async (
       access_token,
       shop,
       "ORDERS_CREATE",
-      `https://9634-2a02-ab88-c11-1380-25a8-2721-650f-b3c3.ngrok-free.app/api/webhooks/shopify/new-order`
+      `${env.BASE_URL}/api/webhooks/shopify/new-order`
     );
     if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
 
