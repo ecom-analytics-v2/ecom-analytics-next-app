@@ -136,7 +136,7 @@ export const ensureShopifyWebhooks = async (
       access_token,
       shop,
       "ORDERS_CREATE",
-      `${env.BASE_URL}/api/webhooks/shopify/new-order`
+      `${env.NODE_ENV === "development" ? env.DEV_WEBHOOK_BASE_URL : env.BASE_URL}/api/webhooks/shopify/new-order`
     );
     if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
 
