@@ -5,7 +5,7 @@ import { z } from "zod";
 import { activityLogs } from "./activityLogs";
 import { expenses } from "./expenses";
 import { invitations } from "./invitations";
-import { metaAccounts } from "./metaAccounts";
+import { metaAccounts } from "./meta/metaAccounts";
 import { shopifyAccounts } from "./shopify/shopifyAccounts";
 import { teamMembers } from "./teamMembers";
 

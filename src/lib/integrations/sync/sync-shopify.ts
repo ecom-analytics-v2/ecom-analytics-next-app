@@ -18,10 +18,6 @@ export const syncShopify = async (shopify_account_id: number) => {
   });
   if (!shopifyAccount) throw new Error(`[${shopify_account_id}] Shopify account not found in db`);
 
-  const isFirstSync = !shopifyAccount.lastSynced;
-  const lastSyncTime = shopifyAccount.lastSynced;
-  console.log(isFirstSync, lastSyncTime);
-
   const shopifyProducts = await readShopifyProducts(
     shopifyAccount.accessToken,
     shopifyAccount.shop

@@ -100,7 +100,7 @@ export const GET = async (request: NextRequest) => {
       { status: 500 }
     );
 
-  await syncShopify(shopifyAccount.id);
+  syncShopify(shopifyAccount.id);
 
   return redirect("/dashboard/settings");
 };

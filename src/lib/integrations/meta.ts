@@ -127,7 +127,7 @@ export const getMetaAdAccounts = async (access_token: string) => {
       throw buildMetaError(data);
     }
 
-    return data;
+    return data.data;
   } catch (e) {
     console.log(e);
     return false;
@@ -155,7 +155,7 @@ interface MetaApiCampaign {
 export const getMetaAdAccountCampaigns = async (access_token: string, ad_account_id: string) => {
   try {
     const response = await fetch(
-      `https://graph.facebook.com/v21.0/${ad_account_id}/campaignsfields=id,name,created_time,daily_budget,objective,status`,
+      `https://graph.facebook.com/v21.0/${ad_account_id}/campaigns?fields=id,name,created_time,daily_budget,objective,status`,
       {
         headers: buildMetaHeaders(access_token),
       }
@@ -169,12 +169,51 @@ export const getMetaAdAccountCampaigns = async (access_token: string, ad_account
       throw buildMetaError(data);
     }
 
-    return data;
+    return data.data;
   } catch (e) {
     console.log(e);
     return false;
   }
 };
+
+///
+/// Get Meta Object (ad_account_id, campaign_id) Ads List
+///
+
+interface MetaGetAdsListResponse {
+  data: MetaApiAd[];
+  paging: MetaApiPaging;
+}
+
+interface MetaApiAd {
+  id: string;
+  name: string;
+}
+
+export const getMetaObjectAdsList = async (access_token: string, object_id: string) => {
+  try {
+    const response = await fetch(`https://graph.facebook.com/v22.0/${object_id}/ads?fields=name`, {
+      headers: buildMetaHeaders(access_token),
+    });
+    let data;
+
+    if (response.ok) {
+      data = (await response.json()) as MetaGetAdsListResponse;
+    } else {
+      data = (await response.json()) as MetaApiErrorResponse;
+      throw buildMetaError(data);
+    }
+
+    return data.data;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
+
+///
+/// Get Meta Object (ad_account_id, adset_id, campaign_id, ad_id) Insights
+///
 
 interface MetaGetInsightsResponse {
   data: MetaApiInsight[];
@@ -183,18 +222,23 @@ interface MetaGetInsightsResponse {
 
 interface MetaApiInsight {
   spend: string;
+  impressions: string;
+  actions: {
+    action_type: string;
+    value: string;
+  }[];
+  cost_per_action_type: {
+    action_type: string;
+    value: string;
+  }[];
   date_start: string;
   date_stop: string;
 }
 
-///
-/// Get Meta Object (ad_account_id, adset_id, campaign_id, ad_id) Spend
-///
-
-export const getMetaCampaignSpend = async (access_token: string, object_id: string) => {
+export const getMetaObjectInsights = async (access_token: string, object_id: string) => {
   try {
     const response = await fetch(
-      `https://graph.facebook.com/v22.0/${object_id}/insights?fields=spend&date_preset=maximum&level=ad`,
+      `https://graph.facebook.com/v22.0/${object_id}/insights?fields=impressions,spend,actions,cost_per_action_type,account_currency&date_preset=maximum&level=ad&time_increment=1`,
       {
         headers: buildMetaHeaders(access_token),
       }
@@ -208,7 +252,7 @@ export const getMetaCampaignSpend = async (access_token: string, object_id: stri
       throw buildMetaError(data);
     }
 
-    return data;
+    return data.data;
   } catch (e) {
     console.log(e);
     return false;

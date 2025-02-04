@@ -3,6 +3,7 @@ import { verifyToken } from "@/lib/auth/session";
 import { db } from "@/lib/db/drizzle";
 import { metaAccounts } from "@/lib/db/schema";
 import { getMetaAccessToken, getMetaUser } from "@/lib/integrations/meta";
+import { syncMeta } from "@/lib/integrations/sync/sync-meta";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -58,7 +59,7 @@ export const GET = async (request: NextRequest) => {
     });
 
   const expiresMs = tokenData.expires_in ? tokenData.expires_in * 60 : null;
-  const metaAccount = await db
+  const insertedMetaAccounts = await db
     .insert(metaAccounts)
     .values({
       accountId: metaUser.id,
@@ -68,6 +69,11 @@ export const GET = async (request: NextRequest) => {
       teamId: user.teamId,
     })
     .returning();
+
+  const insertedMetaAccount = insertedMetaAccounts.at(0);
+  if (!insertedMetaAccount) return NextResponse.json({ success: false }, { status: 500 });
+
+  syncMeta(insertedMetaAccount.id);
 
   return redirect("/dashboard/settings");
 };
