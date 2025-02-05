@@ -179,8 +179,20 @@ const syncMetaAdInsights = async (
   const adInsights = await getMetaObjectInsights(metaAccount.accessToken, ad.metaApiAdId);
   if (!adInsights) return false;
 
+  const uniqueInsights = adInsights.filter(async (i) => {
+    const insightExists = await db.query.metaInsightData.findFirst({
+      where: and(
+        eq(metaInsightData.date_start_key, i.date_start),
+        eq(metaInsightData.date_stop_key, i.date_stop),
+        eq(metaInsightData.metaAdId, ad.id)
+      ),
+    });
+    if (insightExists) return false;
+    return true;
+  });
+
   if (!sync_since) {
-    const fInsights = adInsights.map((i) => ({
+    const fInsights = uniqueInsights.map((i) => ({
       impressions: i.impressions,
       spend: i.spend,
 
@@ -188,7 +200,9 @@ const syncMetaAdInsights = async (
       cost_per_action_type: i.cost_per_action_type,
 
       date_start: new Date(i.date_start),
+      date_start_key: i.date_start,
       date_stop: new Date(i.date_stop),
+      date_stop_key: i.date_stop,
 
       metaAdId: ad.id,
     }));
