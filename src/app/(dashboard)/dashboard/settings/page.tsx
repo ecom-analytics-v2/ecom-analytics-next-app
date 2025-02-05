@@ -2,9 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { appRunningEmbedded } from "@/lib/integrations/shopify-client";
 import { api } from "@/trpc/react";
-import { GetConnectionStatusSchema } from "@/types/api/connections-router";
+import { ConnectShopifySchema, GetConnectionStatusSchema } from "@/types/api/connections-router";
 import { CheckIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,9 +23,7 @@ const Page = () => {
         <AccountConnection
           identifier="shopify"
           name={"Shopify"}
-          description={
-            "Incididunt exercitation excepteur consectetur irure minim ut do veniam. Excepteur deserunt ad in amet aliqua nostrud voluptate non duis proident est adipisicing sit anim. Adipisicing mollit cillum anim consectetur."
-          }
+          description={"Custom Client for Shopify MUST have scopes: read_orders,read_products"}
           logo={
             <div className="bg-white rounded-lg p-4">
               <img src="/img/shopify-logo.svg" width={80} />
@@ -67,7 +66,7 @@ const AccountConnection = ({
   });
 
   return (
-    <div className="flex justify-between gap-6 border border-border rounded-lg h-40 items-center px-12">
+    <div className="flex justify-between gap-6 border border-border rounded-lg h-fit py-6 items-center px-12">
       <div className="flex gap-12 items-center">
         {logo}
         <div className="flex flex-col gap-2 max-w-lg">
@@ -93,7 +92,7 @@ const AccountConnection = ({
               <Button>Connect</Button>
             </Link>
           ) : (
-            <ShopifyAccountConnection />
+            <ShopifyAccountConnection refresh={() => status.refetch()} />
           )}
         </>
       )}
@@ -102,19 +101,80 @@ const AccountConnection = ({
   );
 };
 
-const ShopifyAccountConnection = () => {
+const ShopifyAccountConnection = ({ refresh }: { refresh: () => void }) => {
   const router = useRouter();
   const connectShopify = api.connectionsRouter.connectShopify.useMutation();
 
+  type FormType = z.infer<typeof ConnectShopifySchema>;
+
   const [shopifyShop, setShopifyShop] = useState<string>("");
+  const [connectionType, setConnectionType] =
+    useState<FormType["connection_type"]>("official_client");
+
+  const [ccClientId, setCcClientId] = useState<string>("");
+  const [ccClientSecret, setCcClientSecret] = useState<string>("");
+  const [accessToken, setAccessToken] = useState<string>("");
 
   const submit = async () => {
-    const result = await connectShopify.mutateAsync({ shopify_shop: shopifyShop });
+    const result = await connectShopify.mutateAsync({
+      shopify_shop: shopifyShop,
+      connection_type: connectionType,
+      custom_client:
+        connectionType === "custom_client"
+          ? {
+              client_id: ccClientId,
+              client_secret: ccClientSecret,
+              access_token: accessToken,
+            }
+          : undefined,
+    });
     if (result.redirect_uri) router.push(result.redirect_uri);
+    if (result.complete && result.shopify_account_id) {
+      setTimeout(() => {
+        refresh();
+      }, 2500);
+    }
   };
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2 min-w-[250px]">
+        <Label>Connection Client</Label>
+        <Tabs
+          defaultValue={connectionType}
+          onValueChange={(value) => setConnectionType(value as FormType["connection_type"])}
+        >
+          <TabsList>
+            <TabsTrigger value="official_client">Official</TabsTrigger>
+            <TabsTrigger value="custom_client">Custom</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+      {connectionType === "custom_client" && (
+        <div className="flex flex-col gap-4 min-w-[250px] border-border border-t border-b py-4">
+          <div className="flex flex-col gap-2 min-w-[250px]">
+            <Label>Client ID / API Key</Label>
+            <Input
+              defaultValue={ccClientId}
+              onChange={(e) => setCcClientId(e.currentTarget.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2 min-w-[250px]">
+            <Label>Client Secret / API Key Secret</Label>
+            <Input
+              defaultValue={ccClientSecret}
+              onChange={(e) => setCcClientSecret(e.currentTarget.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2 min-w-[250px]">
+            <Label>Access Token</Label>
+            <Input
+              defaultValue={accessToken}
+              onChange={(e) => setAccessToken(e.currentTarget.value)}
+            />
+          </div>
+        </div>
+      )}
       <div className="flex flex-col gap-2 min-w-[250px]">
         <Label>Shop Domain</Label>
         <Input
@@ -123,7 +183,12 @@ const ShopifyAccountConnection = () => {
           onChange={(e) => setShopifyShop(e.currentTarget.value)}
         />
       </div>
-      <Button onClick={() => submit()}>Connect</Button>
+      <Button
+        onClick={() => submit()}
+        disabled={connectShopify.isPending || connectShopify.isSuccess}
+      >
+        Connect
+      </Button>
     </div>
   );
 };

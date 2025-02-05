@@ -11,5 +11,13 @@ export type ConnectionStatus =
   | "account_connected";
 
 export const ConnectShopifySchema = z.object({
+  connection_type: z.enum(["custom_client", "official_client"]),
+  custom_client: z
+    .object({
+      client_id: z.string(),
+      client_secret: z.string(),
+      access_token: z.string(),
+    })
+    .optional(),
   shopify_shop: z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9\-]*\.myshopify\.com/),
 });

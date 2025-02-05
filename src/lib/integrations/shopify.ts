@@ -7,14 +7,21 @@ import { shopifyWebhookSubscriptions } from "../db/schema";
 import { shopifyBulkOperations } from "../db/schema/shopify/shopifyBulkOperations";
 
 const shopifyRedirectUri = () => encodeURIComponent(`${env.BASE_URL}/api/oauth/shopify/callback`);
-const generateShopifyState = () => crypto.randomBytes(20).toString("hex");
+export const generateShopifyState = () => crypto.randomBytes(14).toString("hex");
 
-export const initShopifyOAuth = (shop_url: string) => {
-  return `https://${shop_url}/admin/oauth/authorize?client_id=${env.SHOPIFY_CLIENT_ID}&scope=read_orders,read_all_orders,read_products&redirect_uri=${shopifyRedirectUri()}&state=${generateShopifyState()}`;
+export const initShopifyOAuth = (shop_url: string, state: string, custom_client_id?: string) => {
+  return `https://${shop_url}/admin/oauth/authorize?client_id=${custom_client_id ? custom_client_id : env.SHOPIFY_CLIENT_ID}&scope=read_orders,read_all_orders,read_products&redirect_uri=${shopifyRedirectUri()}&state=${state}`;
 };
 
-export const validateShopifyMessage = (hmac: string, message: string) => {
-  const cryptoHmac = crypto.createHmac("sha256", env.SHOPIFY_CLIENT_SECRET);
+export const validateShopifyMessage = (
+  hmac: string,
+  message: string,
+  custom_client_id?: string
+) => {
+  const cryptoHmac = crypto.createHmac(
+    "sha256",
+    custom_client_id ? custom_client_id : env.SHOPIFY_CLIENT_SECRET
+  );
   cryptoHmac.update(message);
   const calculatedDigest = cryptoHmac.digest("hex");
 
@@ -35,10 +42,15 @@ interface ShopifyAccessTokenResponse {
   scope: string;
 }
 
-export const exchangeShopifyCode = async (shop_url: string, code: string) => {
+export const exchangeShopifyCode = async (
+  shop_url: string,
+  code: string,
+  custom_client_id?: string,
+  custom_client_secret?: string
+) => {
   try {
     const response = await fetch(
-      `https://${shop_url}/admin/oauth/access_token?client_id=${env.SHOPIFY_CLIENT_ID}&client_secret=${env.SHOPIFY_CLIENT_SECRET}&code=${code}`,
+      `https://${shop_url}/admin/oauth/access_token?client_id=${custom_client_id ? custom_client_id : env.SHOPIFY_CLIENT_ID}&client_secret=${custom_client_secret ? custom_client_secret : env.SHOPIFY_CLIENT_SECRET}&code=${code}`,
       { method: "POST" }
     );
     let data;

@@ -8,6 +8,7 @@ import {
   validateShopifyShopUrl,
 } from "@/lib/integrations/shopify";
 import { syncShopify } from "@/lib/integrations/sync/sync-shopify";
+import { and, eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
@@ -47,6 +48,13 @@ export const GET = async (request: NextRequest) => {
       { status: 401 }
     );
 
+  const state = request.nextUrl.searchParams.get("state");
+  if (!state)
+    return NextResponse.json(
+      { code: 401, message: "Bad Request: No `state` query parameter" },
+      { status: 401 }
+    );
+
   const fullUrl = request.nextUrl.toString();
   const urlQuery = fullUrl.split("?")[1];
   if (!urlQuery) return NextResponse.json({ code: 401, message: "Bad Request" }, { status: 401 });
@@ -67,7 +75,16 @@ export const GET = async (request: NextRequest) => {
 
   const hmacSuffixString = hmacSuffixQueryParams.slice(1).join("&");
   const shopifyMessage = hmacPrefixString + hmacSuffixString;
-  console.log("shopifyMessage", shopifyMessage);
+
+  const shopifyAccount = await db.query.shopifyAccounts.findFirst({
+    where: and(eq(shopifyAccounts.shop, shopUrl), eq(shopifyAccounts.teamId, user.teamId)),
+  });
+  if (!shopifyAccount)
+    return NextResponse.json({ code: 401, message: "Invalid Shopify Data" }, { status: 401 });
+
+  if (shopifyAccount.installState !== state)
+    //csrf exploit attempt?
+    return NextResponse.json({ code: 401, message: "Invalid Shopify Data" }, { status: 401 });
 
   const messageAuthenticated = validateShopifyMessage(urlHmac, shopifyMessage);
 
@@ -83,22 +100,14 @@ export const GET = async (request: NextRequest) => {
       { code: 403, message: "Internal Server Error: Failed to authenticate with Shopify" },
       { status: 403 }
     );
-  console.log(tokenData);
 
-  const insertedShopifyAccounts = await db
-    .insert(shopifyAccounts)
-    .values({
-      shop: shopUrl,
+  await db
+    .update(shopifyAccounts)
+    .set({
+      valid: true,
       accessToken: tokenData.access_token,
-      teamId: user.teamId,
     })
-    .returning();
-  const shopifyAccount = insertedShopifyAccounts.at(0);
-  if (!shopifyAccount)
-    return NextResponse.json(
-      { code: 500, message: "Internal Server Error: Failed to create local record" },
-      { status: 500 }
-    );
+    .where(eq(shopifyAccounts.id, shopifyAccount.id));
 
   syncShopify(shopifyAccount.id);
 

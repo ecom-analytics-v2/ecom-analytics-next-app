@@ -1,8 +1,14 @@
 import { getUserWithTeam } from "@/actions/user";
 import { env } from "@/env";
+import { db } from "@/lib/db/drizzle";
 import { metaAccounts, shopifyAccounts } from "@/lib/db/schema";
 import { initMetaOAuth } from "@/lib/integrations/meta";
-import { initShopifyOAuth } from "@/lib/integrations/shopify";
+import {
+  generateShopifyState,
+  initShopifyOAuth,
+  readShopifyProducts,
+} from "@/lib/integrations/shopify";
+import { syncShopify } from "@/lib/integrations/sync/sync-shopify";
 import {
   ConnectionStatus,
   ConnectShopifySchema,
@@ -89,7 +95,66 @@ const ConnectionsRouter = createTRPCRouter({
           message: "This team already has a connected Shopify account!",
         });
 
-      return { redirect_uri: initShopifyOAuth(input.shopify_shop) };
+      const installState = generateShopifyState();
+
+      if (input.connection_type === "custom_client" && input.custom_client) {
+        const validAccessToken = await readShopifyProducts(
+          input.custom_client.access_token,
+          input.shopify_shop
+        );
+        if (!validAccessToken)
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Failed to validate Shopify API key",
+          });
+
+        const insertedShopifyAccounts = await db
+          .insert(shopifyAccounts)
+          .values({
+            shop: input.shopify_shop,
+            teamId: user.teamId,
+            accessToken: input.custom_client.access_token,
+            installState: installState,
+            isCustomClient: true,
+            customClientId: input.custom_client.client_id,
+            customClientSecret: input.custom_client.client_secret,
+          })
+          .returning();
+
+        const insertedShopifyAccount = insertedShopifyAccounts.at(0);
+        if (!insertedShopifyAccount)
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to create local account record",
+          });
+
+        syncShopify(insertedShopifyAccount.id);
+
+        return {
+          complete: true,
+          shopify_account_id: insertedShopifyAccount.id,
+        };
+      } else {
+        const insertedShopifyAccounts = await db
+          .insert(shopifyAccounts)
+          .values({
+            shop: input.shopify_shop,
+            accessToken: "null_key",
+            teamId: user.teamId,
+            valid: false,
+            installState: installState,
+          })
+          .returning();
+
+        const insertedShopifyAccount = insertedShopifyAccounts.at(0);
+        if (!insertedShopifyAccount)
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to create local account record",
+          });
+
+        return { redirect_uri: initShopifyOAuth(input.shopify_shop, installState) };
+      }
     }),
 });
 

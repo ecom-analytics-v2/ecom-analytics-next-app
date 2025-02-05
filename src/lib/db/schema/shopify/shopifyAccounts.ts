@@ -18,11 +18,21 @@ export const shopifyAccounts = pgTable(
       .notNull()
       .references(() => users.id),
     lastSynced: timestamp("last_synced"),
+
+    installState: text("install_state").notNull(),
+
+    //custom client
+    isCustomClient: boolean("is_custom_client").default(false),
+    customClientId: text("custom_client_id"),
+    customClientSecret: text("custom_client_secret"),
+
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },
   (table) => ({
     shopIndex: index("sa_sp_idx").on(table.shop),
     teamIdIndex: index("sa_tid_idx").on(table.teamId),
+
+    customClientIdIndex: index("sa_ccid_idx").on(table.customClientId),
   })
 );
 
