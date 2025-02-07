@@ -219,7 +219,7 @@ export const runShopifyBulkOperation = async (
       access_token,
       shop,
       "BULK_OPERATIONS_FINISH",
-      `${env.BACKEND_BASE_URL}/api/webhooks/shopify/bulk-operations-finish`
+      `${env.BACKEND_BASE_URL}/webhooks/shopify/bulk-operations-finish`
     );
     if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
 
