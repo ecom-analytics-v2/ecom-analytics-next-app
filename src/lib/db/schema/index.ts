@@ -1,5 +1,6 @@
 export * from "./activityLogs";
 export * from "./expenses";
+export * from "./google/googleAccounts";
 export * from "./invitations";
 export * from "./meta/metaAccounts";
 export * from "./meta/metaAdAccounts";

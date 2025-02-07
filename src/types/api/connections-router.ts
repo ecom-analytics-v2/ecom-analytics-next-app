@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const GetConnectionStatusSchema = z.object({
-  connection: z.enum(["meta", "shopify"]),
+  connection: z.enum(["meta", "shopify", "google"]),
 });
 
 export type ConnectionStatus =

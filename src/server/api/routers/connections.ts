@@ -1,7 +1,8 @@
 import { getUserWithTeam } from "@/actions/user";
 import { env } from "@/env";
 import { db } from "@/lib/db/drizzle";
-import { metaAccounts, shopifyAccounts } from "@/lib/db/schema";
+import { googleAccounts, metaAccounts, shopifyAccounts } from "@/lib/db/schema";
+import { initGoogleOAuth } from "@/lib/integrations/google";
 import { initMetaOAuth } from "@/lib/integrations/meta";
 import {
   generateShopifyState,
@@ -69,6 +70,25 @@ const ConnectionsRouter = createTRPCRouter({
             account_details: {
               id: `local_${shopifyAccount.id}`,
               name: shopifyAccount.shop,
+            },
+          };
+        }
+      } else if (input.connection === "google") {
+        const googleAccount = await ctx.db.query.googleAccounts.findFirst({
+          where: eq(googleAccounts.teamId, user.teamId),
+        });
+
+        if (!googleAccount) {
+          return {
+            state: "no_account",
+            connect_url: initGoogleOAuth(),
+          };
+        } else {
+          return {
+            state: "account_connected",
+            account_details: {
+              id: `local_${googleAccount.id}`,
+              name: googleAccount.accountName,
             },
           };
         }

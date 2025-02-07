@@ -6,22 +6,22 @@ import { getMetaAccessToken, getMetaUser } from "@/lib/integrations/meta";
 import { syncMeta } from "@/lib/integrations/sync/sync-meta";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {
   const sessionCookie = (await cookies()).get("session");
   if (!sessionCookie || !sessionCookie.value) {
-    return null;
+    return NextResponse.json({ code: 403, message: "Unauthenticated Request" }, { status: 403 });
   }
 
   const sessionData = await verifyToken(sessionCookie.value);
   if (!sessionData || !sessionData.user || typeof sessionData.user.id !== "number") {
-    return null;
+    return NextResponse.json({ code: 403, message: "Unauthenticated Request" }, { status: 403 });
   }
 
   const user = await getUserWithTeam(sessionData.user.id);
-  if (!user || !user.teamId) return null;
+  if (!user || !user.teamId)
+    return NextResponse.json({ code: 403, message: "Unauthenticated Request" }, { status: 403 });
 
   const code = request.nextUrl.searchParams.get("code");
   if (!code) return NextResponse.json({ code: 401, message: "Bad Request" }, { status: 401 });
@@ -75,5 +75,5 @@ export const GET = async (request: NextRequest) => {
 
   syncMeta(insertedMetaAccount.id);
 
-  return redirect("/dashboard/settings");
+  return NextResponse.redirect("/dashboard/settings");
 };

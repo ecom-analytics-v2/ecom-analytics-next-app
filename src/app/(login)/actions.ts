@@ -64,6 +64,7 @@ export const signIn = validatedAction(signInSchema, async (data, formData) => {
     return { error: "Invalid email or password. Please try again." };
   }
 
+  //@ts-ignore
   const { user: foundUser, team: foundTeam } = userWithTeam[0];
 
   const isPasswordValid = await comparePasswords(password, foundUser.passwordHash);
@@ -144,6 +145,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
 
       await logActivity(teamId, createdUser.id, ActivityType.ACCEPT_INVITATION);
 
+      //@ts-ignore
       [createdTeam] = await db.select().from(teams).where(eq(teams.id, teamId)).limit(1);
     } else {
       return { error: "Invalid or expired invitation." };
@@ -154,6 +156,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
       name: `${email}'s Team`,
     };
 
+    //@ts-ignore
     [createdTeam] = await db.insert(teams).values(newTeam).returning();
 
     if (!createdTeam) {
