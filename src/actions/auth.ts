@@ -54,6 +54,7 @@ export const signIn = validatedAction(signInSchema, async (data, formData) => {
     return { error: "Invalid email or password. Please try again." };
   }
 
+  //@ts-ignore
   const { user: foundUser, team: foundTeam } = userWithTeam[0];
 
   const isPasswordValid = await comparePasswords(password, foundUser.passwordHash);

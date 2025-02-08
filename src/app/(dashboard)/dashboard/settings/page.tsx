@@ -42,6 +42,18 @@ const Page = () => {
             </div>
           }
         />
+        <AccountConnection
+          identifier="google"
+          name={"Google Ads"}
+          description={
+            "Incididunt exercitation excepteur consectetur irure minim ut do veniam. Excepteur deserunt ad in amet aliqua nostrud voluptate non duis proident est adipisicing sit anim. Adipisicing mollit cillum anim consectetur."
+          }
+          logo={
+            <div className="bg-white rounded-lg p-4">
+              <img src="/img/google-logo.svg" width={80} />
+            </div>
+          }
+        />
       </div>
     </div>
   );
@@ -87,7 +99,7 @@ const AccountConnection = ({
       )}
       {status.data?.state === "no_account" && (
         <>
-          {identifier === "meta" ? (
+          {identifier === "meta" || identifier == "google" ? (
             <Link href={status.data.connect_url!}>
               <Button>Connect</Button>
             </Link>

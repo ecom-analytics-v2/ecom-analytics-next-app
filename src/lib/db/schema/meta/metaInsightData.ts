@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { json, numeric, pgTable, serial, timestamp } from "drizzle-orm/pg-core";
+import { json, numeric, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { metaAds } from "./metaAds";
 
 export const metaInsightData = pgTable("meta_insight_data", {
@@ -12,7 +12,9 @@ export const metaInsightData = pgTable("meta_insight_data", {
   cost_per_action_type: json("cost_per_action_type").notNull(),
 
   date_start: timestamp("date_start").notNull(),
+  date_start_key: text("date_start_key").notNull(),
   date_stop: timestamp("date_stop").notNull(),
+  date_stop_key: text("date_stop_key").notNull(),
 
   metaAdId: serial("meta_ad_id")
     .notNull()

@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { subDays } from "date-fns"
+import { subDays } from "date-fns";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface DateRange {
   startDate: string;
@@ -18,9 +18,9 @@ const DateRangeContext = createContext<DateRangeContextType | undefined>(undefin
 
 export function DateRangeProvider({ children }: { children: ReactNode }) {
   const [dateRange, setDateRange] = useState<DateRange>({
-    startDate: subDays(new Date(), 30).toISOString().split('T')[0],
-    endDate: new Date().toISOString().split('T')[0],
-    label: "Last 30 days"
+    startDate: subDays(new Date(), 30).toISOString().split("T")[0]!,
+    endDate: new Date().toISOString().split("T")[0]!,
+    label: "Last 30 days",
   });
 
   return (
@@ -33,7 +33,7 @@ export function DateRangeProvider({ children }: { children: ReactNode }) {
 export function useDateRange() {
   const context = useContext(DateRangeContext);
   if (context === undefined) {
-    throw new Error('useDateRange must be used within a DateRangeProvider');
+    throw new Error("useDateRange must be used within a DateRangeProvider");
   }
   return context;
 }

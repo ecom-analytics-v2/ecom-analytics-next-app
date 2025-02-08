@@ -95,6 +95,7 @@ const queryShopifyApi = async <T>(
       data = (await response.json()) as ShopifyGraphQLResponse<T>;
     } else {
       data = (await response.json()) as ShopifyErrorResponse;
+      console.log(data);
       throw new Error(`Shopify API Errors: ${data.errors.map((e) => e.message).join(" | ")}`);
     }
 
@@ -218,7 +219,7 @@ export const runShopifyBulkOperation = async (
       access_token,
       shop,
       "BULK_OPERATIONS_FINISH",
-      `${env.NODE_ENV === "development" ? env.DEV_WEBHOOK_BASE_URL : env.BASE_URL}/api/webhooks/shopify/bulk-operations-finish`
+      `${env.BACKEND_BASE_URL}/webhooks/shopify/bulk-operations-finish`
     );
     if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
 

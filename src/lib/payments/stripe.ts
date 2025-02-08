@@ -52,7 +52,7 @@ export async function createCustomerPortalSession(team: Team) {
   const configurations = await stripe.billingPortal.configurations.list();
 
   if (configurations.data.length > 0) {
-    configuration = configurations.data[0];
+    configuration = configurations.data[0]!;
   } else {
     const product = await stripe.products.retrieve(team.stripeProductId);
     if (!product.active) {
