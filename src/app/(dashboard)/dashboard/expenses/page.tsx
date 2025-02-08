@@ -32,8 +32,8 @@ export default async function Dashboard() {
               <ExpenseFilter />
 
               <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 items-end ">
-                  <div className="sm:col-span-3">
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 items-end ">
+                  <div className="sm:col-span-2">
                     {userWithTeam.teamId ? (
                       <ExpenseBarChart
                         totalRevenue={1000000}
