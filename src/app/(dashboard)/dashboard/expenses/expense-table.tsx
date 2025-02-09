@@ -1,5 +1,4 @@
 "use client";
-import { useDateRange } from "@/components/dashboard/date-range-context";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -59,7 +58,6 @@ interface AdjustedExpense extends Expense {
  * @param expenses - An array of Expense objects to be displayed.
  */
 export function ExpenseTable({ totalRevenue, expenses }: ExpenseTableProps) {
-  const { dateRange } = useDateRange();
   const { selectedTypes } = useExpenseFilter();
   const [sortOption, setSortOption] = useState<SortOption>("most-expensive");
   const [adjustedExpenses, setAdjustedExpenses] = useState<AdjustedExpense[]>([]);

@@ -34,18 +34,7 @@ export const removeTeamMember = validatedActionWithUser(
 
 export async function getUserTeams(userId: number) {
   const userTeams = await db
-    .select({
-      id: teams.id,
-      name: teams.name,
-      createdAt: teams.createdAt,
-      updatedAt: teams.updatedAt,
-      stripeCustomerId: teams.stripeCustomerId,
-      stripeSubscriptionId: teams.stripeSubscriptionId,
-      stripeProductId: teams.stripeProductId,
-      planName: teams.planName,
-      subscriptionStatus: teams.subscriptionStatus,
-      monthlyRevenue: teams.monthlyRevenue,
-    })
+    .select()
     .from(teamMembers)
     .innerJoin(teams, eq(teamMembers.teamId, teams.id))
     .where(eq(teamMembers.userId, userId));

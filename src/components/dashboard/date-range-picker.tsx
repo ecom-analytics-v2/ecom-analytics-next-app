@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 
 import {
@@ -22,8 +21,12 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { useDateRange } from "./date-range-context";
+import { api } from "@/trpc/react";
 
+/**
+ * List of preset date ranges (Today, Yesterday, Last 7 days, etc.)
+ * Each preset has a label and a function to calculate its date range
+ */
 const presetOptions = [
   {
     label: "Today",
@@ -131,31 +134,86 @@ const presetOptions = [
   },
 ];
 
-export default function DatePickerWithRange({ className }: React.HTMLAttributes<HTMLDivElement>) {
-  const { dateRange, setDateRange } = useDateRange();
-  const [calendarOpen, setCalendarOpen] = React.useState(false);
+/**
+ * Checks if given dates match any preset date range
+ * Returns the preset name or "Custom" if no match found
+ */
+function findMatchingPreset(startDate: string, endDate: string) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
 
+  // Helper to compare dates without time
+  const isSameDate = (date1: Date, date2: Date) =>
+    date1.toISOString().split("T")[0] === date2.toISOString().split("T")[0];
+
+  for (const preset of presetOptions) {
+    const presetDates = preset.getValue();
+    if (!presetDates.startDate || !presetDates.endDate) continue;
+
+    const presetStart = new Date(presetDates.startDate);
+    const presetEnd = new Date(presetDates.endDate);
+
+    if (isSameDate(start, presetStart) && isSameDate(end, presetEnd)) {
+      return preset.label;
+    }
+  }
+
+  return "Custom";
+}
+
+/**
+ * Date range picker component with presets and calendar selection
+ * Shows a button that opens a popover with:
+ * - List of preset ranges on the left
+ * - Calendar picker on the right
+ * Selected dates are saved to the database via TRPC
+ */
+export default function DatePickerWithRange({ className }: React.HTMLAttributes<HTMLDivElement>) {
+  const [calendarOpen, setCalendarOpen] = React.useState(false);
+  const [label, setLabel] = React.useState<string>("Last 30 days");
+
+  const { data: dateFilter, refetch: refetchDateFilter } =
+    api.filtersRouter.getDateFilter.useQuery();
+  const { mutate: updateDateFilter } = api.filtersRouter.updateDateFilter.useMutation({
+    onSuccess: () => {
+      refetchDateFilter();
+    },
+  });
+
+  React.useEffect(() => {
+    if (dateFilter?.startDate && dateFilter?.endDate) {
+      const matchedLabel = findMatchingPreset(dateFilter.startDate, dateFilter.endDate);
+      setLabel(matchedLabel);
+    }
+  }, [dateFilter]);
+
+  // Updates dates when a preset is clicked
   const handlePresetChange = (preset: (typeof presetOptions)[number]) => {
     const newDate = preset.getValue();
-    setDateRange({ ...newDate, label: preset.label });
+    if (!newDate.startDate || !newDate.endDate) return;
+
+    updateDateFilter({
+      startDate: newDate.startDate,
+      endDate: newDate.endDate,
+    });
+    setLabel(preset.label);
   };
 
+  // Updates dates when calendar selection changes
   const handleCustomDateChange = (newDate: DateRange | undefined) => {
     if (newDate?.from && newDate?.to) {
-      setDateRange({
-        startDate: newDate.from.toISOString().split("T")[0],
-        endDate: newDate.to
-          ? newDate.to.toISOString().split("T")[0]
-          : newDate.from.toISOString().split("T")[0],
-        label: "Custom",
+      updateDateFilter({
+        startDate: newDate.from?.toISOString().split("T")[0] ?? "",
+        endDate: newDate.to?.toISOString().split("T")[0] ?? "",
       });
+      setLabel("Custom");
     }
   };
 
-  const dateRangeForCalendar: DateRange | undefined = dateRange.startDate
+  const dateRangeForCalendar: DateRange | undefined = dateFilter
     ? {
-        from: new Date(dateRange.startDate),
-        to: dateRange.endDate ? new Date(dateRange.endDate) : undefined,
+        from: dateFilter.startDate ? new Date(dateFilter.startDate) : undefined,
+        to: dateFilter.endDate ? new Date(dateFilter.endDate) : undefined,
       }
     : undefined;
 
@@ -167,22 +225,22 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
             id="date"
             variant="outline"
             className={cn(
-              " justify-start text-left font-normal",
-              !dateRange.startDate && "text-muted-foreground"
+              "justify-start text-left font-normal",
+              !dateFilter?.startDate && "text-muted-foreground"
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {dateRange.label === "Custom" ? (
-              dateRange.endDate ? (
+            {label === "Custom" ? (
+              dateFilter?.endDate ? (
                 <>
-                  {format(new Date(dateRange.startDate), "LLL dd, y")} -{" "}
-                  {format(new Date(dateRange.endDate), "LLL dd, y")}
+                  {format(new Date(dateFilter.startDate!), "LLL dd, y")} -{" "}
+                  {format(new Date(dateFilter.endDate!), "LLL dd, y")}
                 </>
               ) : (
-                format(new Date(dateRange.startDate), "LLL dd, y")
+                format(new Date(dateFilter?.startDate!), "LLL dd, y")
               )
             ) : (
-              dateRange.label || <span>Pick a date</span>
+              label || <span>Pick a date</span>
             )}
           </Button>
         </PopoverTrigger>
@@ -193,7 +251,9 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
                 <Button
                   key={preset.label}
                   variant="ghost"
-                  className={`w-full justify-start px-2 py-1.5 font-normal text-sm ${dateRange.label === preset.label ? "bg-accent" : ""}`}
+                  className={`w-full justify-start px-2 py-1.5 font-normal text-sm ${
+                    label === preset.label ? "bg-accent" : ""
+                  }`}
                   onClick={() => handlePresetChange(preset)}
                 >
                   {preset.label}
@@ -204,7 +264,7 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
               <Calendar
                 initialFocus
                 mode="range"
-                defaultMonth={dateRange.startDate ? new Date(dateRange.startDate) : new Date()}
+                defaultMonth={dateFilter?.startDate ? new Date(dateFilter.startDate) : new Date()}
                 selected={dateRangeForCalendar}
                 onSelect={handleCustomDateChange}
                 numberOfMonths={2}

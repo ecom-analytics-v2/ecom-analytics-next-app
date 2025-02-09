@@ -8,6 +8,7 @@ import {
   FileText,
   ShoppingBag,
   TrendingUp,
+  Calculator,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -42,14 +43,9 @@ const navItems = [
     icon: ShoppingBag,
   },
   {
-    title: "Trajectories",
-    url: "/dashboard/trajectories",
-    icon: TrendingUp,
-  },
-  {
-    title: "Reports",
-    url: "/dashboard/reports",
-    icon: FileText,
+    title: "Calculators",
+    url: "/dashboard/calculators",
+    icon: Calculator,
   },
   {
     title: "Team Settings",

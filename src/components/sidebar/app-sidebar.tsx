@@ -15,39 +15,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-const nav = [
-  {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: BarChart2,
-  },
-  {
-    title: "Revenue",
-    url: "/dashboard/revenue",
-    icon: DollarSign,
-  },
-  {
-    title: "Expenses",
-    url: "/dashboard/expenses",
-    icon: CreditCard,
-  },
-  {
-    title: "Products",
-    url: "/dashboard/products",
-    icon: ShoppingBag,
-  },
-  {
-    title: "Trajectories",
-    url: "/dashboard/trajectories",
-    icon: TrendingUp,
-  },
-  {
-    title: "Reports",
-    url: "/dashboard/reports",
-    icon: FileText,
-  },
-];
-
 export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const user = await getUser();
 
@@ -56,12 +23,14 @@ export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sideb
   const activeTeam = await getActiveTeamForUser(user.id);
   const teams = await getUserTeams(user.id);
 
+  const mappedTeams = teams.map((t) => t.teams);
+
   return (
     <Sidebar variant="inset" {...props} className="border-r border-sidebar-border">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <TeamSwitcher activeTeam={activeTeam} teams={teams} user={user} />
+            <TeamSwitcher activeTeam={activeTeam} teams={mappedTeams} user={user} />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

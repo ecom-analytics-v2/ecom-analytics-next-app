@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { integer, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -14,6 +14,8 @@ export const teams = pgTable("teams", {
   name: varchar("name", { length: 100 }).notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  dateFilterStart: timestamp("date_filter_start").default(sql`NOW() - INTERVAL '30 days'`),
+  dateFilterEnd: timestamp("date_filter_end").default(sql`NOW()`),
   stripeCustomerId: text("stripe_customer_id").unique(),
   stripeSubscriptionId: text("stripe_subscription_id").unique(),
   stripeProductId: text("stripe_product_id"),
