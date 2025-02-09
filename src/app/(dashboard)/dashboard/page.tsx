@@ -7,6 +7,9 @@ import { TotalSales } from "../../../components/dashboard/charts/total-sales";
 import DatePickerWithRange from "@/components/dashboard/date-range-picker";
 import { ExpenseFilter } from "./expenses/expense-filter";
 import { ProfitOverTime } from "@/components/dashboard/charts/profit-over-time";
+import { MarketingEfficiencyRatio } from "@/components/dashboard/charts/marketing-efficiency-ratio";
+import { Suspense } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default async function Dashboard() {
   const user = await getUser();
@@ -20,30 +23,56 @@ export default async function Dashboard() {
   }
 
   const teamData = await getTeamForUser(user.id);
-
   if (!teamData) {
     throw new Error("Team not found");
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40 relative overflow-y-auto">
-      <div className="flex flex-col sm:gap-4 sm:py-4">
-        <main className="relative flex-1 gap-4 px-4 sm:px-6 items-center md:gap-8 ">
-          <h1 className="text-xl font-semibold">Dashboard</h1>
-          <div className="flex justify-between w-full items-center py-6">
-            <div className="flex items-center gap-x-2">
-              <DatePickerWithRange />
-            </div>
-          </div>
+    <div className="flex-1 bg-muted/40">
+      <div className="p-4">
+        <h1 className="text-xl font-semibold">Dashboard</h1>
 
-          <div className="grid grid-rows-12 items-start gap-4 md:gap-8 lg:gap-12 grid-cols-3 lg:grid-cols-12 md:grid-cols-6 h-screen">
-            <div className="col-span-9 w-full h-full">
+        <div className="flex justify-between items-center py-6">
+          <div className="flex items-center gap-x-2">
+            <DatePickerWithRange />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4">
+          <Suspense
+            fallback={
+              <div className="col-span-9">
+                <ChartSkeleton />
+              </div>
+            }
+          >
+            <div className="col-span-9">
               <ProfitOverTime />
             </div>
-          </div>
-          <div></div>
-        </main>
+          </Suspense>
+          <Suspense
+            fallback={
+              <div className="col-span-3">
+                <ChartSkeleton />
+              </div>
+            }
+          >
+            <div className="col-span-3">
+              <MarketingEfficiencyRatio />
+            </div>
+          </Suspense>
+        </div>
       </div>
     </div>
+  );
+}
+
+function ChartSkeleton() {
+  return (
+    <Card className="w-full h-[300px] animate-pulse">
+      <CardContent className="p-6">
+        <div className="w-full h-full bg-muted rounded-md" />
+      </CardContent>
+    </Card>
   );
 }

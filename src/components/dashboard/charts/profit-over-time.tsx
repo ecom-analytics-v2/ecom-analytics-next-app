@@ -79,7 +79,7 @@ export function ProfitOverTime() {
 
   return (
     <Card>
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
+      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row h-full">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <div className="flex items-center gap-2">
             <CardTitle>Total Profit Over Time</CardTitle>
