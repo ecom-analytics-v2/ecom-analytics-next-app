@@ -11,6 +11,26 @@ import { MarketingEfficiencyRatio } from "@/components/dashboard/charts/marketin
 import { Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
+function ChartWrapper({
+  children,
+  className = "col-span-3 md:col-span-6 lg:col-span-9",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Suspense
+      fallback={
+        <div className={className}>
+          <ChartSkeleton />
+        </div>
+      }
+    >
+      <div className={className}>{children}</div>
+    </Suspense>
+  );
+}
+
 export default async function Dashboard() {
   const user = await getUser();
   if (!user) {
@@ -38,29 +58,14 @@ export default async function Dashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-4">
-          <Suspense
-            fallback={
-              <div className="col-span-9">
-                <ChartSkeleton />
-              </div>
-            }
-          >
-            <div className="col-span-9">
-              <ProfitOverTime />
-            </div>
-          </Suspense>
-          <Suspense
-            fallback={
-              <div className="col-span-3">
-                <ChartSkeleton />
-              </div>
-            }
-          >
-            <div className="col-span-3">
-              <MarketingEfficiencyRatio />
-            </div>
-          </Suspense>
+        <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 gap-4">
+          <ChartWrapper className="col-span-3 md:col-span-6 lg:col-span-9">
+            <ProfitOverTime />
+          </ChartWrapper>
+
+          <ChartWrapper className="col-span-3 ">
+            <MarketingEfficiencyRatio />
+          </ChartWrapper>
         </div>
       </div>
     </div>

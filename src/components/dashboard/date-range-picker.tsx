@@ -161,6 +161,15 @@ function findMatchingPreset(startDate: string, endDate: string) {
   return "Custom";
 }
 
+// Add this skeleton component at the top level of the file
+function DatePickerSkeleton() {
+  return (
+    <div className="w-[200px]">
+      <div className="h-10 rounded-md border bg-muted animate-pulse" />
+    </div>
+  );
+}
+
 /**
  * Date range picker component with presets and calendar selection
  * Shows a button that opens a popover with:
@@ -169,11 +178,23 @@ function findMatchingPreset(startDate: string, endDate: string) {
  * Selected dates are saved to the database via TRPC
  */
 export default function DatePickerWithRange({ className }: React.HTMLAttributes<HTMLDivElement>) {
-  const [calendarOpen, setCalendarOpen] = React.useState(false);
-  const [label, setLabel] = React.useState<string>("Last 30 days");
+  return (
+    <React.Suspense fallback={<DatePickerSkeleton />}>
+      <DatePickerContent className={className} />
+    </React.Suspense>
+  );
+}
 
-  const { data: dateFilter, refetch: refetchDateFilter } =
-    api.filtersRouter.getDateFilter.useQuery();
+// Move the main component logic into a new component
+function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) {
+  const [calendarOpen, setCalendarOpen] = React.useState(false);
+  const [label, setLabel] = React.useState<string>();
+
+  const {
+    data: dateFilter,
+    isLoading,
+    refetch: refetchDateFilter,
+  } = api.filtersRouter.getDateFilter.useQuery();
   const { mutate: updateDateFilter } = api.filtersRouter.updateDateFilter.useMutation({
     onSuccess: () => {
       refetchDateFilter();
@@ -186,6 +207,11 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
       setLabel(matchedLabel);
     }
   }, [dateFilter]);
+
+  // Show skeleton while loading
+  if (isLoading) {
+    return <DatePickerSkeleton />;
+  }
 
   // Updates dates when a preset is clicked
   const handlePresetChange = (preset: (typeof presetOptions)[number]) => {
@@ -221,14 +247,7 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
     <div className={cn("grid gap-2", className)}>
       <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
         <PopoverTrigger asChild>
-          <Button
-            id="date"
-            variant="outline"
-            className={cn(
-              "justify-start text-left font-normal",
-              !dateFilter?.startDate && "text-muted-foreground"
-            )}
-          >
+          <Button id="date" variant="card" className={cn("justify-start text-left font-normal")}>
             <CalendarIcon className="mr-2 h-4 w-4" />
             {label === "Custom" ? (
               dateFilter?.endDate ? (

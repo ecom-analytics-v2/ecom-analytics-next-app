@@ -133,23 +133,26 @@ export function MarketingEfficiencyRatio() {
         </div>
         <CardDescription>Measures revenue generated per dollar spent on marketing.</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px]">
+      <CardContent className="flex-1 pb-0 p-0">
+        <ChartContainer
+          config={chartConfig}
+          className=" aspect-square min-h-fit min-w-fit max-h-[350px] max-w-[350px]"
+        >
           <RadialBarChart
             data={chartData}
             startAngle={0}
             endAngle={250}
-            innerRadius={100}
-            outerRadius={140}
+            innerRadius={80}
+            outerRadius={110}
           >
             <PolarGrid
               gridType="circle"
               radialLines={false}
               stroke="none"
-              className="first:fill-muted last:fill-background"
-              polarRadius={[140]}
+              className="first:fill-muted last:fill-card"
+              polarRadius={[86, 74]}
             />
-            <RadialBar dataKey="mer" background={{ fill: "hsl(var(--muted))" }} cornerRadius={10} />
+            <RadialBar dataKey="mer" background cornerRadius={10} />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
