@@ -22,9 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`bg-white dark:bg-gray-950 text-black dark:text-white  ${manrope.className}`}
+      className={`bg-background dark:bg-background text-text dark:text-text  ${manrope.className}`}
     >
-      <body className="min-h-[100dvh] bg-gray-50">
+      <body className="min-h-[100dvh] bg-background">
         <TRPCReactProvider>
           <UserProvider userPromise={userPromise}>{children}</UserProvider>
         </TRPCReactProvider>

@@ -26,7 +26,7 @@ export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sideb
   const mappedTeams = teams.map((t) => t.teams);
 
   return (
-    <Sidebar variant="inset" {...props} className="border-r border-sidebar-border">
+    <Sidebar variant="floating" {...props} className="">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
