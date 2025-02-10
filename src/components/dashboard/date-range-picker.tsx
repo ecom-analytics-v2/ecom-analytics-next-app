@@ -161,15 +161,6 @@ function findMatchingPreset(startDate: string, endDate: string) {
   return "Custom";
 }
 
-// Add this skeleton component at the top level of the file
-function DatePickerSkeleton() {
-  return (
-    <div className="w-[200px]">
-      <div className="h-10 rounded-md border bg-muted animate-pulse" />
-    </div>
-  );
-}
-
 /**
  * Date range picker component with presets and calendar selection
  * Shows a button that opens a popover with:
@@ -292,6 +283,17 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
           </div>
         </PopoverContent>
       </Popover>
+    </div>
+  );
+}
+
+function DatePickerSkeleton() {
+  return (
+    <div className="w-[200px] ">
+      <div className="flex w-full items-center justify-start rounded-md border bg-card px-3 py-2 text-sm font-medium ring-offset-background">
+        <div className="mr-2 h-4 w-4 rounded-sm bg-muted animate-pulse" />
+        <div className="h-4 w-[120px] rounded-sm bg-muted animate-pulse" />
+      </div>
     </div>
   );
 }

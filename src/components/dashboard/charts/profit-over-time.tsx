@@ -22,11 +22,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { formatCompactCurrency } from "@/lib/utils";
+import { formatCompactCurrency, formatCurrency } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { InfoIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Value } from "@radix-ui/react-select";
 
 const chartData = [
   { date: "2024-04-01", revenue: 1200, expenses: 800, profit: 400 },
@@ -213,7 +214,7 @@ export function ProfitOverTime() {
       case "profit":
         return (
           <BarChart data={chartData}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+            <CartesianGrid vertical={false} />
             <XAxis
               dataKey="date"
               tickLine={false}
@@ -231,8 +232,34 @@ export function ProfitOverTime() {
               tickFormatter={(value) => formatCompactCurrency(value)}
               dx={-8}
             />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  className="w-[200px]"
+                  formatter={(value, name) => (
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                        style={{
+                          backgroundColor: "var(--color-profit)",
+                        }}
+                      />
+                      <span>Profit</span>
+                      <span className="ml-auto font-mono">
+                        {formatCompactCurrency(Math.abs(value as number))}
+                      </span>
+                    </div>
+                  )}
+                  label={(label: number) =>
+                    new Date(label).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                />
+              }
+            />
             <Bar dataKey="profit" fill="var(--color-profit)" radius={[4, 4, 0, 0]} />
-            <ChartTooltip content={<ChartTooltipContent />} />
           </BarChart>
         );
       case "revenue":
@@ -256,8 +283,34 @@ export function ProfitOverTime() {
               tickFormatter={(value) => formatCompactCurrency(value)}
               dx={-8}
             />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  className="w-[200px]"
+                  formatter={(value, name) => (
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                        style={{
+                          backgroundColor: "var(--color-revenue)",
+                        }}
+                      />
+                      <span>Revenue</span>
+                      <span className="ml-auto font-mono">
+                        {formatCompactCurrency(Math.abs(value as number))}
+                      </span>
+                    </div>
+                  )}
+                  label={(label: number) =>
+                    new Date(label).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                />
+              }
+            />
             <Bar dataKey="revenue" fill="var(--color-revenue)" radius={[4, 4, 0, 0]} />
-            <ChartTooltip content={<ChartTooltipContent />} />
           </BarChart>
         );
       case "expenses":
@@ -281,8 +334,34 @@ export function ProfitOverTime() {
               tickFormatter={(value) => formatCompactCurrency(value)}
               dx={-8}
             />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  className="w-[200px]"
+                  formatter={(value, name) => (
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                        style={{
+                          backgroundColor: "var(--color-expenses)",
+                        }}
+                      />
+                      <span>Expenses</span>
+                      <span className="ml-auto font-mono">
+                        {formatCompactCurrency(Math.abs(value as number))}
+                      </span>
+                    </div>
+                  )}
+                  label={(label: number) =>
+                    new Date(label).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                />
+              }
+            />
             <Bar dataKey="expenses" fill="var(--color-expenses)" radius={[4, 4, 0, 0]} />
-            <ChartTooltip content={<ChartTooltipContent />} />
           </BarChart>
         );
     }
@@ -303,9 +382,10 @@ export function ProfitOverTime() {
           >
             <span className="text-xs text-muted-foreground">Avg. Daily Profit</span>
             <span className="text-lg font-bold leading-none sm:text-3xl">
-              {formatCompactCurrency(averages.profit)}
+              {formatCurrency(Number(averages.profit.toFixed(2)))}
             </span>
           </button>
+
           {(["profit", "revenue", "expenses"] as const).map((type) => (
             <button
               key={type}

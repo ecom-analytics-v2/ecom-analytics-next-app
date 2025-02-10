@@ -10,6 +10,7 @@ import { ProfitOverTime } from "@/components/dashboard/charts/profit-over-time";
 import { MarketingEfficiencyRatio } from "@/components/dashboard/charts/marketing-efficiency-ratio";
 import { Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { CostPerAcquisition } from "@/components/dashboard/charts/cost-per-acquisition";
 
 function ChartWrapper({
   children,
@@ -65,6 +66,10 @@ export default async function Dashboard() {
 
           <ChartWrapper className="col-span-3 ">
             <MarketingEfficiencyRatio />
+          </ChartWrapper>
+
+          <ChartWrapper className="col-span-6">
+            <CostPerAcquisition />
           </ChartWrapper>
         </div>
       </div>

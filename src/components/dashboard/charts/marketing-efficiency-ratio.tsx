@@ -104,6 +104,13 @@ const getAverageMer = () => {
   return total / merByDay.length;
 };
 
+const getMerPercentage = (mer: number) => {
+  // Calculate percentage where 10 MER = 100%
+  const percentage = (mer / 10) * 100;
+  // Convert percentage to angle (360 degrees max)
+  return (percentage / 100) * 360;
+};
+
 const chartConfig = {
   mer: {
     label: "MER",
@@ -114,6 +121,7 @@ const chartConfig = {
 export function MarketingEfficiencyRatio() {
   const averageMer = getAverageMer();
   const chartData = [{ mer: (averageMer / 10) * 100 }]; // Convert to percentage where 10 MER = 100%
+  const endAngle = getMerPercentage(averageMer);
 
   return (
     <Card className="flex flex-col h-full">
@@ -136,23 +144,23 @@ export function MarketingEfficiencyRatio() {
       <CardContent className="flex-1 pb-0 p-0">
         <ChartContainer
           config={chartConfig}
-          className=" aspect-square min-h-fit min-w-fit max-h-[350px] max-w-[350px]"
+          className=" aspect-square min-h-fit min-w-fit w-full max-h-[350px] max-w-[350px]"
         >
           <RadialBarChart
             data={chartData}
             startAngle={0}
-            endAngle={250}
-            innerRadius={80}
-            outerRadius={110}
+            endAngle={endAngle}
+            innerRadius={100}
+            outerRadius={180}
           >
             <PolarGrid
               gridType="circle"
               radialLines={false}
               stroke="none"
               className="first:fill-muted last:fill-card"
-              polarRadius={[86, 74]}
+              polarRadius={[116, 84]}
             />
-            <RadialBar dataKey="mer" background cornerRadius={10} />
+            <RadialBar dataKey="mer" background cornerRadius={9999} />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
