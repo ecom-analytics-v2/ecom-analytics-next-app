@@ -246,7 +246,7 @@ export function ProfitOverTime() {
                       />
                       <span>Profit</span>
                       <span className="ml-auto font-mono">
-                        {formatCompactCurrency(Math.abs(value as number))}
+                        {formatCompactCurrency(value as number)}
                       </span>
                     </div>
                   )}
