@@ -15,6 +15,7 @@ const FilterRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      console.log("Starting updateDateFilter mutation with input:", input);
       const user = await getUserWithTeam(ctx.session.user.id);
       if (!user || !user.teamId) {
         throw new TRPCError({
@@ -24,6 +25,7 @@ const FilterRouter = createTRPCRouter({
       }
 
       try {
+        console.log("Updating date filter for team:", user.teamId);
         await db
           .update(teams)
           .set({
@@ -32,6 +34,7 @@ const FilterRouter = createTRPCRouter({
           })
           .where(eq(teams.id, user.teamId));
 
+        console.log("Date filter updated successfully");
         return { success: true };
       } catch (error) {
         console.error("Error updating date filter:", error);

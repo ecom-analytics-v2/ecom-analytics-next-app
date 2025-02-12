@@ -12,6 +12,64 @@ import { Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CostPerAcquisition } from "@/components/dashboard/charts/cost-per-acquisition";
 import { api } from "@/trpc/server";
+import dummyOrders from "./dummy-orders.json";
+
+// Add these types near the top of the file
+type ShopifyOrder = {
+  id: number;
+  shopify_gid: string;
+  created_at: Date;
+  total_amount: number;
+  total_price: number;
+  shopify_account_id: number;
+};
+
+// Convert the JSON dates to Date objects
+const formattedOrders: ShopifyOrder[] = dummyOrders.map((order) => ({
+  ...order,
+  created_at: new Date(order.created_at),
+  total_price: order.total_amount,
+}));
+// Define DailySummary type
+type DailySummary = {
+  created_at: Date;
+  total_price: number;
+};
+
+// Add this function before the Dashboard component
+function getDailySummary(orders: ShopifyOrder[]): DailySummary[] {
+  const dailySummary = orders.reduce<Record<number, { date: Date; total: number; count: number }>>(
+    (acc, order) => {
+      // Use UTC methods to ensure consistent dates across server/client
+      const date = new Date(order.created_at);
+      date.setUTCHours(0, 0, 0, 0);
+      const dateKey = date.getTime();
+
+      if (!acc[dateKey]) {
+        acc[dateKey] = {
+          date,
+          total: 0,
+          count: 0,
+        };
+      }
+
+      // Ensure consistent decimal places
+      acc[dateKey].total = Number((acc[dateKey].total + order.total_price).toFixed(2));
+      acc[dateKey].count += 1;
+
+      return acc;
+    },
+    {}
+  );
+
+  return Object.values(dailySummary)
+    .map(({ date, total }) => ({
+      created_at: new Date(date),
+      // Ensure consistent decimal places
+      total_price: Number(total.toFixed(2)),
+    }))
+    .sort((a, b) => a.created_at.getTime() - b.created_at.getTime());
+}
 
 function ChartWrapper({
   children,
@@ -65,6 +123,10 @@ export default async function Dashboard() {
 
   // console.log(orderData);
 
+  // Get the daily summary
+  const dailySummary = getDailySummary(formattedOrders);
+  console.log("Daily Order Summaries:", dailySummary);
+
   return (
     <div className="flex-1 bg-muted/40">
       <div className="p-4">
@@ -78,7 +140,11 @@ export default async function Dashboard() {
 
         <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 gap-4">
           <ChartWrapper className="col-span-3 md:col-span-6 lg:col-span-9">
-            <ProfitOverTime />
+            <ProfitOverTime
+              orders={dailySummary}
+              startDate={dateData.startDate}
+              endDate={dateData.endDate}
+            />
           </ChartWrapper>
 
           <ChartWrapper className="col-span-3 ">
