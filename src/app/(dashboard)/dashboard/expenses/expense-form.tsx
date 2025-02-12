@@ -64,7 +64,6 @@ export function ExpenseForm() {
       console.error("User not found");
       return;
     }
-    console.log(data);
     addExpense(data, user.id);
     setOpen(false);
   }

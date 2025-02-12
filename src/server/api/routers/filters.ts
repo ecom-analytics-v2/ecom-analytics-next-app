@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
-const DateFilterRouter = createTRPCRouter({
+const FilterRouter = createTRPCRouter({
   updateDateFilter: protectedProcedure
     .input(
       z.object({
@@ -66,11 +66,18 @@ const DateFilterRouter = createTRPCRouter({
       });
     }
 
+    if (!team.dateFilterStart || !team.dateFilterEnd) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Date filter not set",
+      });
+    }
+
     return {
-      startDate: team.dateFilterStart?.toISOString().split("T")[0] || null,
-      endDate: team.dateFilterEnd?.toISOString().split("T")[0] || null,
+      startDate: team.dateFilterStart,
+      endDate: team.dateFilterEnd,
     };
   }),
 });
 
-export default DateFilterRouter;
+export default FilterRouter;

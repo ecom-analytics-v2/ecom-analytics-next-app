@@ -12,8 +12,6 @@ export async function addExpense(data: NewExpense, userId: number) {
     return { error: "User is not part of a team" };
   }
 
-  console.log(data);
-
   const newExpense: NewExpense = {
     name: data.name,
     type: data.type,

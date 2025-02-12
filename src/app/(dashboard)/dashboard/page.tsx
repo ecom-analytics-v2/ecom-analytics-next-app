@@ -11,6 +11,7 @@ import { MarketingEfficiencyRatio } from "@/components/dashboard/charts/marketin
 import { Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CostPerAcquisition } from "@/components/dashboard/charts/cost-per-acquisition";
+import { api } from "@/trpc/server";
 
 function ChartWrapper({
   children,
@@ -47,6 +48,22 @@ export default async function Dashboard() {
   if (!teamData) {
     throw new Error("Team not found");
   }
+
+  if (!teamData.shopifyAccount?.id) {
+    throw new Error("Shopify account not found");
+  }
+
+  // Fetch date filter data server-side
+  const dateData = await api.filterRouter.getDateFilter();
+
+  // Ensure dates are properly formatted for the Shopify API
+  // const orderData = await api.shopifyRouter.getOrders({
+  //   startDate: new Date(dateData.startDate),
+  //   endDate: new Date(dateData.endDate),
+  //   shopId: teamData.shopifyAccount.id,
+  // });
+
+  // console.log(orderData);
 
   return (
     <div className="flex-1 bg-muted/40">

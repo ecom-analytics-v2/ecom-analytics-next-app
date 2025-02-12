@@ -1,12 +1,13 @@
 // import ConnectionsRouter from "./routers/connections";
 import ConnectionsRouter from "./routers/connections";
-import FiltersRouter from "./routers/filters";
+import FilterRouter from "./routers/filters";
+import ShopifyRouter from "./routers/shopify";
 import { createCallerFactory, createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
-  // connectionsRouter: ConnectionsRouter,
-  filtersRouter: FiltersRouter,
+  filterRouter: FilterRouter,
   connectionsRouter: ConnectionsRouter,
+  shopifyRouter: ShopifyRouter,
 });
 
 export type AppRouter = typeof appRouter;

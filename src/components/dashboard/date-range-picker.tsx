@@ -31,43 +31,43 @@ const presetOptions = [
   {
     label: "Today",
     getValue: () => ({
-      startDate: new Date().toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: new Date(),
+      endDate: new Date(),
     }),
   },
   {
     label: "Yesterday",
     getValue: () => {
-      const yesterday = subDays(new Date(), 1).toISOString().split("T")[0];
+      const yesterday = subDays(new Date(), 1);
       return { startDate: yesterday, endDate: yesterday };
     },
   },
   {
     label: "Last 7 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 6).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 6),
+      endDate: new Date(),
     }),
   },
   {
     label: "Last 30 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 29).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 29),
+      endDate: new Date(),
     }),
   },
   {
     label: "Last 90 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 89).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 89),
+      endDate: new Date(),
     }),
   },
   {
     label: "Last 365 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 364).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 364),
+      endDate: new Date(),
     }),
   },
   {
@@ -76,16 +76,16 @@ const presetOptions = [
       const today = new Date();
       const lastMonth = subMonths(today, 1);
       return {
-        startDate: startOfMonth(lastMonth).toISOString().split("T")[0],
-        endDate: endOfMonth(lastMonth).toISOString().split("T")[0],
+        startDate: startOfMonth(lastMonth),
+        endDate: endOfMonth(lastMonth),
       };
     },
   },
   {
     label: "Last 12 months",
     getValue: () => ({
-      startDate: subMonths(new Date(), 12).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subMonths(new Date(), 12),
+      endDate: new Date(),
     }),
   },
   {
@@ -94,30 +94,30 @@ const presetOptions = [
       const today = new Date();
       const lastYear = subYears(today, 1);
       return {
-        startDate: startOfYear(lastYear).toISOString().split("T")[0],
-        endDate: endOfYear(lastYear).toISOString().split("T")[0],
+        startDate: startOfYear(lastYear),
+        endDate: endOfYear(lastYear),
       };
     },
   },
   {
     label: "Week to date",
     getValue: () => ({
-      startDate: startOfWeek(new Date(), { weekStartsOn: 1 }).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
+      endDate: new Date(),
     }),
   },
   {
     label: "Month to date",
     getValue: () => ({
-      startDate: startOfMonth(new Date()).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: startOfMonth(new Date()),
+      endDate: new Date(),
     }),
   },
   {
     label: "Quarter to date",
     getValue: () => ({
-      startDate: startOfQuarter(new Date()).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: startOfQuarter(new Date()),
+      endDate: new Date(),
     }),
   },
   {
@@ -125,10 +125,8 @@ const presetOptions = [
     getValue: () => {
       const today = new Date();
       return {
-        startDate: setYear(today, today.getFullYear() - 1)
-          .toISOString()
-          .split("T")[0],
-        endDate: today.toISOString().split("T")[0],
+        startDate: setYear(today, today.getFullYear() - 1),
+        endDate: today,
       };
     },
   },
@@ -138,22 +136,18 @@ const presetOptions = [
  * Checks if given dates match any preset date range
  * Returns the preset name or "Custom" if no match found
  */
-function findMatchingPreset(startDate: string, endDate: string) {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-
+function findMatchingPreset(startDate: Date, endDate: Date) {
   // Helper to compare dates without time
   const isSameDate = (date1: Date, date2: Date) =>
-    date1.toISOString().split("T")[0] === date2.toISOString().split("T")[0];
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate();
 
   for (const preset of presetOptions) {
     const presetDates = preset.getValue();
     if (!presetDates.startDate || !presetDates.endDate) continue;
 
-    const presetStart = new Date(presetDates.startDate);
-    const presetEnd = new Date(presetDates.endDate);
-
-    if (isSameDate(start, presetStart) && isSameDate(end, presetEnd)) {
+    if (isSameDate(startDate, presetDates.startDate) && isSameDate(endDate, presetDates.endDate)) {
       return preset.label;
     }
   }
@@ -185,8 +179,8 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
     data: dateFilter,
     isLoading,
     refetch: refetchDateFilter,
-  } = api.filtersRouter.getDateFilter.useQuery();
-  const { mutate: updateDateFilter } = api.filtersRouter.updateDateFilter.useMutation({
+  } = api.filterRouter.getDateFilter.useQuery();
+  const { mutate: updateDateFilter } = api.filterRouter.updateDateFilter.useMutation({
     onSuccess: () => {
       refetchDateFilter();
     },
@@ -194,7 +188,10 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
 
   React.useEffect(() => {
     if (dateFilter?.startDate && dateFilter?.endDate) {
-      const matchedLabel = findMatchingPreset(dateFilter.startDate, dateFilter.endDate);
+      const matchedLabel = findMatchingPreset(
+        new Date(dateFilter.startDate),
+        new Date(dateFilter.endDate)
+      );
       setLabel(matchedLabel);
     }
   }, [dateFilter]);
@@ -210,8 +207,8 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
     if (!newDate.startDate || !newDate.endDate) return;
 
     updateDateFilter({
-      startDate: newDate.startDate,
-      endDate: newDate.endDate,
+      startDate: newDate.startDate.toISOString(),
+      endDate: newDate.endDate.toISOString(),
     });
     setLabel(preset.label);
   };
@@ -220,8 +217,8 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
   const handleCustomDateChange = (newDate: DateRange | undefined) => {
     if (newDate?.from && newDate?.to) {
       updateDateFilter({
-        startDate: newDate.from?.toISOString().split("T")[0] ?? "",
-        endDate: newDate.to?.toISOString().split("T")[0] ?? "",
+        startDate: newDate.from.toISOString(),
+        endDate: newDate.to.toISOString(),
       });
       setLabel("Custom");
     }
@@ -229,8 +226,8 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
 
   const dateRangeForCalendar: DateRange | undefined = dateFilter
     ? {
-        from: dateFilter.startDate ? new Date(dateFilter.startDate) : undefined,
-        to: dateFilter.endDate ? new Date(dateFilter.endDate) : undefined,
+        from: dateFilter.startDate ? dateFilter.startDate : undefined,
+        to: dateFilter.endDate ? dateFilter.endDate : undefined,
       }
     : undefined;
 
@@ -243,11 +240,11 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
             {label === "Custom" ? (
               dateFilter?.endDate ? (
                 <>
-                  {format(new Date(dateFilter.startDate!), "LLL dd, y")} -{" "}
-                  {format(new Date(dateFilter.endDate!), "LLL dd, y")}
+                  {format(new Date(dateFilter.startDate), "LLL dd, y")} -{" "}
+                  {format(new Date(dateFilter.endDate), "LLL dd, y")}
                 </>
               ) : (
-                format(new Date(dateFilter?.startDate!), "LLL dd, y")
+                dateFilter?.startDate && format(new Date(dateFilter.startDate), "LLL dd, y")
               )
             ) : (
               label || <span>Pick a date</span>
