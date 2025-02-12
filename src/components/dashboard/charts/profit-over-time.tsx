@@ -29,71 +29,60 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Value } from "@radix-ui/react-select";
 
-const chartData = [
-  { date: "2024-04-01", revenue: 1200, expenses: 800, profit: 400 },
-  { date: "2024-04-02", revenue: 1500, expenses: 900, profit: 600 },
-  { date: "2024-04-03", revenue: 1100, expenses: 1500, profit: -400 },
-  { date: "2024-04-04", revenue: 1800, expenses: 1100, profit: 700 },
-  { date: "2024-04-05", revenue: 1300, expenses: 1500, profit: -200 },
-  { date: "2024-04-06", revenue: 1600, expenses: 950, profit: 650 },
-  { date: "2024-04-07", revenue: 1400, expenses: 1800, profit: -400 },
-  { date: "2024-04-08", revenue: 2200, expenses: 1400, profit: 800 },
-  { date: "2024-04-09", revenue: 800, expenses: 1200, profit: -400 },
-  { date: "2024-04-10", revenue: 1700, expenses: 1000, profit: 700 },
-  { date: "2024-04-11", revenue: 1900, expenses: 2300, profit: -400 },
-  { date: "2024-04-12", revenue: 1500, expenses: 900, profit: 600 },
-  { date: "2024-04-13", revenue: 2100, expenses: 1300, profit: 800 },
-  { date: "2024-04-14", revenue: 1400, expenses: 1900, profit: -500 },
-  { date: "2024-04-15", revenue: 900, expenses: 1600, profit: -700 },
-  { date: "2024-04-16", revenue: 1800, expenses: 1100, profit: 700 },
-  { date: "2024-04-17", revenue: 2400, expenses: 1500, profit: 900 },
-  { date: "2024-04-18", revenue: 2200, expenses: 2800, profit: -600 },
-  { date: "2024-04-19", revenue: 1700, expenses: 1000, profit: 700 },
-  { date: "2024-04-20", revenue: 1300, expenses: 1800, profit: -500 },
-  { date: "2024-04-21", revenue: 1500, expenses: 900, profit: 600 },
-  { date: "2024-04-22", revenue: 1800, expenses: 2100, profit: -300 },
-  { date: "2024-04-23", revenue: 1600, expenses: 950, profit: 650 },
-  { date: "2024-04-24", revenue: 2000, expenses: 2500, profit: -500 },
-  { date: "2024-04-25", revenue: 1700, expenses: 1000, profit: 700 },
-  { date: "2024-04-26", revenue: 1200, expenses: 1500, profit: -300 },
-  { date: "2024-04-27", revenue: 2300, expenses: 1400, profit: 900 },
-  { date: "2024-04-28", revenue: 1400, expenses: 2000, profit: -600 },
-  { date: "2024-04-29", revenue: 1900, expenses: 1200, profit: 700 },
-  { date: "2024-04-30", revenue: 2500, expenses: 1600, profit: 900 },
-];
-
-const transformedChartData = chartData.map((item) => ({
-  ...item,
-  expenses: -item.expenses,
-}));
-
 const chartConfig = {
-  amount: {
-    label: "Amount",
-  },
-  profit: {
-    label: "Profit",
-    color: "hsl(var(--chart-1))",
-  },
-  revenue: {
-    label: "Revenue",
-    color: "hsl(var(--chart-2))",
-  },
-  expenses: {
-    label: "Expenses",
-    color: "hsl(var(--chart-3))",
-  },
-} satisfies ChartConfig;
+  profit: { label: "Profit", color: "hsl(var(--chart-1))" },
+  revenue: { label: "Revenue", color: "hsl(var(--chart-2))" },
+  expenses: { label: "Expenses", color: "hsl(var(--chart-3))" },
+};
 
-// Add average profit calculation
-const avgProfit = (
-  chartData.reduce((sum, item) => sum + item.profit, 0) / chartData.length
-).toFixed(2);
+type Props = {
+  orders: {
+    created_at: Date;
+    total_price: number;
+  }[];
+  startDate: Date;
+  endDate: Date;
+};
 
-type ChartType = "combined" | "profit" | "revenue" | "expenses";
-
-export function ProfitOverTime() {
+export function ProfitOverTime({ orders, startDate, endDate }: Props) {
+  type ChartType = "combined" | "profit" | "revenue" | "expenses";
   const [activeChart, setActiveChart] = useState<ChartType>("combined");
+
+  // Process daily summary into chart data
+  const chartData = React.useMemo(() => {
+    // Create a map of date to revenue
+    const revenueByDate = orders.reduce((acc: Record<string, number>, order) => {
+      const date = new Date(order.created_at).toISOString().split("T")[0]!;
+      acc[date] = (acc[date] || 0) + order.total_price;
+      return acc;
+    }, {});
+
+    // Calculate number of days between start and end
+    const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+    // Create the full dataset with expenses
+    return Array.from({ length: days }, (_, i) => {
+      const date = new Date(startDate);
+      date.setDate(date.getDate() + i);
+      const dateStr = date.toISOString().split("T")[0]!;
+
+      const revenue = revenueByDate[dateStr] || 0;
+      // Use a deterministic value for expenses based on the date
+      const expenses = 800 + date.getDate() * 30; // This will vary expenses between 830-1700 based on day of month
+
+      return {
+        date,
+        revenue,
+        expenses,
+        profit: revenue - expenses,
+      };
+    });
+  }, [orders, startDate, endDate]);
+
+  const transformedChartData = chartData.map((item) => ({
+    ...item,
+    expenses: -item.expenses,
+  }));
 
   const totals = React.useMemo(
     () => ({
@@ -101,7 +90,7 @@ export function ProfitOverTime() {
       revenue: chartData.reduce((acc, curr) => acc + curr.revenue, 0),
       expenses: chartData.reduce((acc, curr) => acc + curr.expenses, 0),
     }),
-    []
+    [chartData]
   );
 
   const averages = React.useMemo(

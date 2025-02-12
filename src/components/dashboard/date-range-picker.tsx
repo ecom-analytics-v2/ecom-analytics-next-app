@@ -22,6 +22,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
+import { updateDateFilter } from "@/actions/filters";
 
 /**
  * List of preset date ranges (Today, Yesterday, Last 7 days, etc.)
@@ -174,17 +175,9 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
 function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) {
   const [calendarOpen, setCalendarOpen] = React.useState(false);
   const [label, setLabel] = React.useState<string>();
+  const utils = api.useUtils();
 
-  const {
-    data: dateFilter,
-    isLoading,
-    refetch: refetchDateFilter,
-  } = api.filterRouter.getDateFilter.useQuery();
-  const { mutate: updateDateFilter } = api.filterRouter.updateDateFilter.useMutation({
-    onSuccess: () => {
-      refetchDateFilter();
-    },
-  });
+  const { data: dateFilter, isLoading } = api.filterRouter.getDateFilter.useQuery();
 
   React.useEffect(() => {
     if (dateFilter?.startDate && dateFilter?.endDate) {
@@ -202,25 +195,27 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
   }
 
   // Updates dates when a preset is clicked
-  const handlePresetChange = (preset: (typeof presetOptions)[number]) => {
+  const handlePresetChange = async (preset: (typeof presetOptions)[number]) => {
     const newDate = preset.getValue();
     if (!newDate.startDate || !newDate.endDate) return;
 
-    updateDateFilter({
-      startDate: newDate.startDate.toISOString(),
-      endDate: newDate.endDate.toISOString(),
-    });
-    setLabel(preset.label);
+    try {
+      await updateDateFilter(newDate.startDate.toISOString(), newDate.endDate.toISOString());
+      setLabel(preset.label);
+    } catch (error) {
+      console.error("Failed to update date filter:", error);
+    }
   };
 
   // Updates dates when calendar selection changes
-  const handleCustomDateChange = (newDate: DateRange | undefined) => {
+  const handleCustomDateChange = async (newDate: DateRange | undefined) => {
     if (newDate?.from && newDate?.to) {
-      updateDateFilter({
-        startDate: newDate.from.toISOString(),
-        endDate: newDate.to.toISOString(),
-      });
-      setLabel("Custom");
+      try {
+        await updateDateFilter(newDate.from.toISOString(), newDate.to.toISOString());
+        setLabel("Custom");
+      } catch (error) {
+        console.error("Failed to update date filter:", error);
+      }
     }
   };
 
