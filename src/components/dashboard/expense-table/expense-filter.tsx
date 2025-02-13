@@ -2,7 +2,7 @@
 import { Check, ListFilter } from "lucide-react";
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import DatePickerWithRange from "@/components/dashboard/date-range-picker";
+import DatePickerWithRange from "@/components/dashboard/common/date-range-picker";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

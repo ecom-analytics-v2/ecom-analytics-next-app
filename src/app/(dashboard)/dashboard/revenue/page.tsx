@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getShopifyOrderAmountTotal, getShopifyOrdersForDateRange } from "@/actions/shopifyOrders";
 import { getTeamForUser } from "@/actions/team";
 import { TotalSales } from "@/components/dashboard/charts/total-sales";
-import DatePickerWithRange from "@/components/dashboard/date-range-picker";
+import DatePickerWithRange from "@/components/dashboard/common/date-range-picker";
 
 export default async function Dashboard() {
   const user = await getUser();

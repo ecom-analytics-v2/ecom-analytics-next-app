@@ -23,7 +23,6 @@ export const expenses = pgTable("expenses", {
   type: varchar("type", { length: 50 }).notNull(),
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   frequency: frequencyEnum("frequency").notNull(),
-  date: timestamp("date").notNull().defaultNow(),
   createdBy: integer("created_by")
     .notNull()
     .references(() => users.id),

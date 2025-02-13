@@ -52,11 +52,18 @@ export function ExpenseForm() {
       z.object({
         name: z.string().min(1, "Name is required"),
         type: z.enum(expenseTypes as [string, ...string[]]),
-        amount: z.number().min(0, "Amount must be a positive number"),
+        amount: z.string().transform((val) => parseFloat(val)),
         frequency: z.enum(["monthly", "yearly", "per_order", "one_time"]),
         notes: z.string().optional(),
       })
     ),
+    defaultValues: {
+      name: "",
+      amount: "0",
+      notes: "",
+      frequency: "monthly",
+      type: "Fixed Cost",
+    },
   });
 
   async function onSubmit(data: NewExpense) {
@@ -132,15 +139,14 @@ export function ExpenseForm() {
                         inputMode="decimal"
                         className="pl-9"
                         {...field}
-                        defaultValue={field.value}
                         value={field.value}
                         onChange={(e) => {
                           const value = e.target.value.replace(/[^\d.]/g, "");
-                          field.onChange(value === "" ? 0 : parseFloat(value) || 0);
+                          field.onChange(value);
                         }}
                         onBlur={(e) => {
                           const formatted = formatAmount(e.target.value);
-                          field.onChange(parseFloat(formatted));
+                          field.onChange(formatted);
                         }}
                       />
                     </div>
@@ -172,57 +178,7 @@ export function ExpenseForm() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <div className="flex items-center justify-between">
-                    <FormLabel>Date (Optional)</FormLabel>
-                    <TooltipProvider>
-                      <Tooltip delayDuration={300}>
-                        <TooltipTrigger asChild>
-                          <Button variant="ghost" className="h-4 w-4 p-0">
-                            <Info className="h-4 w-4 text-muted-foreground" />
-                            <span className="sr-only">Date info</span>
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>If you'd like the expense to come through on a certain date</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                          disabled={form.watch("frequency") === "per_order"}
-                        >
-                          {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <FormField
               control={form.control}
               name="notes"

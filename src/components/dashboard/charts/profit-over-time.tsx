@@ -102,23 +102,32 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
     [totals]
   );
 
+  const dateFormatter = (value: any) => {
+    const date = new Date(value);
+    const daysDiff =
+      Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+    if (daysDiff <= 7) {
+      return date.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      });
+    }
+
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   const renderChart = () => {
     switch (activeChart) {
       case "combined":
         return (
           <ComposedChart data={transformedChartData} accessibilityLayer>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(value) => {
-                return new Date(value).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
-            />
+            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
             <YAxis
               tickLine={false}
               axisLine={false}
@@ -204,17 +213,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
         return (
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(value) => {
-                return new Date(value).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
-            />
+            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
             <YAxis
               tickLine={false}
               axisLine={false}
@@ -255,17 +254,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
         return (
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(value) => {
-                return new Date(value).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
-            />
+            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
             <YAxis
               tickLine={false}
               axisLine={false}
@@ -306,17 +295,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
         return (
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(value) => {
-                return new Date(value).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
-            />
+            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
             <YAxis
               tickLine={false}
               axisLine={false}

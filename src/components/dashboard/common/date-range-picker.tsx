@@ -175,6 +175,7 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
 function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) {
   const [calendarOpen, setCalendarOpen] = React.useState(false);
   const [label, setLabel] = React.useState<string>();
+  const [tempDateRange, setTempDateRange] = React.useState<DateRange>();
   const utils = api.useUtils();
 
   const { data: dateFilter, isLoading } = api.filterRouter.getDateFilter.useQuery();
@@ -194,7 +195,7 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
     return <DatePickerSkeleton />;
   }
 
-  // Updates dates when a preset is clicked
+  // Updates dates when a preset is clicked - immediate update
   const handlePresetChange = async (preset: (typeof presetOptions)[number]) => {
     const newDate = preset.getValue();
     if (!newDate.startDate || !newDate.endDate) return;
@@ -202,33 +203,42 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
     try {
       await updateDateFilter(newDate.startDate.toISOString(), newDate.endDate.toISOString());
       setLabel(preset.label);
+      setCalendarOpen(false);
     } catch (error) {
       console.error("Failed to update date filter:", error);
     }
   };
 
-  // Updates dates when calendar selection changes
-  const handleCustomDateChange = async (newDate: DateRange | undefined) => {
-    if (newDate?.from && newDate?.to) {
+  // Store temporary date range while calendar is open
+  const handleCustomDateChange = (newDate: DateRange | undefined) => {
+    setTempDateRange(newDate);
+  };
+
+  // Handle popover close - update if we have temp dates
+  const handleOpenChange = async (open: boolean) => {
+    if (!open && tempDateRange?.from && tempDateRange?.to) {
       try {
-        await updateDateFilter(newDate.from.toISOString(), newDate.to.toISOString());
+        await updateDateFilter(tempDateRange.from.toISOString(), tempDateRange.to.toISOString());
         setLabel("Custom");
       } catch (error) {
         console.error("Failed to update date filter:", error);
       }
     }
+    setCalendarOpen(open);
   };
 
-  const dateRangeForCalendar: DateRange | undefined = dateFilter
-    ? {
-        from: dateFilter.startDate ? dateFilter.startDate : undefined,
-        to: dateFilter.endDate ? dateFilter.endDate : undefined,
-      }
-    : undefined;
+  const dateRangeForCalendar: DateRange | undefined =
+    tempDateRange ||
+    (dateFilter
+      ? {
+          from: dateFilter.startDate ? new Date(dateFilter.startDate) : undefined,
+          to: dateFilter.endDate ? new Date(dateFilter.endDate) : undefined,
+        }
+      : undefined);
 
   return (
     <div className={cn("grid gap-2", className)}>
-      <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+      <Popover open={calendarOpen} onOpenChange={handleOpenChange}>
         <PopoverTrigger asChild>
           <Button id="date" variant="card" className={cn("justify-start text-left font-normal")}>
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -270,6 +280,14 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
                 selected={dateRangeForCalendar}
                 onSelect={handleCustomDateChange}
                 numberOfMonths={2}
+                disabled={{ after: new Date() }}
+                modifiers={{ today: new Date() }}
+                modifiersStyles={{
+                  today: {
+                    fontWeight: "bold",
+                    border: "1px solid currentColor",
+                  },
+                }}
               />
             </div>
           </div>

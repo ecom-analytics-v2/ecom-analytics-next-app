@@ -4,8 +4,8 @@ import { redirect } from "next/navigation";
 import { getShopifyOrderAmountTotal, getShopifyOrdersForDateRange } from "@/actions/shopifyOrders";
 import { getTeamForUser } from "@/actions/team";
 import { TotalSales } from "../../../components/dashboard/charts/total-sales";
-import DatePickerWithRange from "@/components/dashboard/date-range-picker";
-import { ExpenseFilter } from "./expenses/expense-filter";
+import DatePickerWithRange from "@/components/dashboard/common/date-range-picker";
+import { ExpenseFilter } from "../../../components/dashboard/expense-table/expense-filter";
 import { ProfitOverTime } from "@/components/dashboard/charts/profit-over-time";
 import { MarketingEfficiencyRatio } from "@/components/dashboard/charts/marketing-efficiency-ratio";
 import { Suspense } from "react";
@@ -114,18 +114,18 @@ export default async function Dashboard() {
   // Fetch date filter data server-side
   const dateData = await api.filterRouter.getDateFilter();
 
-  // Ensure dates are properly formatted for the Shopify API
-  // const orderData = await api.shopifyRouter.getOrders({
-  //   startDate: new Date(dateData.startDate),
-  //   endDate: new Date(dateData.endDate),
-  //   shopId: teamData.shopifyAccount.id,
-  // });
+  console.log(teamData.shopifyAccount.shop);
 
-  // console.log(orderData);
+  const orderData = await api.shopifyRouter.getOrders({
+    startDate: new Date(dateData.startDate),
+    endDate: new Date(dateData.endDate),
+    shop: teamData.shopifyAccount.shop,
+  });
+
+  console.log(orderData);
 
   // Get the daily summary
   const dailySummary = getDailySummary(formattedOrders);
-  console.log("Daily Order Summaries:", dailySummary);
 
   return (
     <div className="flex-1 bg-muted/40">

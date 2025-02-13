@@ -165,6 +165,7 @@ export async function getTeamForUser(userId: number) {
       shopifyAccount: {
         columns: {
           id: true,
+          shop: true,
         },
       },
     },
