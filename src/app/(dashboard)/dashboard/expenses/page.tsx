@@ -6,7 +6,7 @@ import {
   ExpenseFilterProvider,
 } from "@/components/dashboard/expense-table/expense-filter";
 import { ExpenseTableContainer } from "@/components/dashboard/expense-table/expense-table-container";
-import { ExpenseTableSkeleton } from "../../../../components/dashboard/skeletons/expense-table-skeleton";
+import { ExpenseTableSkeleton } from "@/components/dashboard/skeletons/expense-table-skeleton";
 import { getTeamForUser } from "@/actions/team";
 import { api } from "@/trpc/server";
 import dummyOrders from "../dummy-orders.json";

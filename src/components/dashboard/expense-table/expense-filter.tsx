@@ -53,14 +53,24 @@ export function ExpenseFilter() {
   const { selectedTypes, setSelectedTypes } = useExpenseFilter();
 
   const expenseTypes: ExpenseType[] = [
-    "Fixed Cost",
-    "Variable Cost",
-    "Staff",
-    "Software",
+    "3PL",
+    "Bookkeeper / Accountant",
+    "Donations",
+    "Duties",
+    "Equipment & Leases",
+    "Insurance",
+    "Licensing",
     "Marketing",
-    "Operating Expenses",
-    "Taxes",
+    "Money Fees",
+    "Office Expenses",
     "Other",
+    "Rent & Utilies",
+    "Software",
+    "Sub-contractor / Consultants",
+    "Taxes",
+    "Training",
+    "Travel",
+    "Wages",
   ];
 
   /**

@@ -1,8 +1,17 @@
 "use client";
 
 import { addExpense } from "@/actions/expenses";
+import { getUserWithTeam } from "@/actions/user";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -23,61 +32,87 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useUser } from "@/lib/auth";
-import { NewExpense } from "@/lib/db/schema";
+import { insertExpenseSchema, NewExpense } from "@/lib/db/schema/expenses";
 import { cn } from "@/lib/utils";
 import { ExpenseType } from "@/types/expenseTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon, DollarSign, Info } from "lucide-react";
-import { useState } from "react";
+import { CalendarIcon, Check, ChevronsUpDown, DollarSign, Info } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
 
 const expenseTypes: ExpenseType[] = [
-  "Fixed Cost",
-  "Variable Cost",
-  "Staff",
-  "Software",
+  "3PL",
+  "Bookkeeper / Accountant",
+  "Donations",
+  "Duties",
+  "Equipment & Leases",
+  "Insurance",
+  "Licensing",
   "Marketing",
-  "Operating Expenses",
-  "Taxes",
+  "Money Fees",
+  "Office Expenses",
   "Other",
+  "Rent & Utilies",
+  "Software",
+  "Sub-contractor / Consultants",
+  "Taxes",
+  "Training",
+  "Travel",
+  "Wages",
 ];
 
 export function ExpenseForm() {
   const { user } = useUser();
+  const { toast } = useToast();
+
   const [open, setOpen] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(false);
   const form = useForm<NewExpense>({
-    resolver: zodResolver(
-      z.object({
-        name: z.string().min(1, "Name is required"),
-        type: z.enum(expenseTypes as [string, ...string[]]),
-        amount: z.string().transform((val) => parseFloat(val)),
-        frequency: z.enum(["monthly", "yearly", "per_order", "one_time"]),
-        notes: z.string().optional(),
-      })
-    ),
+    resolver: zodResolver(insertExpenseSchema),
     defaultValues: {
       name: "",
-      amount: "0",
+      amount: 0,
+      amount_type: "dollar",
       notes: "",
       frequency: "monthly",
-      type: "Fixed Cost",
+      category: "",
+      transaction_date: undefined,
+      teamId: user?.activeTeamId || 0,
+      createdBy: user?.id || 0,
     },
   });
 
   async function onSubmit(data: NewExpense) {
-    if (!user) {
-      console.error("User not found");
+    if (!user?.id || !user?.activeTeamId) {
+      console.error("User or team not found");
       return;
     }
-    addExpense(data, user.id);
-    setOpen(false);
-  }
 
-  function formatAmount(value: string): string {
-    const numericValue = parseFloat(value.replace(/[^\d.]/g, ""));
-    return isNaN(numericValue) ? "0.00" : numericValue.toFixed(2);
+    const expenseData = {
+      ...data,
+      teamId: user.activeTeamId,
+      createdBy: user.id,
+    };
+
+    try {
+      await addExpense(expenseData, user.id);
+      toast({
+        title: "Expense added successfully",
+        variant: "default",
+      });
+      setOpen(false);
+      form.reset();
+    } catch (error) {
+      console.error("Failed to add expense:", error);
+      toast({
+        title: "Error",
+        description: "Failed to add expense",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -103,60 +138,6 @@ export function ExpenseForm() {
             />
             <FormField
               control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {expenseTypes.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="amount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Amount</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-                      <Input
-                        type="text"
-                        inputMode="decimal"
-                        className="pl-9"
-                        {...field}
-                        value={field.value}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/[^\d.]/g, "");
-                          field.onChange(value);
-                        }}
-                        onBlur={(e) => {
-                          const formatted = formatAmount(e.target.value);
-                          field.onChange(formatted);
-                        }}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="frequency"
               render={({ field }) => (
                 <FormItem>
@@ -174,6 +155,190 @@ export function ExpenseForm() {
                       <SelectItem value="one_time">One Time</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="transaction_date"
+              render={({ field }) => (
+                <FormItem
+                  className={cn(form.watch("frequency") === "one_time" ? "block" : "hidden")}
+                >
+                  <FormLabel>Transaction Date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value as Date}
+                        onSelect={(date: Date | undefined) => field.onChange(date)}
+                        disabled={(date: Date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="amount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Amount</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className={cn(
+                              "absolute left-0 top-1/2 -translate-y-1/2 h-8 w-8 rounded-l-md border-r",
+                              form.watch("frequency") === "per_order"
+                                ? "cursor-pointer hover:bg-muted hover:text-primary group transition-colors"
+                                : "cursor-default"
+                            )}
+                            disabled={form.watch("frequency") !== "per_order"}
+                          >
+                            <div className="flex items-center justify-center w-full">
+                              {form.watch("amount_type") === "percentage" ? (
+                                <span className="text-sm font-semibold">%</span>
+                              ) : (
+                                <DollarSign className="h-4 w-4" />
+                              )}
+                            </div>
+                          </Button>
+                        </PopoverTrigger>
+                        {form.watch("frequency") === "per_order" && (
+                          <PopoverContent side="bottom" align="start" className="w-[200px] p-0">
+                            <Command>
+                              <CommandList>
+                                <CommandGroup>
+                                  <CommandItem
+                                    onSelect={() => form.setValue("amount_type", "dollar")}
+                                    className="flex items-center gap-2"
+                                  >
+                                    <DollarSign className="h-4 w-4" />
+                                    <span>Dollar Amount</span>
+                                    {form.watch("amount_type") === "dollar" && (
+                                      <Check className="ml-auto h-4 w-4" />
+                                    )}
+                                  </CommandItem>
+                                  <CommandItem
+                                    onSelect={() => form.setValue("amount_type", "percentage")}
+                                    className="flex items-center gap-2"
+                                  >
+                                    <span className="text-sm font-semibold">%</span>
+                                    <span>Percentage</span>
+                                    {form.watch("amount_type") === "percentage" && (
+                                      <Check className="ml-auto h-4 w-4" />
+                                    )}
+                                  </CommandItem>
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        )}
+                      </Popover>
+                      <Input
+                        type="number"
+                        inputMode="decimal"
+                        className="pl-10"
+                        placeholder="0"
+                        step="0.01"
+                        min="0"
+                        {...field}
+                        value={field.value === 0 ? "" : field.value}
+                        onChange={(e) => {
+                          const value = e.target.valueAsNumber;
+                          field.onChange(isNaN(value) ? 0 : value);
+                        }}
+                        onBlur={(e) => {
+                          const value = e.target.valueAsNumber;
+                          field.onChange(isNaN(value) ? 0 : value);
+                        }}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Popover open={categoryOpen} onOpenChange={setCategoryOpen}>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "w-full justify-between",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value
+                            ? expenseTypes.find((type) => type === field.value)
+                            : "Choose category"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search category..." className="w-full" />
+                        <CommandList>
+                          <CommandEmpty>No category found.</CommandEmpty>
+                          <CommandGroup>
+                            {expenseTypes.map((type) => (
+                              <CommandItem
+                                key={type}
+                                value={type}
+                                onSelect={(currentValue) => {
+                                  field.onChange(currentValue);
+                                  setCategoryOpen(false);
+                                }}
+                                className="flex items-center gap-2"
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4 flex-shrink-0",
+                                    field.value === type ? "opacity-100" : "opacity-0"
+                                  )}
+                                />
+                                {type}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}

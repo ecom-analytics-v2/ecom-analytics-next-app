@@ -1,45 +1,36 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Expense } from "@/lib/db/schema/expenses";
 import { formatCurrency } from "@/lib/utils";
-import { calculateAdjustedExpenses } from "@/lib/utils/expense-calculations";
 import { ExpenseType } from "@/types/expenseTypes";
 import { format } from "date-fns";
-import { ChevronDown, InfoIcon } from "lucide-react";
-import { useMemo, useState, useEffect } from "react";
+import { InfoIcon, Pencil, Trash2 } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useExpenseFilter } from "./expense-filter";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { getUser, getUserWithTeam } from "@/actions/user";
-import { redirect } from "next/navigation";
-import { getTeamForUser } from "@/actions/team";
-import { api } from "@/trpc/server";
 import { ExpenseTableFilters } from "./expense-table-filters";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+import { deleteExpense, editExpense } from "@/actions/expenses";
+import { useUser } from "@/lib/auth";
+import { useToast } from "@/hooks/use-toast";
+import { ExpenseTableRow, ExpenseFrequency } from "./expense-table-row";
 
 interface ExpenseTableProps {
   expenses: Expense[];
   teamId: number;
   totalRevenue: number;
   adjustedExpenses: {
+    id: number;
     name: string;
-    type: string;
+    category: string;
     amount: string | number;
-    frequency: string;
+    frequency: ExpenseFrequency;
     createdAt: Date;
     adjusted_amount: number;
     percentage_amount: number;
@@ -93,6 +84,8 @@ export function ExpenseTable({
 }: ExpenseTableProps) {
   const [sortedExpenses, setSortedExpenses] = useState(initialAdjustedExpenses);
   const { selectedTypes } = useExpenseFilter();
+  const { user } = useUser();
+  const { toast } = useToast();
 
   // Update sortedExpenses when initialAdjustedExpenses or selectedTypes change
   useEffect(() => {
@@ -100,10 +93,43 @@ export function ExpenseTable({
       selectedTypes.length === 0
         ? initialAdjustedExpenses
         : initialAdjustedExpenses.filter((expense) =>
-            selectedTypes.includes(expense.type as ExpenseType)
+            selectedTypes.includes(expense.category as ExpenseType)
           );
     setSortedExpenses(filteredExpenses);
   }, [initialAdjustedExpenses, selectedTypes]);
+
+  const handleDelete = async (expenseId: number) => {
+    if (!user?.id) return;
+
+    try {
+      const result = await deleteExpense(expenseId, user.id);
+      if (result.error) {
+        toast({
+          title: "Error",
+          description: result.error,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Expense deleted successfully",
+          variant: "default",
+        });
+        // Refresh the expenses list
+        setSortedExpenses((prev) => prev.filter((expense) => expense.id !== expenseId));
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete expense",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleUpdate = () => {
+    // Trigger a refresh of the expenses list
+    // This will be handled by the parent component through the useEffect
+  };
 
   return (
     <div>
@@ -116,7 +142,6 @@ export function ExpenseTable({
                 Breakdown of your business expenses for the selected period.
               </CardDescription>
             </div>
-            {/* Client-side filters component */}
             <ExpenseTableFilters expenses={initialAdjustedExpenses} onSort={setSortedExpenses} />
           </div>
         </CardHeader>
@@ -126,70 +151,33 @@ export function ExpenseTable({
               You do not have any expenses for the selected period.
             </p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead className="hidden sm:table-cell">Category</TableHead>
-                  <TableHead className="text-right">Dollar Amount</TableHead>
-                  <TableHead className="text-right">Percentage</TableHead>
-                  <TableHead className="hidden md:table-cell text-right">Date</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sortedExpenses.map((expense, index) => (
-                  <TableRow key={index} className={index % 2 === 0 ? "bg-accent/20" : ""}>
-                    <TableCell>
-                      <div className="font-normal">{expense.name}</div>
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">{expense.type}</TableCell>
-                    <TableCell className="text-right">
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <div className="flex items-center justify-end gap-1 cursor-help">
-                              {formatCurrency(expense.adjusted_amount)}
-                              <InfoIcon className="h-4 w-4 text-muted-foreground" />
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent className="space-y-2 p-4 max-w-xs">
-                            <div className="grid grid-cols-2 gap-2">
-                              <span className="text-muted-foreground">Original:</span>
-                              <span className="font-medium text-right">
-                                {formatCurrency(parseFloat(expense.amount.toString()))}
-                              </span>
-                              <span className="text-muted-foreground">Frequency:</span>
-                              <span className="font-medium text-right">
-                                {frequencyDisplayMap[expense.frequency]}
-                              </span>
-                              <span className="text-muted-foreground">Adjusted:</span>
-                              <span className="font-medium text-right">
-                                {formatCurrency(expense.adjusted_amount)}
-                              </span>
-                            </div>
-                            <p className="text-xs text-muted-foreground mt-2">
-                              {expense.frequency === "monthly" &&
-                                "Monthly amount converted to daily rate and multiplied by days in period"}
-                              {expense.frequency === "yearly" &&
-                                "Yearly amount converted to daily rate and multiplied by days in period"}
-                              {expense.frequency === "per_order" &&
-                                `Amount multiplied by ${ordersCount} orders in period`}
-                              {expense.frequency === "one_time" && "One-time expense, shown as is"}
-                            </p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {expense.percentage_amount.toFixed(2)}%
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell text-right">
-                      {format(expense.createdAt, "MMM d, yyyy")}
-                    </TableCell>
+            <div className="relative">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead className="hidden sm:table-cell">Category</TableHead>
+                    <TableHead className="hidden md:table-cell">Frequency</TableHead>
+                    <TableHead className="text-right">Dollar Amount</TableHead>
+                    <TableHead className="text-right">Percentage</TableHead>
+                    <TableHead className="hidden md:table-cell text-right">Date</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {sortedExpenses.map((expense, index) => (
+                    <ExpenseTableRow
+                      key={expense.id}
+                      expense={expense}
+                      index={index}
+                      onDelete={handleDelete}
+                      ordersCount={ordersCount}
+                      userId={user?.id || 0}
+                      onUpdate={handleUpdate}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>

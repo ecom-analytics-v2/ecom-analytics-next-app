@@ -11,6 +11,7 @@ import {
 import { ExpenseType } from "@/types/expenseTypes";
 import { useEffect, useState } from "react";
 import { useExpenseFilter } from "./expense-filter";
+import { ExpenseFrequency } from "./expense-table-row";
 
 export type SortOption =
   | "most-expensive"
@@ -29,19 +30,29 @@ const sortOptionLabels: Record<SortOption, string> = {
   oldest: "Oldest First",
 };
 
-interface AdjustedExpense {
-  name: string;
-  type: string;
-  amount: string | number;
-  frequency: string;
-  createdAt: Date;
-  adjusted_amount: number;
-  percentage_amount: number;
-}
-
 interface ExpenseTableFiltersProps {
-  expenses: AdjustedExpense[];
-  onSort: (sortedExpenses: AdjustedExpense[]) => void;
+  expenses: {
+    id: number;
+    name: string;
+    category: string;
+    amount: string | number;
+    frequency: ExpenseFrequency;
+    createdAt: Date;
+    adjusted_amount: number;
+    percentage_amount: number;
+  }[];
+  onSort: (
+    sortedExpenses: {
+      id: number;
+      name: string;
+      category: string;
+      amount: string | number;
+      frequency: ExpenseFrequency;
+      createdAt: Date;
+      adjusted_amount: number;
+      percentage_amount: number;
+    }[]
+  ) => void;
 }
 
 export function ExpenseTableFilters({ expenses, onSort }: ExpenseTableFiltersProps) {
@@ -58,7 +69,7 @@ export function ExpenseTableFilters({ expenses, onSort }: ExpenseTableFiltersPro
     let result =
       selectedTypes.length === 0
         ? expenses
-        : expenses.filter((expense) => selectedTypes.includes(expense.type as ExpenseType));
+        : expenses.filter((expense) => selectedTypes.includes(expense.category as ExpenseType));
 
     switch (option) {
       case "most-expensive":
