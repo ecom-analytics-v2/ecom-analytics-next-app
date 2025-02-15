@@ -18,6 +18,45 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
+const chartData = [
+  { date: "2024-04-01", orders: 45, adSpend: 320, newCustomers: 12 },
+  { date: "2024-04-02", orders: 52, adSpend: 280, newCustomers: 15 },
+  { date: "2024-04-03", orders: 38, adSpend: 450, newCustomers: 14 },
+  { date: "2024-04-04", orders: 63, adSpend: 380, newCustomers: 21 },
+  { date: "2024-04-05", orders: 41, adSpend: 290, newCustomers: 14 },
+  { date: "2024-04-06", orders: 35, adSpend: 250, newCustomers: 11 },
+  { date: "2024-04-07", orders: 28, adSpend: 220, newCustomers: 7 },
+  { date: "2024-04-08", orders: 58, adSpend: 420, newCustomers: 19 },
+  { date: "2024-04-09", orders: 47, adSpend: 350, newCustomers: 16 },
+  { date: "2024-04-10", orders: 51, adSpend: 380, newCustomers: 18 },
+  { date: "2024-04-11", orders: 44, adSpend: 310, newCustomers: 13 },
+  { date: "2024-04-12", orders: 49, adSpend: 340, newCustomers: 15 },
+  { date: "2024-04-13", orders: 32, adSpend: 280, newCustomers: 9 },
+  { date: "2024-04-14", orders: 29, adSpend: 240, newCustomers: 8 },
+  { date: "2024-04-15", orders: 55, adSpend: 390, newCustomers: 20 },
+  { date: "2024-04-16", orders: 61, adSpend: 420, newCustomers: 22 },
+  { date: "2024-04-17", orders: 48, adSpend: 350, newCustomers: 17 },
+  { date: "2024-04-18", orders: 42, adSpend: 300, newCustomers: 14 },
+  { date: "2024-04-19", orders: 53, adSpend: 380, newCustomers: 19 },
+  { date: "2024-04-20", orders: 39, adSpend: 290, newCustomers: 12 },
+  { date: "2024-04-21", orders: 31, adSpend: 250, newCustomers: 9 },
+  { date: "2024-04-22", orders: 57, adSpend: 410, newCustomers: 21 },
+  { date: "2024-04-23", orders: 46, adSpend: 340, newCustomers: 16 },
+  { date: "2024-04-24", orders: 50, adSpend: 370, newCustomers: 18 },
+  { date: "2024-04-25", orders: 43, adSpend: 320, newCustomers: 15 },
+  { date: "2024-04-26", orders: 37, adSpend: 280, newCustomers: 11 },
+  { date: "2024-04-27", orders: 34, adSpend: 260, newCustomers: 10 },
+  { date: "2024-04-28", orders: 30, adSpend: 230, newCustomers: 8 },
+  { date: "2024-04-29", orders: 54, adSpend: 400, newCustomers: 20 },
+  { date: "2024-04-30", orders: 59, adSpend: 430, newCustomers: 23 },
+];
+
+const transformedData = chartData.map((day) => ({
+  date: day.date,
+  costPerNewCustomer: +(day.adSpend / day.newCustomers).toFixed(2),
+  costPerAcquisition: +(day.adSpend / day.orders).toFixed(2),
+}));
+
 const chartConfig = {
   costPerCustomer: {
     label: "Cost per New Customer",
@@ -28,15 +67,6 @@ const chartConfig = {
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
-
-interface DailySummary {
-  created_at: Date;
-  total_price: number;
-  ad_spend: number;
-  expenses: number;
-  new_customers: number;
-  orders: number;
-}
 
 // Custom legend style to match the design
 const renderLegend = (props: any) => {
@@ -86,35 +116,12 @@ const renderTooltip = (
   />
 );
 
-export function CostPerAcquisition({
-  dailySummary,
-  startDate,
-  endDate,
-}: {
-  dailySummary: DailySummary[];
-  startDate: Date;
-  endDate: Date;
-}) {
-  // Fake customer data - delete later
-  const transformedData = dailySummary.map((day) => ({
-    date: day.created_at,
-    costPerNewCustomer: +(day.ad_spend / Math.max(day.new_customers, 1)).toFixed(2),
-    costPerAcquisition: +(day.ad_spend / Math.max(day.orders, 1)).toFixed(2),
-  }));
-
-  const averageCostPerNewCustomer = +(
-    transformedData.reduce((acc, day) => acc + day.costPerNewCustomer, 0) / transformedData.length
-  ).toFixed(2);
-
-  const averageCostPerAcquisition = +(
-    transformedData.reduce((acc, day) => acc + day.costPerAcquisition, 0) / transformedData.length
-  ).toFixed(2);
-
+export function ContributionMargin() {
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 p-6">
-          <CardTitle>Acquisition Metrics</CardTitle>
+          <CardTitle>Contribution Metrics</CardTitle>
           <CardDescription>Customer acquisition cost analysis</CardDescription>
         </div>
         <div className="flex flex-wrap">
@@ -122,17 +129,13 @@ export function CostPerAcquisition({
             <span className="text-xs text-muted-foreground whitespace-nowrap">
               Cost per New Customer
             </span>
-            <span className="text-lg font-bold leading-none sm:text-3xl">
-              ${averageCostPerNewCustomer}
-            </span>
+            <span className="text-lg font-bold leading-none sm:text-3xl">$24.50</span>
           </div>
           <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 border-t border-l px-6 text-left sm:border-l sm:border-t-0">
             <span className="text-xs text-muted-foreground whitespace-nowrap">
               Cost per Acquisition
             </span>
-            <span className="text-lg font-bold leading-none sm:text-3xl">
-              ${averageCostPerAcquisition}
-            </span>
+            <span className="text-lg font-bold leading-none sm:text-3xl">$12.75</span>
           </div>
         </div>
       </CardHeader>
@@ -165,6 +168,7 @@ export function CostPerAcquisition({
               dataKey="date"
               tickLine={false}
               axisLine={false}
+              interval={Math.ceil(transformedData.length / 10)}
               tickFormatter={(value) =>
                 new Date(value).toLocaleDateString("en-US", {
                   month: "short",

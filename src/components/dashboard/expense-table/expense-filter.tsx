@@ -64,7 +64,7 @@ export function ExpenseFilter() {
     "Money Fees",
     "Office Expenses",
     "Other",
-    "Rent & Utilies",
+    "Rent & Utilities",
     "Software",
     "Sub-contractor / Consultants",
     "Taxes",

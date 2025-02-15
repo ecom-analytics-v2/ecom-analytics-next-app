@@ -1,33 +1,11 @@
 "use client";
-
 import * as React from "react";
-import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-  ComposedChart,
-  Legend,
-} from "recharts";
+import { Area, Bar, BarChart, CartesianGrid, XAxis, YAxis, ComposedChart, Legend } from "recharts";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { formatCompactCurrency, formatCurrency } from "@/lib/utils";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { InfoIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Value } from "@radix-ui/react-select";
 
 const chartConfig = {
   profit: { label: "Profit", color: "hsl(var(--chart-1))" },
@@ -39,6 +17,7 @@ type Props = {
   orders: {
     created_at: Date;
     total_price: number;
+    expenses: number;
   }[];
   startDate: Date;
   endDate: Date;
@@ -50,34 +29,13 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
 
   // Process daily summary into chart data
   const chartData = React.useMemo(() => {
-    // Create a map of date to revenue
-    const revenueByDate = orders.reduce((acc: Record<string, number>, order) => {
-      const date = new Date(order.created_at).toISOString().split("T")[0]!;
-      acc[date] = (acc[date] || 0) + order.total_price;
-      return acc;
-    }, {});
-
-    // Calculate number of days between start and end
-    const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-    // Create the full dataset with expenses
-    return Array.from({ length: days }, (_, i) => {
-      const date = new Date(startDate);
-      date.setDate(date.getDate() + i);
-      const dateStr = date.toISOString().split("T")[0]!;
-
-      const revenue = revenueByDate[dateStr] || 0;
-      // Use a deterministic value for expenses based on the date
-      const expenses = 800 + date.getDate() * 30; // This will vary expenses between 830-1700 based on day of month
-
-      return {
-        date,
-        revenue,
-        expenses,
-        profit: revenue - expenses,
-      };
-    });
-  }, [orders, startDate, endDate]);
+    return orders.map((order) => ({
+      date: order.created_at,
+      revenue: order.total_price,
+      expenses: order.expenses,
+      profit: order.total_price - order.expenses,
+    }));
+  }, [orders]);
 
   const transformedChartData = chartData.map((item) => ({
     ...item,
@@ -86,20 +44,20 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
 
   const totals = React.useMemo(
     () => ({
-      profit: chartData.reduce((acc, curr) => acc + curr.profit, 0),
       revenue: chartData.reduce((acc, curr) => acc + curr.revenue, 0),
       expenses: chartData.reduce((acc, curr) => acc + curr.expenses, 0),
+      profit: chartData.reduce((acc, curr) => acc + (curr.revenue - curr.expenses), 0),
     }),
     [chartData]
   );
 
   const averages = React.useMemo(
     () => ({
-      profit: totals.profit / chartData.length,
       revenue: totals.revenue / chartData.length,
       expenses: totals.expenses / chartData.length,
+      profit: totals.profit / chartData.length,
     }),
-    [totals]
+    [totals, chartData]
   );
 
   const dateFormatter = (value: any) => {
@@ -127,7 +85,14 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
         return (
           <ComposedChart data={transformedChartData} accessibilityLayer>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={dateFormatter}
+              tickMargin={10}
+              minTickGap={32}
+            />
             <YAxis
               tickLine={false}
               axisLine={false}
@@ -251,47 +216,8 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
           </BarChart>
         );
       case "revenue":
-        return (
-          <BarChart data={chartData}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(value) => formatCompactCurrency(value)}
-              dx={-8}
-            />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  className="w-[200px]"
-                  formatter={(value, name) => (
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
-                        style={{
-                          backgroundColor: "var(--color-revenue)",
-                        }}
-                      />
-                      <span>Revenue</span>
-                      <span className="ml-auto font-mono">
-                        {formatCompactCurrency(Math.abs(value as number))}
-                      </span>
-                    </div>
-                  )}
-                  label={(label: number) =>
-                    new Date(label).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    })
-                  }
-                />
-              }
-            />
-            <Bar dataKey="revenue" fill="var(--color-revenue)" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        );
       case "expenses":
+        const dataKey = activeChart;
         return (
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
@@ -311,10 +237,10 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
                       <div
                         className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
                         style={{
-                          backgroundColor: "var(--color-expenses)",
+                          backgroundColor: `var(--color-${dataKey})`,
                         }}
                       />
-                      <span>Expenses</span>
+                      <span>{chartConfig[dataKey].label}</span>
                       <span className="ml-auto font-mono">
                         {formatCompactCurrency(Math.abs(value as number))}
                       </span>
@@ -329,7 +255,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
                 />
               }
             />
-            <Bar dataKey="expenses" fill="var(--color-expenses)" radius={[4, 4, 0, 0]} />
+            <Bar dataKey={dataKey} fill={`var(--color-${dataKey})`} radius={[4, 4, 0, 0]} />
           </BarChart>
         );
     }
@@ -339,7 +265,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Profit Analysis</CardTitle>
+          <CardTitle>Profit Metrics</CardTitle>
           <CardDescription>Daily financial performance breakdown</CardDescription>
         </div>
         <div className="flex flex-wrap">
@@ -361,11 +287,11 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
               className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
               onClick={() => setActiveChart(type)}
             >
-              <span className="text-xs text-muted-foreground">
-                Total {type.charAt(0).toUpperCase() + type.slice(1)}
-              </span>
+              <span className="text-xs text-muted-foreground">Total {chartConfig[type].label}</span>
               <span className="text-lg font-bold leading-none sm:text-3xl">
-                {formatCompactCurrency(Math.abs(totals[type]))}
+                {type === "profit"
+                  ? formatCompactCurrency(totals[type])
+                  : formatCompactCurrency(Math.abs(totals[type]))}
               </span>
             </button>
           ))}

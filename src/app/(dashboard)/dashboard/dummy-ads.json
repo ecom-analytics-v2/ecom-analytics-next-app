@@ -1,0 +1,6212 @@
+[
+    {
+        "id": "20241201",
+        "impressions": 14633,
+        "spend": 490.27,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 11811,
+        "clicks": 18,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 57.64,
+        "cpp": 353.15,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-01T00:00:00",
+        "date_stop": "2024-12-01T00:00:00",
+        "date_start_key": "2024-12-01",
+        "date_stop_key": "2024-12-01"
+    },
+    {
+        "id": "20241202",
+        "impressions": 45623,
+        "spend": 739.88,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 8830,
+        "clicks": 123,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 90.43,
+        "cpp": 164.91,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-02T00:00:00",
+        "date_stop": "2024-12-02T00:00:00",
+        "date_start_key": "2024-12-02",
+        "date_stop_key": "2024-12-02"
+    },
+    {
+        "id": "20241203",
+        "impressions": 10898,
+        "spend": 355.15,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 9961,
+        "clicks": 313,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 33.51,
+        "cpp": 279.53,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-03T00:00:00",
+        "date_stop": "2024-12-03T00:00:00",
+        "date_start_key": "2024-12-03",
+        "date_stop_key": "2024-12-03"
+    },
+    {
+        "id": "20241204",
+        "impressions": 20546,
+        "spend": 753.96,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 2326,
+        "clicks": 466,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 91.12,
+        "cpp": 434.74,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-04T00:00:00",
+        "date_stop": "2024-12-04T00:00:00",
+        "date_start_key": "2024-12-04",
+        "date_stop_key": "2024-12-04"
+    },
+    {
+        "id": "20241205",
+        "impressions": 42068,
+        "spend": 379.6,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 22727,
+        "clicks": 11,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 63.18,
+        "cpp": 306.35,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-05T00:00:00",
+        "date_stop": "2024-12-05T00:00:00",
+        "date_start_key": "2024-12-05",
+        "date_stop_key": "2024-12-05"
+    },
+    {
+        "id": "20241206",
+        "impressions": 31653,
+        "spend": 221.85,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 21985,
+        "clicks": 459,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 66.42,
+        "cpp": 346.53,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-06T00:00:00",
+        "date_stop": "2024-12-06T00:00:00",
+        "date_start_key": "2024-12-06",
+        "date_stop_key": "2024-12-06"
+    },
+    {
+        "id": "20241207",
+        "impressions": 38773,
+        "spend": 353.97,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 9246,
+        "clicks": 87,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 80.83,
+        "cpp": 416.8,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-07T00:00:00",
+        "date_stop": "2024-12-07T00:00:00",
+        "date_start_key": "2024-12-07",
+        "date_stop_key": "2024-12-07"
+    },
+    {
+        "id": "20241208",
+        "impressions": 10609,
+        "spend": 980.32,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 7508,
+        "clicks": 375,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 76.49,
+        "cpp": 414.19,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-08T00:00:00",
+        "date_stop": "2024-12-08T00:00:00",
+        "date_start_key": "2024-12-08",
+        "date_stop_key": "2024-12-08"
+    },
+    {
+        "id": "20241209",
+        "impressions": 29901,
+        "spend": 908.21,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 6867,
+        "clicks": 123,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 42.11,
+        "cpp": 363.51,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-09T00:00:00",
+        "date_stop": "2024-12-09T00:00:00",
+        "date_start_key": "2024-12-09",
+        "date_stop_key": "2024-12-09"
+    },
+    {
+        "id": "20241210",
+        "impressions": 24730,
+        "spend": 783.66,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 2415,
+        "clicks": 96,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 46.32,
+        "cpp": 55.28,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-10T00:00:00",
+        "date_stop": "2024-12-10T00:00:00",
+        "date_start_key": "2024-12-10",
+        "date_stop_key": "2024-12-10"
+    },
+    {
+        "id": "20241211",
+        "impressions": 9535,
+        "spend": 382.5,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 7112,
+        "clicks": 249,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 51.86,
+        "cpp": 459.61,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-11T00:00:00",
+        "date_stop": "2024-12-11T00:00:00",
+        "date_start_key": "2024-12-11",
+        "date_stop_key": "2024-12-11"
+    },
+    {
+        "id": "20241212",
+        "impressions": 33246,
+        "spend": 994.47,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4653,
+        "clicks": 41,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 73.11,
+        "cpp": 369.84,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-12T00:00:00",
+        "date_stop": "2024-12-12T00:00:00",
+        "date_start_key": "2024-12-12",
+        "date_stop_key": "2024-12-12"
+    },
+    {
+        "id": "20241213",
+        "impressions": 6827,
+        "spend": 784.6,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 6811,
+        "clicks": 72,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 31.19,
+        "cpp": 459.63,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-13T00:00:00",
+        "date_stop": "2024-12-13T00:00:00",
+        "date_start_key": "2024-12-13",
+        "date_stop_key": "2024-12-13"
+    },
+    {
+        "id": "20241214",
+        "impressions": 13089,
+        "spend": 651.21,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 817,
+        "clicks": 268,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 41.59,
+        "cpp": 307.67,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-14T00:00:00",
+        "date_stop": "2024-12-14T00:00:00",
+        "date_start_key": "2024-12-14",
+        "date_stop_key": "2024-12-14"
+    },
+    {
+        "id": "20241215",
+        "impressions": 42187,
+        "spend": 303.98,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 8507,
+        "clicks": 254,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 26.28,
+        "cpp": 292.4,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-15T00:00:00",
+        "date_stop": "2024-12-15T00:00:00",
+        "date_start_key": "2024-12-15",
+        "date_stop_key": "2024-12-15"
+    },
+    {
+        "id": "20241216",
+        "impressions": 10258,
+        "spend": 309.12,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 7251,
+        "clicks": 165,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 31.12,
+        "cpp": 137.3,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-16T00:00:00",
+        "date_stop": "2024-12-16T00:00:00",
+        "date_start_key": "2024-12-16",
+        "date_stop_key": "2024-12-16"
+    },
+    {
+        "id": "20241217",
+        "impressions": 8779,
+        "spend": 368.29,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4280,
+        "clicks": 296,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 81.22,
+        "cpp": 150.48,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-17T00:00:00",
+        "date_stop": "2024-12-17T00:00:00",
+        "date_start_key": "2024-12-17",
+        "date_stop_key": "2024-12-17"
+    },
+    {
+        "id": "20241218",
+        "impressions": 8509,
+        "spend": 716.88,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 7611,
+        "clicks": 450,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 66.61,
+        "cpp": 223.63,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-18T00:00:00",
+        "date_stop": "2024-12-18T00:00:00",
+        "date_start_key": "2024-12-18",
+        "date_stop_key": "2024-12-18"
+    },
+    {
+        "id": "20241219",
+        "impressions": 20489,
+        "spend": 849.05,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 3563,
+        "clicks": 28,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 22.94,
+        "cpp": 116.12,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-19T00:00:00",
+        "date_stop": "2024-12-19T00:00:00",
+        "date_start_key": "2024-12-19",
+        "date_stop_key": "2024-12-19"
+    },
+    {
+        "id": "20241220",
+        "impressions": 42547,
+        "spend": 780.47,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 21062,
+        "clicks": 368,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 71.66,
+        "cpp": 232.83,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-20T00:00:00",
+        "date_stop": "2024-12-20T00:00:00",
+        "date_start_key": "2024-12-20",
+        "date_stop_key": "2024-12-20"
+    },
+    {
+        "id": "20241221",
+        "impressions": 34817,
+        "spend": 723.19,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4530,
+        "clicks": 137,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 46.59,
+        "cpp": 147.1,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-21T00:00:00",
+        "date_stop": "2024-12-21T00:00:00",
+        "date_start_key": "2024-12-21",
+        "date_stop_key": "2024-12-21"
+    },
+    {
+        "id": "20241222",
+        "impressions": 46101,
+        "spend": 792.09,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 18099,
+        "clicks": 52,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 83.8,
+        "cpp": 118.11,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-22T00:00:00",
+        "date_stop": "2024-12-22T00:00:00",
+        "date_start_key": "2024-12-22",
+        "date_stop_key": "2024-12-22"
+    },
+    {
+        "id": "20241223",
+        "impressions": 10044,
+        "spend": 342.08,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5121,
+        "clicks": 372,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 36.51,
+        "cpp": 341.75,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-23T00:00:00",
+        "date_stop": "2024-12-23T00:00:00",
+        "date_start_key": "2024-12-23",
+        "date_stop_key": "2024-12-23"
+    },
+    {
+        "id": "20241224",
+        "impressions": 29659,
+        "spend": 560.28,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 23341,
+        "clicks": 294,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 76.53,
+        "cpp": 94.48,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-24T00:00:00",
+        "date_stop": "2024-12-24T00:00:00",
+        "date_start_key": "2024-12-24",
+        "date_stop_key": "2024-12-24"
+    },
+    {
+        "id": "20241225",
+        "impressions": 24143,
+        "spend": 928.45,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 3393,
+        "clicks": 112,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 28.19,
+        "cpp": 441.55,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-25T00:00:00",
+        "date_stop": "2024-12-25T00:00:00",
+        "date_start_key": "2024-12-25",
+        "date_stop_key": "2024-12-25"
+    },
+    {
+        "id": "20241226",
+        "impressions": 16208,
+        "spend": 943.83,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 2126,
+        "clicks": 256,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 94.4,
+        "cpp": 276.28,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-26T00:00:00",
+        "date_stop": "2024-12-26T00:00:00",
+        "date_start_key": "2024-12-26",
+        "date_stop_key": "2024-12-26"
+    },
+    {
+        "id": "20241227",
+        "impressions": 46628,
+        "spend": 409.44,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 12482,
+        "clicks": 199,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 56.67,
+        "cpp": 82.06,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-27T00:00:00",
+        "date_stop": "2024-12-27T00:00:00",
+        "date_start_key": "2024-12-27",
+        "date_stop_key": "2024-12-27"
+    },
+    {
+        "id": "20241228",
+        "impressions": 42794,
+        "spend": 543.43,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 10187,
+        "clicks": 205,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 62.23,
+        "cpp": 295.99,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-28T00:00:00",
+        "date_stop": "2024-12-28T00:00:00",
+        "date_start_key": "2024-12-28",
+        "date_stop_key": "2024-12-28"
+    },
+    {
+        "id": "20241229",
+        "impressions": 25040,
+        "spend": 556.57,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 1361,
+        "clicks": 66,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 83.01,
+        "cpp": 301.95,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-29T00:00:00",
+        "date_stop": "2024-12-29T00:00:00",
+        "date_start_key": "2024-12-29",
+        "date_stop_key": "2024-12-29"
+    },
+    {
+        "id": "20241230",
+        "impressions": 15794,
+        "spend": 797.8,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 12920,
+        "clicks": 329,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 79.08,
+        "cpp": 450.85,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-30T00:00:00",
+        "date_stop": "2024-12-30T00:00:00",
+        "date_start_key": "2024-12-30",
+        "date_stop_key": "2024-12-30"
+    },
+    {
+        "id": "20241231",
+        "impressions": 5024,
+        "spend": 786.3,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 1253,
+        "clicks": 166,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 96.85,
+        "cpp": 166.81,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2024-12-31T00:00:00",
+        "date_stop": "2024-12-31T00:00:00",
+        "date_start_key": "2024-12-31",
+        "date_stop_key": "2024-12-31"
+    },
+    {
+        "id": "20250101",
+        "impressions": 35656,
+        "spend": 967.63,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 31390,
+        "clicks": 197,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 28.78,
+        "cpp": 164.37,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-01T00:00:00",
+        "date_stop": "2025-01-01T00:00:00",
+        "date_start_key": "2025-01-01",
+        "date_stop_key": "2025-01-01"
+    },
+    {
+        "id": "20250102",
+        "impressions": 6923,
+        "spend": 704.43,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 6646,
+        "clicks": 45,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 33.77,
+        "cpp": 471.83,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-02T00:00:00",
+        "date_stop": "2025-01-02T00:00:00",
+        "date_start_key": "2025-01-02",
+        "date_stop_key": "2025-01-02"
+    },
+    {
+        "id": "20250103",
+        "impressions": 28858,
+        "spend": 931.83,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 9774,
+        "clicks": 229,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 53.11,
+        "cpp": 461.49,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-03T00:00:00",
+        "date_stop": "2025-01-03T00:00:00",
+        "date_start_key": "2025-01-03",
+        "date_stop_key": "2025-01-03"
+    },
+    {
+        "id": "20250104",
+        "impressions": 6220,
+        "spend": 477.84,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 3648,
+        "clicks": 449,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 85.38,
+        "cpp": 157.14,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-04T00:00:00",
+        "date_stop": "2025-01-04T00:00:00",
+        "date_start_key": "2025-01-04",
+        "date_stop_key": "2025-01-04"
+    },
+    {
+        "id": "20250105",
+        "impressions": 17496,
+        "spend": 746.43,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 8408,
+        "clicks": 193,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 56.69,
+        "cpp": 133.9,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-05T00:00:00",
+        "date_stop": "2025-01-05T00:00:00",
+        "date_start_key": "2025-01-05",
+        "date_stop_key": "2025-01-05"
+    },
+    {
+        "id": "20250106",
+        "impressions": 34192,
+        "spend": 813.45,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 20191,
+        "clicks": 351,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 59.64,
+        "cpp": 284.9,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-06T00:00:00",
+        "date_stop": "2025-01-06T00:00:00",
+        "date_start_key": "2025-01-06",
+        "date_stop_key": "2025-01-06"
+    },
+    {
+        "id": "20250107",
+        "impressions": 36083,
+        "spend": 886.2,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 9782,
+        "clicks": 306,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 79.52,
+        "cpp": 291.78,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-07T00:00:00",
+        "date_stop": "2025-01-07T00:00:00",
+        "date_start_key": "2025-01-07",
+        "date_stop_key": "2025-01-07"
+    },
+    {
+        "id": "20250108",
+        "impressions": 8245,
+        "spend": 486.8,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 7896,
+        "clicks": 327,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 87.48,
+        "cpp": 127.2,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-08T00:00:00",
+        "date_stop": "2025-01-08T00:00:00",
+        "date_start_key": "2025-01-08",
+        "date_stop_key": "2025-01-08"
+    },
+    {
+        "id": "20250109",
+        "impressions": 1290,
+        "spend": 359.59,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 603,
+        "clicks": 342,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 48.71,
+        "cpp": 337.19,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-09T00:00:00",
+        "date_stop": "2025-01-09T00:00:00",
+        "date_start_key": "2025-01-09",
+        "date_stop_key": "2025-01-09"
+    },
+    {
+        "id": "20250110",
+        "impressions": 15943,
+        "spend": 509.86,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4215,
+        "clicks": 167,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 29.48,
+        "cpp": 341.19,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-10T00:00:00",
+        "date_stop": "2025-01-10T00:00:00",
+        "date_start_key": "2025-01-10",
+        "date_stop_key": "2025-01-10"
+    },
+    {
+        "id": "20250111",
+        "impressions": 40360,
+        "spend": 272.51,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 35168,
+        "clicks": 89,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 97.66,
+        "cpp": 69.79,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-11T00:00:00",
+        "date_stop": "2025-01-11T00:00:00",
+        "date_start_key": "2025-01-11",
+        "date_stop_key": "2025-01-11"
+    },
+    {
+        "id": "20250112",
+        "impressions": 5025,
+        "spend": 685.12,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4709,
+        "clicks": 192,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 85.95,
+        "cpp": 143.29,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-12T00:00:00",
+        "date_stop": "2025-01-12T00:00:00",
+        "date_start_key": "2025-01-12",
+        "date_stop_key": "2025-01-12"
+    },
+    {
+        "id": "20250113",
+        "impressions": 26704,
+        "spend": 444.52,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 16898,
+        "clicks": 245,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 53.36,
+        "cpp": 361.58,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-13T00:00:00",
+        "date_stop": "2025-01-13T00:00:00",
+        "date_start_key": "2025-01-13",
+        "date_stop_key": "2025-01-13"
+    },
+    {
+        "id": "20250114",
+        "impressions": 26280,
+        "spend": 844.92,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 14242,
+        "clicks": 141,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 66.22,
+        "cpp": 231.88,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-14T00:00:00",
+        "date_stop": "2025-01-14T00:00:00",
+        "date_start_key": "2025-01-14",
+        "date_stop_key": "2025-01-14"
+    },
+    {
+        "id": "20250115",
+        "impressions": 9212,
+        "spend": 289.24,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 8015,
+        "clicks": 287,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 70.55,
+        "cpp": 284.05,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-15T00:00:00",
+        "date_stop": "2025-01-15T00:00:00",
+        "date_start_key": "2025-01-15",
+        "date_stop_key": "2025-01-15"
+    },
+    {
+        "id": "20250116",
+        "impressions": 46442,
+        "spend": 308.56,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 35157,
+        "clicks": 487,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 34.87,
+        "cpp": 122.34,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-16T00:00:00",
+        "date_stop": "2025-01-16T00:00:00",
+        "date_start_key": "2025-01-16",
+        "date_stop_key": "2025-01-16"
+    },
+    {
+        "id": "20250117",
+        "impressions": 33032,
+        "spend": 541.7,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 29745,
+        "clicks": 116,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 60.19,
+        "cpp": 239.0,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-17T00:00:00",
+        "date_stop": "2025-01-17T00:00:00",
+        "date_start_key": "2025-01-17",
+        "date_stop_key": "2025-01-17"
+    },
+    {
+        "id": "20250118",
+        "impressions": 16037,
+        "spend": 271.45,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 9096,
+        "clicks": 446,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 20.19,
+        "cpp": 393.03,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-18T00:00:00",
+        "date_stop": "2025-01-18T00:00:00",
+        "date_start_key": "2025-01-18",
+        "date_stop_key": "2025-01-18"
+    },
+    {
+        "id": "20250119",
+        "impressions": 14536,
+        "spend": 357.1,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 8857,
+        "clicks": 410,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 47.45,
+        "cpp": 453.71,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-19T00:00:00",
+        "date_stop": "2025-01-19T00:00:00",
+        "date_start_key": "2025-01-19",
+        "date_stop_key": "2025-01-19"
+    },
+    {
+        "id": "20250120",
+        "impressions": 28251,
+        "spend": 235.57,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 18173,
+        "clicks": 245,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 33.76,
+        "cpp": 415.56,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-20T00:00:00",
+        "date_stop": "2025-01-20T00:00:00",
+        "date_start_key": "2025-01-20",
+        "date_stop_key": "2025-01-20"
+    },
+    {
+        "id": "20250121",
+        "impressions": 44153,
+        "spend": 409.97,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 14292,
+        "clicks": 177,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 49.15,
+        "cpp": 384.99,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-21T00:00:00",
+        "date_stop": "2025-01-21T00:00:00",
+        "date_start_key": "2025-01-21",
+        "date_stop_key": "2025-01-21"
+    },
+    {
+        "id": "20250122",
+        "impressions": 24262,
+        "spend": 516.29,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5184,
+        "clicks": 45,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 90.91,
+        "cpp": 350.23,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-22T00:00:00",
+        "date_stop": "2025-01-22T00:00:00",
+        "date_start_key": "2025-01-22",
+        "date_stop_key": "2025-01-22"
+    },
+    {
+        "id": "20250123",
+        "impressions": 19246,
+        "spend": 500.21,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 6461,
+        "clicks": 385,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 37.2,
+        "cpp": 439.91,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-23T00:00:00",
+        "date_stop": "2025-01-23T00:00:00",
+        "date_start_key": "2025-01-23",
+        "date_stop_key": "2025-01-23"
+    },
+    {
+        "id": "20250124",
+        "impressions": 27162,
+        "spend": 704.55,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 3988,
+        "clicks": 404,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 48.77,
+        "cpp": 303.26,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-24T00:00:00",
+        "date_stop": "2025-01-24T00:00:00",
+        "date_start_key": "2025-01-24",
+        "date_stop_key": "2025-01-24"
+    },
+    {
+        "id": "20250125",
+        "impressions": 40098,
+        "spend": 589.9,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 11642,
+        "clicks": 160,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 29.88,
+        "cpp": 99.82,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-25T00:00:00",
+        "date_stop": "2025-01-25T00:00:00",
+        "date_start_key": "2025-01-25",
+        "date_stop_key": "2025-01-25"
+    },
+    {
+        "id": "20250126",
+        "impressions": 46590,
+        "spend": 889.66,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 25948,
+        "clicks": 180,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 84.19,
+        "cpp": 344.49,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-26T00:00:00",
+        "date_stop": "2025-01-26T00:00:00",
+        "date_start_key": "2025-01-26",
+        "date_stop_key": "2025-01-26"
+    },
+    {
+        "id": "20250127",
+        "impressions": 10970,
+        "spend": 327.2,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 2868,
+        "clicks": 220,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 93.77,
+        "cpp": 489.56,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-27T00:00:00",
+        "date_stop": "2025-01-27T00:00:00",
+        "date_start_key": "2025-01-27",
+        "date_stop_key": "2025-01-27"
+    },
+    {
+        "id": "20250128",
+        "impressions": 46070,
+        "spend": 495.69,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 39479,
+        "clicks": 58,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 41.9,
+        "cpp": 136.23,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-28T00:00:00",
+        "date_stop": "2025-01-28T00:00:00",
+        "date_start_key": "2025-01-28",
+        "date_stop_key": "2025-01-28"
+    },
+    {
+        "id": "20250129",
+        "impressions": 8835,
+        "spend": 529.78,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5405,
+        "clicks": 158,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 44.83,
+        "cpp": 387.0,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-29T00:00:00",
+        "date_stop": "2025-01-29T00:00:00",
+        "date_start_key": "2025-01-29",
+        "date_stop_key": "2025-01-29"
+    },
+    {
+        "id": "20250130",
+        "impressions": 1272,
+        "spend": 219.37,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 693,
+        "clicks": 320,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 58.71,
+        "cpp": 172.18,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-30T00:00:00",
+        "date_stop": "2025-01-30T00:00:00",
+        "date_start_key": "2025-01-30",
+        "date_stop_key": "2025-01-30"
+    },
+    {
+        "id": "20250131",
+        "impressions": 49692,
+        "spend": 620.83,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 30496,
+        "clicks": 49,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 89.23,
+        "cpp": 415.36,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-01-31T00:00:00",
+        "date_stop": "2025-01-31T00:00:00",
+        "date_start_key": "2025-01-31",
+        "date_stop_key": "2025-01-31"
+    },
+    {
+        "id": "20250201",
+        "impressions": 21208,
+        "spend": 919.95,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5547,
+        "clicks": 102,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 23.33,
+        "cpp": 146.02,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-01T00:00:00",
+        "date_stop": "2025-02-01T00:00:00",
+        "date_start_key": "2025-02-01",
+        "date_stop_key": "2025-02-01"
+    },
+    {
+        "id": "20250202",
+        "impressions": 16584,
+        "spend": 461.47,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 13811,
+        "clicks": 35,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 43.61,
+        "cpp": 336.46,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-02T00:00:00",
+        "date_stop": "2025-02-02T00:00:00",
+        "date_start_key": "2025-02-02",
+        "date_stop_key": "2025-02-02"
+    },
+    {
+        "id": "20250203",
+        "impressions": 14661,
+        "spend": 230.67,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 6010,
+        "clicks": 299,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 97.89,
+        "cpp": 207.14,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-03T00:00:00",
+        "date_stop": "2025-02-03T00:00:00",
+        "date_start_key": "2025-02-03",
+        "date_stop_key": "2025-02-03"
+    },
+    {
+        "id": "20250204",
+        "impressions": 37176,
+        "spend": 828.84,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 15271,
+        "clicks": 500,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 36.37,
+        "cpp": 158.89,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-04T00:00:00",
+        "date_stop": "2025-02-04T00:00:00",
+        "date_start_key": "2025-02-04",
+        "date_stop_key": "2025-02-04"
+    },
+    {
+        "id": "20250205",
+        "impressions": 8143,
+        "spend": 659.17,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 1993,
+        "clicks": 209,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 81.77,
+        "cpp": 356.56,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-05T00:00:00",
+        "date_stop": "2025-02-05T00:00:00",
+        "date_start_key": "2025-02-05",
+        "date_stop_key": "2025-02-05"
+    },
+    {
+        "id": "20250206",
+        "impressions": 6773,
+        "spend": 930.64,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5196,
+        "clicks": 86,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 91.84,
+        "cpp": 106.78,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-06T00:00:00",
+        "date_stop": "2025-02-06T00:00:00",
+        "date_start_key": "2025-02-06",
+        "date_stop_key": "2025-02-06"
+    },
+    {
+        "id": "20250207",
+        "impressions": 30414,
+        "spend": 680.74,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5565,
+        "clicks": 302,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 62.27,
+        "cpp": 456.87,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-07T00:00:00",
+        "date_stop": "2025-02-07T00:00:00",
+        "date_start_key": "2025-02-07",
+        "date_stop_key": "2025-02-07"
+    },
+    {
+        "id": "20250208",
+        "impressions": 19477,
+        "spend": 576.19,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5862,
+        "clicks": 412,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 96.09,
+        "cpp": 104.05,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-08T00:00:00",
+        "date_stop": "2025-02-08T00:00:00",
+        "date_start_key": "2025-02-08",
+        "date_stop_key": "2025-02-08"
+    },
+    {
+        "id": "20250209",
+        "impressions": 14710,
+        "spend": 781.61,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 7468,
+        "clicks": 265,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 93.09,
+        "cpp": 252.56,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-09T00:00:00",
+        "date_stop": "2025-02-09T00:00:00",
+        "date_start_key": "2025-02-09",
+        "date_stop_key": "2025-02-09"
+    },
+    {
+        "id": "20250210",
+        "impressions": 47849,
+        "spend": 948.56,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 41120,
+        "clicks": 483,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 24.18,
+        "cpp": 308.25,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-10T00:00:00",
+        "date_stop": "2025-02-10T00:00:00",
+        "date_start_key": "2025-02-10",
+        "date_stop_key": "2025-02-10"
+    },
+    {
+        "id": "20250211",
+        "impressions": 22166,
+        "spend": 747.81,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 20100,
+        "clicks": 375,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 22.06,
+        "cpp": 473.04,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-11T00:00:00",
+        "date_stop": "2025-02-11T00:00:00",
+        "date_start_key": "2025-02-11",
+        "date_stop_key": "2025-02-11"
+    },
+    {
+        "id": "20250212",
+        "impressions": 8716,
+        "spend": 687.77,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 7836,
+        "clicks": 177,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 46.3,
+        "cpp": 299.28,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-12T00:00:00",
+        "date_stop": "2025-02-12T00:00:00",
+        "date_start_key": "2025-02-12",
+        "date_stop_key": "2025-02-12"
+    },
+    {
+        "id": "20250213",
+        "impressions": 17540,
+        "spend": 806.71,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 13735,
+        "clicks": 423,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 27.13,
+        "cpp": 409.2,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-13T00:00:00",
+        "date_stop": "2025-02-13T00:00:00",
+        "date_start_key": "2025-02-13",
+        "date_stop_key": "2025-02-13"
+    },
+    {
+        "id": "20250214",
+        "impressions": 43856,
+        "spend": 486.58,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 14786,
+        "clicks": 77,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 78.21,
+        "cpp": 190.17,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-14T00:00:00",
+        "date_stop": "2025-02-14T00:00:00",
+        "date_start_key": "2025-02-14",
+        "date_stop_key": "2025-02-14"
+    },
+    {
+        "id": "20250215",
+        "impressions": 20017,
+        "spend": 429.26,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 9789,
+        "clicks": 85,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 75.08,
+        "cpp": 341.54,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-15T00:00:00",
+        "date_stop": "2025-02-15T00:00:00",
+        "date_start_key": "2025-02-15",
+        "date_stop_key": "2025-02-15"
+    },
+    {
+        "id": "20250216",
+        "impressions": 6116,
+        "spend": 602.86,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 1645,
+        "clicks": 295,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 92.23,
+        "cpp": 138.01,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-16T00:00:00",
+        "date_stop": "2025-02-16T00:00:00",
+        "date_start_key": "2025-02-16",
+        "date_stop_key": "2025-02-16"
+    },
+    {
+        "id": "20250217",
+        "impressions": 8036,
+        "spend": 497.74,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4434,
+        "clicks": 452,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 94.3,
+        "cpp": 160.81,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-17T00:00:00",
+        "date_stop": "2025-02-17T00:00:00",
+        "date_start_key": "2025-02-17",
+        "date_stop_key": "2025-02-17"
+    },
+    {
+        "id": "20250218",
+        "impressions": 35015,
+        "spend": 480.35,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 17201,
+        "clicks": 324,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 89.19,
+        "cpp": 349.84,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-18T00:00:00",
+        "date_stop": "2025-02-18T00:00:00",
+        "date_start_key": "2025-02-18",
+        "date_stop_key": "2025-02-18"
+    },
+    {
+        "id": "20250219",
+        "impressions": 6294,
+        "spend": 701.17,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4215,
+        "clicks": 456,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 33.08,
+        "cpp": 291.74,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-19T00:00:00",
+        "date_stop": "2025-02-19T00:00:00",
+        "date_start_key": "2025-02-19",
+        "date_stop_key": "2025-02-19"
+    },
+    {
+        "id": "20250220",
+        "impressions": 12087,
+        "spend": 505.63,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5634,
+        "clicks": 347,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 20.71,
+        "cpp": 180.82,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-20T00:00:00",
+        "date_stop": "2025-02-20T00:00:00",
+        "date_start_key": "2025-02-20",
+        "date_stop_key": "2025-02-20"
+    },
+    {
+        "id": "20250221",
+        "impressions": 11596,
+        "spend": 353.67,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5775,
+        "clicks": 490,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 20.17,
+        "cpp": 476.27,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-21T00:00:00",
+        "date_stop": "2025-02-21T00:00:00",
+        "date_start_key": "2025-02-21",
+        "date_stop_key": "2025-02-21"
+    },
+    {
+        "id": "20250222",
+        "impressions": 24926,
+        "spend": 772.92,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 14145,
+        "clicks": 207,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 50.71,
+        "cpp": 260.32,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-22T00:00:00",
+        "date_stop": "2025-02-22T00:00:00",
+        "date_start_key": "2025-02-22",
+        "date_stop_key": "2025-02-22"
+    },
+    {
+        "id": "20250223",
+        "impressions": 24501,
+        "spend": 393.11,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 6014,
+        "clicks": 367,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 42.44,
+        "cpp": 446.53,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-23T00:00:00",
+        "date_stop": "2025-02-23T00:00:00",
+        "date_start_key": "2025-02-23",
+        "date_stop_key": "2025-02-23"
+    },
+    {
+        "id": "20250224",
+        "impressions": 7747,
+        "spend": 771.85,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 4734,
+        "clicks": 23,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 97.95,
+        "cpp": 85.05,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-24T00:00:00",
+        "date_stop": "2025-02-24T00:00:00",
+        "date_start_key": "2025-02-24",
+        "date_stop_key": "2025-02-24"
+    },
+    {
+        "id": "20250225",
+        "impressions": 6836,
+        "spend": 839.61,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 5032,
+        "clicks": 314,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 88.5,
+        "cpp": 219.65,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-25T00:00:00",
+        "date_stop": "2025-02-25T00:00:00",
+        "date_start_key": "2025-02-25",
+        "date_stop_key": "2025-02-25"
+    },
+    {
+        "id": "20250226",
+        "impressions": 17603,
+        "spend": 914.47,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 517,
+        "clicks": 422,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 29.45,
+        "cpp": 64.86,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-26T00:00:00",
+        "date_stop": "2025-02-26T00:00:00",
+        "date_start_key": "2025-02-26",
+        "date_stop_key": "2025-02-26"
+    },
+    {
+        "id": "20250227",
+        "impressions": 27820,
+        "spend": 513.79,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 2145,
+        "clicks": 13,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 78.71,
+        "cpp": 187.49,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-27T00:00:00",
+        "date_stop": "2025-02-27T00:00:00",
+        "date_start_key": "2025-02-27",
+        "date_stop_key": "2025-02-27"
+    },
+    {
+        "id": "20250228",
+        "impressions": 49842,
+        "spend": 871.51,
+        "actions": [
+            {
+                "action_type": "page_engagement",
+                "value": "778"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "243"
+            },
+            {
+                "action_type": "video_view",
+                "value": "883"
+            }
+        ],
+        "cost_per_action_type": [
+            {
+                "action_type": "video_view",
+                "value": "0.4"
+            },
+            {
+                "action_type": "post_engagement",
+                "value": "0.11"
+            },
+            {
+                "action_type": "page_engagement",
+                "value": "3.38"
+            }
+        ],
+        "social_spend": 0,
+        "reach": 23165,
+        "clicks": 32,
+        "cost_per_ad_click": null,
+        "cost_per_conversion": null,
+        "cost_per_one_thousand_ad_impression": null,
+        "cost_per_outbound_click": null,
+        "cost_per_unique_outbound_click": null,
+        "cost_per_thruplay": [
+            {
+                "action_type": "video_view",
+                "value": "1.4"
+            }
+        ],
+        "cost_per_unique_action_type": null,
+        "cost_per_unique_conversion": null,
+        "cost_per_dda_countby_convs": null,
+        "cost_per_inline_link_click": null,
+        "cost_per_inline_post_engagement": null,
+        "cost_per_unique_click": null,
+        "cost_per_unique_inline_link_click": null,
+        "cpc": null,
+        "cpm": 99.69,
+        "cpp": 332.19,
+        "ctr": 0,
+        "frequency": 1.028571,
+        "full_view_impressions": 0,
+        "full_view_reach": 0,
+        "objective": "OUTCOME_LEADS",
+        "optimization_goal": "LEAD_GENERATION",
+        "buying_type": "AUCTION",
+        "account_currency": "AUD",
+        "date_start": "2025-02-28T00:00:00",
+        "date_stop": "2025-02-28T00:00:00",
+        "date_start_key": "2025-02-28",
+        "date_stop_key": "2025-02-28"
+    }
+]
