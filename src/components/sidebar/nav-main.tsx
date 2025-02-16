@@ -70,7 +70,7 @@ export function NavMain() {
                 tooltip={item.title}
                 className={isActive ? "bg-sidebar-accent" : ""}
               >
-                <Link href={item.url}>
+                <Link href={item.url} className={!isActive ? "opacity-70" : ""}>
                   <item.icon className={isActive ? "text-primary" : ""} />
                   <span>{item.title}</span>
                 </Link>

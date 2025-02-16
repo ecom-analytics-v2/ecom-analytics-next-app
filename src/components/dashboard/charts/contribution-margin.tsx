@@ -119,19 +119,19 @@ const renderTooltip = (
 export function ContributionMargin() {
   return (
     <Card>
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
+      <CardHeader className="flex flex-col items-stretch space-y-0 p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 p-6">
           <CardTitle>Contribution Metrics</CardTitle>
           <CardDescription>Customer acquisition cost analysis</CardDescription>
         </div>
         <div className="flex flex-wrap">
-          <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 border-t px-6 text-left sm:border-l sm:border-t-0">
+          <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 px-6 text-left">
             <span className="text-xs text-muted-foreground whitespace-nowrap">
               Cost per New Customer
             </span>
             <span className="text-lg font-bold leading-none sm:text-3xl">$24.50</span>
           </div>
-          <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 border-t border-l px-6 text-left sm:border-l sm:border-t-0">
+          <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 px-6 text-left">
             <span className="text-xs text-muted-foreground whitespace-nowrap">
               Cost per Acquisition
             </span>

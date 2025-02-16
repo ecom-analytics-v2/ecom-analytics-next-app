@@ -165,7 +165,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
                         )}
                       </div>
                       {name === "profit" && (
-                        <div className="border-t pt-2">
+                        <div className=" pt-2">
                           <div className="flex items-center gap-2">
                             <div
                               className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
@@ -278,7 +278,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
 
   return (
     <Card>
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
+      <CardHeader className="flex flex-col items-stretch space-y-0  p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <CardTitle>Profit Metrics</CardTitle>
           <CardDescription>Daily financial performance breakdown</CardDescription>
@@ -286,7 +286,8 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
         <div className="flex flex-wrap">
           <button
             data-active={activeChart === "combined"}
-            className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+            className="relative z-30 flex flex-1 flex-col justify-center gap-1
+             px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:px-8 sm:py-6"
             onClick={() => setActiveChart("combined")}
           >
             <span className="text-xs text-muted-foreground">Avg. Daily Profit</span>
@@ -299,7 +300,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
             <button
               key={type}
               data-active={activeChart === type}
-              className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+              className="relative z-30 flex flex-1 flex-col justify-center gap-1 px-6 py-4 text-left  data-[active=true]:bg-muted/50 sm:px-8 sm:py-6"
               onClick={() => setActiveChart(type)}
             >
               <span className="text-xs text-muted-foreground">Total {chartConfig[type].label}</span>

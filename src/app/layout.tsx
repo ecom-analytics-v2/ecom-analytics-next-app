@@ -23,12 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${manrope.className}`} suppressHydrationWarning>
       <body className="min-h-[100dvh] bg-background">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <TRPCReactProvider>
             <UserProvider userPromise={userPromise}>{children}</UserProvider>
           </TRPCReactProvider>
