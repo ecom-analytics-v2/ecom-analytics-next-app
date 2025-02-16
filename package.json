@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbo -p 443 --experimental-https",
+    "dev": "NODE_OPTIONS='--max-old-space-size=4096'  next dev --turbo -p 443 --experimental-https",
     "build": "next build",
     "start": "next start -p 3049",
     "db:setup": "npx tsx lib/db/setup.ts",

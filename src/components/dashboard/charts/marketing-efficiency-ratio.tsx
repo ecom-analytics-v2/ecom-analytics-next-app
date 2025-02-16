@@ -117,7 +117,7 @@ export function MarketingEfficiencyRatio({
               className="first:fill-muted last:fill-card"
               polarRadius={[116, 84]}
             />
-            <RadialBar dataKey="mer" background cornerRadius={9999} />
+            <RadialBar dataKey="mer" fill="var(--color-mer)" background cornerRadius={9999} />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {

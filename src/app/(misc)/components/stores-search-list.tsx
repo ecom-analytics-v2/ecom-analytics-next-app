@@ -42,13 +42,13 @@ export function StoresSearchList({ stores, onSelect }: StoresSearchListProps) {
           className="pl-8"
         />
       </div>
-      <ScrollArea className="h-[400px] w-full rounded-md border">
+      <ScrollArea className="h-[400px] w-full rounded-xl border">
         <div className="p-4">
           {filteredStores.map((store) => (
             <button
               key={store.id}
               className={cn(
-                "flex w-full flex-col rounded-md p-2 hover:bg-accent",
+                "flex w-full flex-col rounded-xl p-2 hover:bg-accent",
                 "transition-colors duration-150 ease-in-out"
               )}
               onClick={() => onSelect(store)}

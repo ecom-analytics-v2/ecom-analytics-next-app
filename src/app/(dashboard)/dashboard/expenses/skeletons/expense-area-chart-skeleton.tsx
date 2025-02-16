@@ -12,7 +12,7 @@ export function ExpenseAreaChartSkeleton() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 ">
-        <div className="h-full w-full flex items-center justify-center bg-accent/10 rounded-md">
+        <div className="h-full w-full flex items-center justify-center bg-accent/10 rounded-xl">
           <Skeleton className="h-4/5 w-11/12" />
         </div>
       </CardContent>

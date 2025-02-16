@@ -4,7 +4,7 @@ import { Area, Bar, BarChart, CartesianGrid, XAxis, YAxis, ComposedChart, Legend
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { formatCompactCurrency, formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { useState } from "react";
 
 const chartConfig = {
@@ -21,6 +21,17 @@ type Props = {
   }[];
   startDate: Date;
   endDate: Date;
+};
+
+const formatCompactCurrency = (value: number) => {
+  // Use Intl.NumberFormat with explicit options for consistency
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    notation: "compact",
+    maximumFractionDigits: 1,
+    minimumFractionDigits: 1,
+  }).format(value);
 };
 
 export function ProfitOverTime({ orders, startDate, endDate }: Props) {
@@ -66,17 +77,19 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
       Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
     if (daysDiff <= 7) {
-      return date.toLocaleDateString("en-US", {
+      return new Intl.DateTimeFormat("en-US", {
         weekday: "short",
         month: "short",
         day: "numeric",
-      });
+        timeZone: "UTC",
+      }).format(date);
     }
 
-    return date.toLocaleDateString("en-US", {
+    return new Intl.DateTimeFormat("en-US", {
       month: "short",
       day: "numeric",
-    });
+      timeZone: "UTC",
+    }).format(date);
   };
 
   const renderChart = () => {
@@ -101,8 +114,8 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
             />
             <defs>
               <linearGradient id="profitGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-profit)" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="var(--color-profit)" stopOpacity={0} />
+                <stop offset="5%" stopColor="var(--color-profit)" stopOpacity={1} />
+                <stop offset="95%" stopColor="var(--color-profit)" stopOpacity={1} />
               </linearGradient>
             </defs>
             <Bar
@@ -204,10 +217,11 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
                     </div>
                   )}
                   label={(label: number) =>
-                    new Date(label).toLocaleDateString("en-US", {
+                    new Intl.DateTimeFormat("en-US", {
                       month: "short",
                       day: "numeric",
-                    })
+                      timeZone: "UTC",
+                    }).format(new Date(label))
                   }
                 />
               }
@@ -247,10 +261,11 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
                     </div>
                   )}
                   label={(label: number) =>
-                    new Date(label).toLocaleDateString("en-US", {
+                    new Intl.DateTimeFormat("en-US", {
                       month: "short",
                       day: "numeric",
-                    })
+                      timeZone: "UTC",
+                    }).format(new Date(label))
                   }
                 />
               }

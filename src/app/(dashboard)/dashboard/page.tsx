@@ -196,7 +196,8 @@ function getDailySummary(
       ad_spend: Number(ad_spend.toFixed(2)),
       cogs: Number(cogs.toFixed(2)),
     }))
-    .sort((a, b) => a.created_at.getTime() - b.created_at.getTime());
+
+    .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
 }
 
 /**
@@ -245,7 +246,7 @@ function ChartSkeleton({ className }: { className?: string }) {
     <div className={className}>
       <Card className="w-full h-[300px] animate-pulse">
         <CardContent className="p-6">
-          <div className="w-full h-full bg-muted rounded-md" />
+          <div className="w-full h-full bg-muted rounded-xl" />
         </CardContent>
       </Card>
     </div>
@@ -289,7 +290,7 @@ export default async function Dashboard() {
   const dailySummary = getDailySummary(formattedOrders, formattedAds, expenses, startDate, endDate);
 
   return (
-    <div className="flex-1 bg-muted/40">
+    <div className="flex-1">
       <div className="p-4">
         <h1 className="text-xl font-semibold">Dashboard</h1>
 
@@ -313,10 +314,18 @@ export default async function Dashboard() {
               endDate={dateData.endDate}
             />
           </ChartWrapper>
-          {/* 
+
           <ChartWrapper className="col-span-6">
-            <CostPerAcquisition />
-          </ChartWrapper> */}
+            <CostPerAcquisition
+              dailySummary={dailySummary.map((day) => ({
+                ...day,
+                new_customers: 52,
+                orders: 73,
+              }))}
+              startDate={dateData.startDate}
+              endDate={dateData.endDate}
+            />
+          </ChartWrapper>
 
           <ChartWrapper className="col-span-6">
             <ContributionMargin />

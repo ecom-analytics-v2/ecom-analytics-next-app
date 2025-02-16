@@ -300,7 +300,7 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
 function DatePickerSkeleton() {
   return (
     <div className="w-[200px] ">
-      <div className="flex w-full items-center justify-start rounded-md border bg-card px-3 py-2 text-sm font-medium ring-offset-background">
+      <div className="flex w-full items-center justify-start rounded-xl border bg-card px-3 py-2 text-sm font-medium ring-offset-background">
         <div className="mr-2 h-4 w-4 rounded-sm bg-muted animate-pulse" />
         <div className="h-4 w-[120px] rounded-sm bg-muted animate-pulse" />
       </div>

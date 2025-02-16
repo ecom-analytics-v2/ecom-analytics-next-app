@@ -86,7 +86,7 @@ export default function Home() {
         <h1 className="text-2xl font-bold text-center">Store Search</h1>
         <StoresSearchList stores={stores} onSelect={(store) => setSelectedStore(store)} />
         {selectedStore && (
-          <div className="mt-4 p-4 border rounded-md">
+          <div className="mt-4 p-4 border rounded-xl">
             <h2 className="text-lg font-semibold">Selected Store:</h2>
             <p>Name: {selectedStore.name}</p>
             <p>Description: {selectedStore.description}</p>

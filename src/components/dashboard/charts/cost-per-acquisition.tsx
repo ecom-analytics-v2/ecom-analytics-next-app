@@ -1,16 +1,10 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Legend } from "recharts";
+import type { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent";
+import React from "react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -21,11 +15,11 @@ import {
 const chartConfig = {
   costPerCustomer: {
     label: "Cost per New Customer",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(var(--chart-2))",
   },
   costPerOrder: {
     label: "Cost per Order",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
@@ -58,34 +52,6 @@ const renderLegend = (props: any) => {
   );
 };
 
-// Custom tooltip formatter
-const renderTooltip = (
-  <ChartTooltipContent
-    className="w-[200px]"
-    formatter={(value, name) => (
-      <div className="flex items-center gap-2">
-        <div
-          className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
-          style={{
-            backgroundColor:
-              chartConfig[name === "costPerNewCustomer" ? "costPerCustomer" : "costPerOrder"].color,
-          }}
-        />
-        <span>
-          {name === "costPerNewCustomer" ? "Cost per New Customer" : "Cost per Acquisition"}
-        </span>
-        <span className="ml-auto font-mono">${value}</span>
-      </div>
-    )}
-    label={(label: string) =>
-      new Date(label).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      })
-    }
-  />
-);
-
 export function CostPerAcquisition({
   dailySummary,
   startDate,
@@ -95,43 +61,117 @@ export function CostPerAcquisition({
   startDate: Date;
   endDate: Date;
 }) {
-  // Fake customer data - delete later
-  const transformedData = dailySummary.map((day) => ({
-    date: day.created_at,
-    costPerNewCustomer: +(day.ad_spend / Math.max(day.new_customers, 1)).toFixed(2),
-    costPerAcquisition: +(day.ad_spend / Math.max(day.orders, 1)).toFixed(2),
-  }));
+  // Create array of all dates in range
+  const chartData = React.useMemo(() => {
+    const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    const allDates = Array.from({ length: days }, (_, i) => {
+      const date = new Date(startDate);
+      date.setDate(date.getDate() + i);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    });
 
-  const averageCostPerNewCustomer = +(
-    transformedData.reduce((acc, day) => acc + day.costPerNewCustomer, 0) / transformedData.length
-  ).toFixed(2);
+    // Create a map of existing data
+    const dataMap = new Map(
+      dailySummary.map((day) => [
+        new Date(day.created_at).setUTCHours(0, 0, 0, 0),
+        {
+          costPerNewCustomer: +(day.ad_spend / Math.max(day.new_customers, 1)).toFixed(2),
+          costPerOrder: +(day.ad_spend / Math.max(day.orders, 1)).toFixed(2),
+        },
+      ])
+    );
 
-  const averageCostPerAcquisition = +(
-    transformedData.reduce((acc, day) => acc + day.costPerAcquisition, 0) / transformedData.length
-  ).toFixed(2);
+    // Transform data to include all dates
+    return allDates.map((date) => ({
+      date: date.getTime(),
+      ...(dataMap.get(date.getTime()) || {
+        costPerNewCustomer: 0,
+        costPerOrder: 0,
+      }),
+    }));
+  }, [dailySummary, startDate, endDate]);
+
+  // Calculate averages for the period
+  const averages = React.useMemo(() => {
+    console.log(dailySummary.map((day) => day.ad_spend));
+    console.log(dailySummary.map((day) => day.new_customers));
+    console.log(dailySummary.map((day) => day.orders));
+
+    const totalAdSpend = dailySummary.reduce((sum, day) => sum + day.ad_spend, 0);
+    const totalNewCustomers = dailySummary.reduce((sum, day) => sum + day.new_customers, 0);
+    const totalOrders = dailySummary.reduce((sum, day) => sum + day.orders, 0);
+
+    return {
+      costPerNewCustomer:
+        totalNewCustomers > 0 ? +(totalAdSpend / totalNewCustomers).toFixed(2) : 0,
+      costPerOrder: totalOrders > 0 ? +(totalAdSpend / totalOrders).toFixed(2) : 0,
+    };
+  }, [dailySummary]);
+
+  const dateFormatter = (value: any) => {
+    const date = new Date(value);
+    const daysDiff =
+      Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+    if (daysDiff <= 7) {
+      return date.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      });
+    }
+
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  // Custom tooltip with the dateFormatter
+  const renderTooltip = (
+    <ChartTooltipContent
+      className="w-[200px]"
+      formatter={(value: ValueType, name: NameType) => (
+        <div className="flex items-center gap-2">
+          <div
+            className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
+            style={{
+              backgroundColor:
+                chartConfig[name === "costPerNewCustomer" ? "costPerCustomer" : "costPerOrder"]
+                  .color,
+            }}
+          />
+          <span>{name === "costPerNewCustomer" ? "Cost per New Customer" : "Cost per Order"}</span>
+          <span className="ml-auto font-mono">${Number(value || 0).toFixed(2)}</span>
+        </div>
+      )}
+      label={(label: string) => dateFormatter(Number(label))}
+    />
+  );
 
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 p-6">
           <CardTitle>Acquisition Metrics</CardTitle>
-          <CardDescription>Customer acquisition cost analysis</CardDescription>
+          <CardDescription>Average daily acquisition costs</CardDescription>
         </div>
         <div className="flex flex-wrap">
           <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 border-t px-6 text-left sm:border-l sm:border-t-0">
             <span className="text-xs text-muted-foreground whitespace-nowrap">
-              Cost per New Customer
+              Avg. Cost per New Customer
             </span>
             <span className="text-lg font-bold leading-none sm:text-3xl">
-              ${averageCostPerNewCustomer}
+              ${averages.costPerNewCustomer}
             </span>
           </div>
-          <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 border-t border-l px-6 text-left sm:border-l sm:border-t-0">
+          <div className="flex h-full min-h-24 flex-1 flex-col justify-center gap-1 border-t border-l px-6 text-left">
             <span className="text-xs text-muted-foreground whitespace-nowrap">
-              Cost per Acquisition
+              Avg. Cost per Order
             </span>
             <span className="text-lg font-bold leading-none sm:text-3xl">
-              ${averageCostPerAcquisition}
+              ${averages.costPerOrder}
             </span>
           </div>
         </div>
@@ -139,7 +179,7 @@ export function CostPerAcquisition({
       <CardContent className="pt-6">
         <ChartContainer config={chartConfig}>
           <AreaChart
-            data={transformedData}
+            data={chartData}
             margin={{
               left: -8,
               right: 12,
@@ -165,12 +205,12 @@ export function CostPerAcquisition({
               dataKey="date"
               tickLine={false}
               axisLine={false}
-              tickFormatter={(value) =>
-                new Date(value).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })
-              }
+              domain={[startDate.getTime(), endDate.getTime()]}
+              type="number"
+              scale="time"
+              tickFormatter={dateFormatter}
+              tickMargin={10}
+              minTickGap={32}
             />
             <YAxis
               tickLine={false}
@@ -189,16 +229,14 @@ export function CostPerAcquisition({
               fill="url(#customerGradient)"
               stroke={chartConfig.costPerCustomer.color}
               strokeWidth={2}
-              stackId="a"
             />
             <Area
-              name="costPerAcquisition"
-              dataKey="costPerAcquisition"
+              name="costPerOrder"
+              dataKey="costPerOrder"
               type="natural"
               fill="url(#orderGradient)"
               stroke={chartConfig.costPerOrder.color}
               strokeWidth={2}
-              stackId="a"
             />
           </AreaChart>
         </ChartContainer>
