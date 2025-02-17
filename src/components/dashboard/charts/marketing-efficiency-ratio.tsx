@@ -114,7 +114,7 @@ export function MarketingEfficiencyRatio({
               gridType="circle"
               radialLines={false}
               stroke="none"
-              className="first:fill-muted last:fill-card"
+              className="first:fill-muted last:fill-background dark:last:fill-background/[0.9]"
               polarRadius={[116, 84]}
             />
             <RadialBar dataKey="mer" fill="var(--color-mer)" background cornerRadius={9999} />

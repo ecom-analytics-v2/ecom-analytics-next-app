@@ -123,14 +123,14 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
               fill="var(--color-revenue)"
               radius={[4, 4, 0, 0]}
               barSize={20}
-              fillOpacity={0.5}
+              fillOpacity={1}
             />
             <Bar
               dataKey="expenses"
               fill="var(--color-expenses)"
               radius={[0, 0, 4, 4]}
               barSize={20}
-              fillOpacity={0.5}
+              fillOpacity={1}
             />
             <Area
               type="monotone"

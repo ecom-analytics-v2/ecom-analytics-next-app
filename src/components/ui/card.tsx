@@ -9,6 +9,14 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
       className={cn(
         "rounded-xl shadow",
         "relative overflow-hidden",
+        // Border that switches between light and dark modes
+        "border border-black/[0.1] dark:border-white/[0.1]",
+        // Chart colors glow effect
+        "before:absolute before:-inset-[1px] before:rounded-[12px]",
+        "before:bg-gradient-to-br before:from-chart-1/[0.02] before:via-chart-2/[0.02] before:to-chart-1/[0.02]",
+        "before:blur-xl before:opacity-100",
+        "before:transition-all before:duration-500",
+        "hover:before:opacity-60",
         // Light mode gradient background
         "bg-gradient-to-b from-background/95 via-background/50 to-background/90",
         "backdrop-blur-md",
@@ -20,14 +28,11 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
         // Dark mode shadow
         "dark:shadow-[0_0_15px_rgba(0,0,0,0.2)]",
         // Light mode shine
-        "before:absolute before:inset-0",
-        "before:bg-gradient-to-br before:from-background/40 before:to-background/0",
-        "dark:before:from-white/5 dark:before:to-transparent",
-        // Hover shine effect
         "after:absolute after:inset-0",
-        "after:bg-gradient-to-b after:from-background/20 after:via-background/10 after:to-background/20",
-        "dark:after:from-white/[0.03] dark:after:via-white/[0.01] dark:after:to-white/[0.03]",
-        "after:opacity-0 hover:after:opacity-100",
+        "after:bg-gradient-to-br after:from-background/40 after:to-background/20",
+        "dark:after:from-white/[0.01] dark:after:via-white/[0.07] dark:after:to-white/[0.01]",
+        // Hover shine effect
+        "hover:after:opacity-100",
         "after:transition-opacity after:duration-500",
         className
       )}

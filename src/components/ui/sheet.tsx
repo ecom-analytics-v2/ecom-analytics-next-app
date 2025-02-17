@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SheetPrimitive from "@radix-ui/react-dialog"
-import { Cross2Icon } from "@radix-ui/react-icons"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Sheet = SheetPrimitive.Root
+const Sheet = SheetPrimitive.Root;
 
-const SheetTrigger = SheetPrimitive.Trigger
+const SheetTrigger = SheetPrimitive.Trigger;
 
-const SheetClose = SheetPrimitive.Close
+const SheetClose = SheetPrimitive.Close;
 
-const SheetPortal = SheetPrimitive.Portal
+const SheetPortal = SheetPrimitive.Portal;
 
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
@@ -27,8 +27,8 @@ const SheetOverlay = React.forwardRef<
     {...props}
     ref={ref}
   />
-))
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
+));
+SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
   "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -47,7 +47,7 @@ const sheetVariants = cva(
       side: "right",
     },
   }
-)
+);
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
@@ -61,7 +61,38 @@ const SheetContent = React.forwardRef<
     <SheetOverlay />
     <SheetPrimitive.Content
       ref={ref}
-      className={cn(sheetVariants({ side }), className)}
+      className={cn(
+        sheetVariants({ side }),
+        "relative overflow-hidden",
+        // Border that switches between light and dark modes
+        "border border-black/[0.1] dark:border-white/[0.1]",
+        // Chart colors glow effect
+        "before:absolute before:-inset-[1px] before:rounded-[inherit]",
+        "before:bg-gradient-to-br before:from-chart-1/[0.02] before:via-chart-2/[0.02] before:to-chart-1/[0.02]",
+        "before:blur-xl before:opacity-100",
+        "before:transition-all before:duration-500",
+        "hover:before:opacity-60",
+        "before:-z-10",
+        // Light mode gradient background
+        "bg-gradient-to-b from-background/95 via-background/50 to-background/90",
+        "backdrop-blur-md",
+        // Dark mode gradient background
+        "dark:bg-gradient-to-b dark:from-background/30 dark:via-background/20 dark:to-background/30",
+        "dark:backdrop-blur-md",
+        // Light mode shadow
+        "shadow-[0_0_15px_rgba(0,0,0,0.05)]",
+        // Dark mode shadow
+        "dark:shadow-[0_0_15px_rgba(0,0,0,0.2)]",
+        // Light mode shine
+        "after:absolute after:inset-0",
+        "after:bg-gradient-to-br after:from-background/40 after:to-background/20",
+        "dark:after:from-white/[0.01] dark:after:via-white/[0.07] dark:after:to-white/[0.01]",
+        "after:-z-10",
+        // Hover shine effect
+        "hover:after:opacity-100",
+        "after:transition-opacity after:duration-500",
+        className
+      )}
       {...props}
     >
       <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
@@ -71,36 +102,21 @@ const SheetContent = React.forwardRef<
       {children}
     </SheetPrimitive.Content>
   </SheetPortal>
-))
-SheetContent.displayName = SheetPrimitive.Content.displayName
+));
+SheetContent.displayName = SheetPrimitive.Content.displayName;
 
-const SheetHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex flex-col space-y-2 text-center sm:text-left", className)} {...props} />
+);
+SheetHeader.displayName = "SheetHeader";
+
+const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn(
-      "flex flex-col space-y-2 text-center sm:text-left",
-      className
-    )}
+    className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
     {...props}
   />
-)
-SheetHeader.displayName = "SheetHeader"
-
-const SheetFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
-    )}
-    {...props}
-  />
-)
-SheetFooter.displayName = "SheetFooter"
+);
+SheetFooter.displayName = "SheetFooter";
 
 const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
@@ -111,8 +127,8 @@ const SheetTitle = React.forwardRef<
     className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
-))
-SheetTitle.displayName = SheetPrimitive.Title.displayName
+));
+SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
 const SheetDescription = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Description>,
@@ -123,8 +139,8 @@ const SheetDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-SheetDescription.displayName = SheetPrimitive.Description.displayName
+));
+SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
 export {
   Sheet,
@@ -137,4 +153,4 @@ export {
   SheetFooter,
   SheetTitle,
   SheetDescription,
-}
+};

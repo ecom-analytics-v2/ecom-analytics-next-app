@@ -189,15 +189,11 @@ export function CostPerAcquisition({
             <defs>
               <linearGradient id="customerGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={chartConfig.costPerCustomer.color} stopOpacity={1} />
-                <stop
-                  offset="95%"
-                  stopColor={chartConfig.costPerCustomer.color}
-                  stopOpacity={0.1}
-                />
+                <stop offset="95%" stopColor={chartConfig.costPerCustomer.color} stopOpacity={1} />
               </linearGradient>
               <linearGradient id="orderGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={chartConfig.costPerOrder.color} stopOpacity={1} />
-                <stop offset="95%" stopColor={chartConfig.costPerOrder.color} stopOpacity={0.1} />
+                <stop offset="95%" stopColor={chartConfig.costPerOrder.color} stopOpacity={1} />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />

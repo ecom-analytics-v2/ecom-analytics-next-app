@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 210 40% 96%;
     --foreground: 255 17% 7%;
-    --muted: 210 20% 90%;
+    --muted: 210 20% 93%;
     --muted-foreground: 255 17% 20%;
     --popover: 210 40% 98%;
     --popover-foreground: 255 17% 7%;
@@ -36,7 +36,7 @@
     --sidebar-foreground: 255 17% 7%;
     --sidebar-primary: 255 17% 7%;
     --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 210 20% 88%; /* Subtle darkening for differentiation */
+    --sidebar-accent: 210 20% 92%; /* Subtle darkening for differentiation */
     --sidebar-accent-foreground: 255 17% 7%;
     --sidebar-border: 210 20% 85%; /* Matches input and border */
     --sidebar-ring: 210 20% 80%; /* Soft, minimal highlight */
