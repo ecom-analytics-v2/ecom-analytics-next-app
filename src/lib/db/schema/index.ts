@@ -17,3 +17,7 @@ export * from "./teamMembers";
 export * from "./teams";
 export * from "./types";
 export * from "./users";
+
+export * from "./googleAnalytics/googleAnalyticsAccounts";
+export * from "./googleAnalytics/googleAnalyticsEventData";
+export * from "./googleAnalytics/googleAnalyticsProperties";

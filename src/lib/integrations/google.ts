@@ -20,7 +20,13 @@ const googleAdsClient = new GoogleAdsApi({
 export const initGoogleOAuth = () => {
   const redirectUrl = googleOAuth2Client.generateAuthUrl({
     access_type: "offline",
-    scope: ["openid", "profile", "email", "https://www.googleapis.com/auth/adwords"],
+    scope: [
+      "openid",
+      "profile",
+      "email",
+      "https://www.googleapis.com/auth/adwords",
+      "https://www.googleapis.com/auth/analytics.readonly",
+    ],
     prompt: "consent",
   });
   return redirectUrl;

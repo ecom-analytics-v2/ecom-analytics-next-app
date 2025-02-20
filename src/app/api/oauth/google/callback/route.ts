@@ -59,5 +59,5 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json({ code: 500, message: "Internal Server Error" }, { status: 500 });
   }
 
-  return NextResponse.redirect("/dashboard/settings");
+  return NextResponse.redirect(`${env.BASE_URL}/dashboard/settings`);
 };
