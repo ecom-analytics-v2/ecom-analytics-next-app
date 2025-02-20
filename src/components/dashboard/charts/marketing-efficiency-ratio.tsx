@@ -14,113 +14,70 @@ import {
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-const shopifyData = [
-  { date: "2024-04-01", revenue: 1200 },
-  { date: "2024-04-02", revenue: 1500 },
-  { date: "2024-04-03", revenue: 1100 },
-  { date: "2024-04-04", revenue: 1800 },
-  { date: "2024-04-05", revenue: 2000 },
-  { date: "2024-04-06", revenue: 1600 },
-  { date: "2024-04-07", revenue: 1400 },
-  { date: "2024-04-08", revenue: 2200 },
-  { date: "2024-04-09", revenue: 1300 },
-  { date: "2024-04-10", revenue: 1700 },
-  { date: "2024-04-11", revenue: 1900 },
-  { date: "2024-04-12", revenue: 1500 },
-  { date: "2024-04-13", revenue: 2100 },
-  { date: "2024-04-14", revenue: 1400 },
-  { date: "2024-04-15", revenue: 1600 },
-  { date: "2024-04-16", revenue: 1800 },
-  { date: "2024-04-17", revenue: 2400 },
-  { date: "2024-04-18", revenue: 2200 },
-  { date: "2024-04-19", revenue: 1700 },
-  { date: "2024-04-20", revenue: 1300 },
-  { date: "2024-04-21", revenue: 1500 },
-  { date: "2024-04-22", revenue: 1800 },
-  { date: "2024-04-23", revenue: 1600 },
-  { date: "2024-04-24", revenue: 2000 },
-  { date: "2024-04-25", revenue: 1700 },
-  { date: "2024-04-26", revenue: 1200 },
-  { date: "2024-04-27", revenue: 2300 },
-  { date: "2024-04-28", revenue: 1400 },
-  { date: "2024-04-29", revenue: 1900 },
-  { date: "2024-04-30", revenue: 2500 },
-];
+interface DailySummary {
+  created_at: Date;
+  total_price: number;
+  ad_spend: number;
+  expenses: number;
+}
 
-const facebookData = [
-  { date: "2024-04-01", adSpend: 200 },
-  { date: "2024-04-02", adSpend: 250 },
-  { date: "2024-04-03", adSpend: 180 },
-  { date: "2024-04-04", adSpend: 300 },
-  { date: "2024-04-05", adSpend: 350 },
-  { date: "2024-04-06", adSpend: 220 },
-  { date: "2024-04-07", adSpend: 190 },
-  { date: "2024-04-08", adSpend: 400 },
-  { date: "2024-04-09", adSpend: 180 },
-  { date: "2024-04-10", adSpend: 250 },
-  { date: "2024-04-11", adSpend: 320 },
-  { date: "2024-04-12", adSpend: 200 },
-  { date: "2024-04-13", adSpend: 350 },
-  { date: "2024-04-14", adSpend: 180 },
-  { date: "2024-04-15", adSpend: 220 },
-  { date: "2024-04-16", adSpend: 280 },
-  { date: "2024-04-17", adSpend: 400 },
-  { date: "2024-04-18", adSpend: 350 },
-  { date: "2024-04-19", adSpend: 250 },
-  { date: "2024-04-20", adSpend: 180 },
-  { date: "2024-04-21", adSpend: 200 },
-  { date: "2024-04-22", adSpend: 280 },
-  { date: "2024-04-23", adSpend: 220 },
-  { date: "2024-04-24", adSpend: 350 },
-  { date: "2024-04-25", adSpend: 250 },
-  { date: "2024-04-26", adSpend: 150 },
-  { date: "2024-04-27", adSpend: 380 },
-  { date: "2024-04-28", adSpend: 180 },
-  { date: "2024-04-29", adSpend: 320 },
-  { date: "2024-04-30", adSpend: 450 },
-];
+interface FormattedAd {
+  date_start: Date;
+  date_stop: Date;
+  spend: number;
+}
 
-const getMerByDay = () => {
-  return shopifyData
-    .map((revenueItem) => {
-      const matchingAdSpend = facebookData.find(
-        (adSpendItem) => adSpendItem.date === revenueItem.date
-      );
-      if (!matchingAdSpend) return null;
+const getMerByDay = (shopifyData: DailySummary[], startDate: Date, endDate: Date) => {
+  // Create a map to aggregate daily totals
+  const dailyTotals = new Map<string, { revenue: number; adSpend: number }>();
 
+  // Aggregate revenue and ad spend by day from dailySummary
+  shopifyData.forEach((order) => {
+    const orderDate = new Date(order.created_at);
+    // Skip if outside date range
+    if (orderDate < startDate || orderDate > endDate) return;
+
+    const date = orderDate.toISOString().split("T")[0];
+    if (!date) return;
+
+    const existing = dailyTotals.get(date) || { revenue: 0, adSpend: 0 };
+    dailyTotals.set(date, {
+      revenue: existing.revenue + (order.total_price || 0),
+      adSpend: existing.adSpend + (order.ad_spend || 0),
+    });
+  });
+
+  // Calculate MER for each day
+  return Array.from(dailyTotals.entries())
+    .map(([date, { revenue, adSpend }]) => {
+      if (!revenue || !adSpend) return null;
       return {
-        date: revenueItem.date,
-        mer: revenueItem.revenue / matchingAdSpend.adSpend,
+        date,
+        mer: revenue / adSpend,
       };
     })
     .filter(Boolean);
 };
 
-const getAverageMer = () => {
-  const merByDay = getMerByDay() as { date: string; mer: number }[];
-  if (!merByDay.length) return 0;
+interface MarketingEfficiencyRatioProps {
+  dailySummary: DailySummary[];
+  startDate: Date;
+  endDate: Date;
+}
 
-  const total = merByDay.reduce((sum, item) => sum + item.mer, 0);
-  return total / merByDay.length;
-};
+export function MarketingEfficiencyRatio({
+  dailySummary,
+  startDate,
+  endDate,
+}: MarketingEfficiencyRatioProps) {
+  // Ensure data is properly serialized for client-side rendering
+  const normalizedShopifyData = dailySummary.map((item) => ({
+    ...item,
+    created_at: new Date(item.created_at),
+  }));
 
-const getMerPercentage = (mer: number) => {
-  // Calculate percentage where 10 MER = 100%
-  const percentage = (mer / 10) * 100;
-  // Convert percentage to angle (360 degrees max)
-  return (percentage / 100) * 360;
-};
-
-const chartConfig = {
-  mer: {
-    label: "MER",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig;
-
-export function MarketingEfficiencyRatio() {
-  const averageMer = getAverageMer();
-  const chartData = [{ mer: (averageMer / 10) * 100 }]; // Convert to percentage where 10 MER = 100%
+  const averageMer = getAverageMer(normalizedShopifyData, startDate, endDate);
+  const chartData = [{ mer: (averageMer / 10) * 100 }];
   const endAngle = getMerPercentage(averageMer);
 
   return (
@@ -157,10 +114,10 @@ export function MarketingEfficiencyRatio() {
               gridType="circle"
               radialLines={false}
               stroke="none"
-              className="first:fill-muted last:fill-card"
+              className="first:fill-muted last:fill-background dark:last:fill-background/[0.9]"
               polarRadius={[116, 84]}
             />
-            <RadialBar dataKey="mer" background cornerRadius={9999} />
+            <RadialBar dataKey="mer" fill="var(--color-mer)" background cornerRadius={9999} />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
@@ -198,3 +155,28 @@ export function MarketingEfficiencyRatio() {
     </Card>
   );
 }
+
+const getAverageMer = (shopifyData: DailySummary[], startDate: Date, endDate: Date) => {
+  const merByDay = getMerByDay(shopifyData, startDate, endDate) as {
+    date: string;
+    mer: number;
+  }[];
+  if (!merByDay.length) return 0;
+
+  const total = merByDay.reduce((sum, item) => sum + item.mer, 0);
+  return total / merByDay.length;
+};
+
+const getMerPercentage = (mer: number) => {
+  // Calculate percentage where 10 MER = 100%
+  const percentage = (mer / 10) * 100;
+  // Convert percentage to angle (360 degrees max)
+  return (percentage / 100) * 360;
+};
+
+const chartConfig = {
+  mer: {
+    label: "MER",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;

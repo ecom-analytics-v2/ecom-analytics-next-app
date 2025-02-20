@@ -1,18 +1,28 @@
 export type ExpenseType =
-  | "Fixed Cost"
-  | "Variable Cost"
-  | "Staff"
-  | "Software"
+  | "3PL"
+  | "Bookkeeper / Accountant"
+  | "Donations"
+  | "Duties"
+  | "Equipment & Leases"
+  | "Insurance"
+  | "Licensing"
   | "Marketing"
-  | "Operating Expenses"
+  | "Money Fees"
+  | "Office Expenses"
+  | "Other"
+  | "Rent & Utilities"
+  | "Software"
+  | "Sub-contractor / Consultants"
   | "Taxes"
-  | "Other";
+  | "Training"
+  | "Travel"
+  | "Wages";
 
 export type AmountType = "dollar" | "percentage";
 
 export interface Expense {
   name: string;
-  type: ExpenseType;
+  category: ExpenseType;
   amount: number;
   amount_type: AmountType;
 }

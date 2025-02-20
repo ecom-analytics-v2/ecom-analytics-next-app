@@ -1,9 +1,17 @@
 "use client";
 
-import { BadgeCheck, ChevronsUpDown, LogOut, Sparkles } from "lucide-react";
+import {
+  BadgeCheck,
+  ChevronRight,
+  ChevronsRight,
+  ChevronsUpDown,
+  LogOut,
+  Sparkles,
+} from "lucide-react";
 
 import { signOut } from "@//actions/auth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,7 +64,7 @@ export function NavUser({ user }: { user: User }) {
                 <span className="truncate font-semibold">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
               </div>
-              <ChevronsUpDown className="ml-auto size-4" />
+              <ChevronRight className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -89,6 +97,7 @@ export function NavUser({ user }: { user: User }) {
                 <BadgeCheck className="mr-2 h-4 w-4" />
                 Account
               </DropdownMenuItem>
+              <ThemeToggle />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={handleSignOut}>

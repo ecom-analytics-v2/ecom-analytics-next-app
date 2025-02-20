@@ -22,6 +22,34 @@
       "when": 1739003152200,
       "tag": "0002_sharp_juggernaut",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1739432191889,
+      "tag": "0003_next_phantom_reporter",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1739441860475,
+      "tag": "0004_fancy_boomerang",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1739442027722,
+      "tag": "0005_giant_zemo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1739442838311,
+      "tag": "0006_smart_boom_boom",
+      "breakpoints": true
     }
   ]
 }

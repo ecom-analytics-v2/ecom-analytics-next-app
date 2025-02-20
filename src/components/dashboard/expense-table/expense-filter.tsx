@@ -2,7 +2,7 @@
 import { Check, ListFilter } from "lucide-react";
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import DatePickerWithRange from "@/components/dashboard/date-range-picker";
+import DatePickerWithRange from "@/components/dashboard/common/date-range-picker";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -53,14 +53,24 @@ export function ExpenseFilter() {
   const { selectedTypes, setSelectedTypes } = useExpenseFilter();
 
   const expenseTypes: ExpenseType[] = [
-    "Fixed Cost",
-    "Variable Cost",
-    "Staff",
-    "Software",
+    "3PL",
+    "Bookkeeper / Accountant",
+    "Donations",
+    "Duties",
+    "Equipment & Leases",
+    "Insurance",
+    "Licensing",
     "Marketing",
-    "Operating Expenses",
-    "Taxes",
+    "Money Fees",
+    "Office Expenses",
     "Other",
+    "Rent & Utilities",
+    "Software",
+    "Sub-contractor / Consultants",
+    "Taxes",
+    "Training",
+    "Travel",
+    "Wages",
   ];
 
   /**

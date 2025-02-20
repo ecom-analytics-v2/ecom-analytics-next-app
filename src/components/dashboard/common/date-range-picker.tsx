@@ -22,6 +22,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
+import { updateDateFilter } from "@/actions/filters";
 
 /**
  * List of preset date ranges (Today, Yesterday, Last 7 days, etc.)
@@ -31,43 +32,43 @@ const presetOptions = [
   {
     label: "Today",
     getValue: () => ({
-      startDate: new Date().toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: new Date(),
+      endDate: new Date(),
     }),
   },
   {
     label: "Yesterday",
     getValue: () => {
-      const yesterday = subDays(new Date(), 1).toISOString().split("T")[0];
+      const yesterday = subDays(new Date(), 1);
       return { startDate: yesterday, endDate: yesterday };
     },
   },
   {
     label: "Last 7 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 6).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 6),
+      endDate: new Date(),
     }),
   },
   {
     label: "Last 30 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 29).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 29),
+      endDate: new Date(),
     }),
   },
   {
     label: "Last 90 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 89).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 89),
+      endDate: new Date(),
     }),
   },
   {
     label: "Last 365 days",
     getValue: () => ({
-      startDate: subDays(new Date(), 364).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subDays(new Date(), 364),
+      endDate: new Date(),
     }),
   },
   {
@@ -76,16 +77,16 @@ const presetOptions = [
       const today = new Date();
       const lastMonth = subMonths(today, 1);
       return {
-        startDate: startOfMonth(lastMonth).toISOString().split("T")[0],
-        endDate: endOfMonth(lastMonth).toISOString().split("T")[0],
+        startDate: startOfMonth(lastMonth),
+        endDate: endOfMonth(lastMonth),
       };
     },
   },
   {
     label: "Last 12 months",
     getValue: () => ({
-      startDate: subMonths(new Date(), 12).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: subMonths(new Date(), 12),
+      endDate: new Date(),
     }),
   },
   {
@@ -94,30 +95,30 @@ const presetOptions = [
       const today = new Date();
       const lastYear = subYears(today, 1);
       return {
-        startDate: startOfYear(lastYear).toISOString().split("T")[0],
-        endDate: endOfYear(lastYear).toISOString().split("T")[0],
+        startDate: startOfYear(lastYear),
+        endDate: endOfYear(lastYear),
       };
     },
   },
   {
     label: "Week to date",
     getValue: () => ({
-      startDate: startOfWeek(new Date(), { weekStartsOn: 1 }).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
+      endDate: new Date(),
     }),
   },
   {
     label: "Month to date",
     getValue: () => ({
-      startDate: startOfMonth(new Date()).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: startOfMonth(new Date()),
+      endDate: new Date(),
     }),
   },
   {
     label: "Quarter to date",
     getValue: () => ({
-      startDate: startOfQuarter(new Date()).toISOString().split("T")[0],
-      endDate: new Date().toISOString().split("T")[0],
+      startDate: startOfQuarter(new Date()),
+      endDate: new Date(),
     }),
   },
   {
@@ -125,10 +126,8 @@ const presetOptions = [
     getValue: () => {
       const today = new Date();
       return {
-        startDate: setYear(today, today.getFullYear() - 1)
-          .toISOString()
-          .split("T")[0],
-        endDate: today.toISOString().split("T")[0],
+        startDate: setYear(today, today.getFullYear() - 1),
+        endDate: today,
       };
     },
   },
@@ -138,22 +137,18 @@ const presetOptions = [
  * Checks if given dates match any preset date range
  * Returns the preset name or "Custom" if no match found
  */
-function findMatchingPreset(startDate: string, endDate: string) {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-
+function findMatchingPreset(startDate: Date, endDate: Date) {
   // Helper to compare dates without time
   const isSameDate = (date1: Date, date2: Date) =>
-    date1.toISOString().split("T")[0] === date2.toISOString().split("T")[0];
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate();
 
   for (const preset of presetOptions) {
     const presetDates = preset.getValue();
     if (!presetDates.startDate || !presetDates.endDate) continue;
 
-    const presetStart = new Date(presetDates.startDate);
-    const presetEnd = new Date(presetDates.endDate);
-
-    if (isSameDate(start, presetStart) && isSameDate(end, presetEnd)) {
+    if (isSameDate(startDate, presetDates.startDate) && isSameDate(endDate, presetDates.endDate)) {
       return preset.label;
     }
   }
@@ -180,21 +175,17 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
 function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) {
   const [calendarOpen, setCalendarOpen] = React.useState(false);
   const [label, setLabel] = React.useState<string>();
+  const [tempDateRange, setTempDateRange] = React.useState<DateRange>();
+  const utils = api.useUtils();
 
-  const {
-    data: dateFilter,
-    isLoading,
-    refetch: refetchDateFilter,
-  } = api.filtersRouter.getDateFilter.useQuery();
-  const { mutate: updateDateFilter } = api.filtersRouter.updateDateFilter.useMutation({
-    onSuccess: () => {
-      refetchDateFilter();
-    },
-  });
+  const { data: dateFilter, isLoading } = api.filterRouter.getDateFilter.useQuery();
 
   React.useEffect(() => {
     if (dateFilter?.startDate && dateFilter?.endDate) {
-      const matchedLabel = findMatchingPreset(dateFilter.startDate, dateFilter.endDate);
+      const matchedLabel = findMatchingPreset(
+        new Date(dateFilter.startDate),
+        new Date(dateFilter.endDate)
+      );
       setLabel(matchedLabel);
     }
   }, [dateFilter]);
@@ -204,50 +195,61 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
     return <DatePickerSkeleton />;
   }
 
-  // Updates dates when a preset is clicked
-  const handlePresetChange = (preset: (typeof presetOptions)[number]) => {
+  // Updates dates when a preset is clicked - immediate update
+  const handlePresetChange = async (preset: (typeof presetOptions)[number]) => {
     const newDate = preset.getValue();
     if (!newDate.startDate || !newDate.endDate) return;
 
-    updateDateFilter({
-      startDate: newDate.startDate,
-      endDate: newDate.endDate,
-    });
-    setLabel(preset.label);
-  };
-
-  // Updates dates when calendar selection changes
-  const handleCustomDateChange = (newDate: DateRange | undefined) => {
-    if (newDate?.from && newDate?.to) {
-      updateDateFilter({
-        startDate: newDate.from?.toISOString().split("T")[0] ?? "",
-        endDate: newDate.to?.toISOString().split("T")[0] ?? "",
-      });
-      setLabel("Custom");
+    try {
+      await updateDateFilter(newDate.startDate.toISOString(), newDate.endDate.toISOString());
+      setLabel(preset.label);
+      setCalendarOpen(false);
+    } catch (error) {
+      console.error("Failed to update date filter:", error);
     }
   };
 
-  const dateRangeForCalendar: DateRange | undefined = dateFilter
-    ? {
-        from: dateFilter.startDate ? new Date(dateFilter.startDate) : undefined,
-        to: dateFilter.endDate ? new Date(dateFilter.endDate) : undefined,
+  // Store temporary date range while calendar is open
+  const handleCustomDateChange = (newDate: DateRange | undefined) => {
+    setTempDateRange(newDate);
+  };
+
+  // Handle popover close - update if we have temp dates
+  const handleOpenChange = async (open: boolean) => {
+    if (!open && tempDateRange?.from && tempDateRange?.to) {
+      try {
+        await updateDateFilter(tempDateRange.from.toISOString(), tempDateRange.to.toISOString());
+        setLabel("Custom");
+      } catch (error) {
+        console.error("Failed to update date filter:", error);
       }
-    : undefined;
+    }
+    setCalendarOpen(open);
+  };
+
+  const dateRangeForCalendar: DateRange | undefined =
+    tempDateRange ||
+    (dateFilter
+      ? {
+          from: dateFilter.startDate ? new Date(dateFilter.startDate) : undefined,
+          to: dateFilter.endDate ? new Date(dateFilter.endDate) : undefined,
+        }
+      : undefined);
 
   return (
     <div className={cn("grid gap-2", className)}>
-      <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+      <Popover open={calendarOpen} onOpenChange={handleOpenChange}>
         <PopoverTrigger asChild>
           <Button id="date" variant="card" className={cn("justify-start text-left font-normal")}>
             <CalendarIcon className="mr-2 h-4 w-4" />
             {label === "Custom" ? (
               dateFilter?.endDate ? (
                 <>
-                  {format(new Date(dateFilter.startDate!), "LLL dd, y")} -{" "}
-                  {format(new Date(dateFilter.endDate!), "LLL dd, y")}
+                  {format(new Date(dateFilter.startDate), "LLL dd, y")} -{" "}
+                  {format(new Date(dateFilter.endDate), "LLL dd, y")}
                 </>
               ) : (
-                format(new Date(dateFilter?.startDate!), "LLL dd, y")
+                dateFilter?.startDate && format(new Date(dateFilter.startDate), "LLL dd, y")
               )
             ) : (
               label || <span>Pick a date</span>
@@ -278,6 +280,14 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
                 selected={dateRangeForCalendar}
                 onSelect={handleCustomDateChange}
                 numberOfMonths={2}
+                disabled={{ after: new Date() }}
+                modifiers={{ today: new Date() }}
+                modifiersStyles={{
+                  today: {
+                    fontWeight: "bold",
+                    border: "1px solid currentColor",
+                  },
+                }}
               />
             </div>
           </div>
@@ -290,7 +300,7 @@ function DatePickerContent({ className }: React.HTMLAttributes<HTMLDivElement>) 
 function DatePickerSkeleton() {
   return (
     <div className="w-[200px] ">
-      <div className="flex w-full items-center justify-start rounded-md border bg-card px-3 py-2 text-sm font-medium ring-offset-background">
+      <div className="flex w-full items-center justify-start rounded-xl border bg-card px-3 py-2 text-sm font-medium ring-offset-background">
         <div className="mr-2 h-4 w-4 rounded-sm bg-muted animate-pulse" />
         <div className="h-4 w-[120px] rounded-sm bg-muted animate-pulse" />
       </div>

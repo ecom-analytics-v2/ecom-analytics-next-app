@@ -1,11 +1,23 @@
 import { getAllTeamExpenses } from "@/actions/expenses";
 import { getUser, getUserWithTeam } from "@/actions/user";
 import { redirect } from "next/navigation";
-import { ExpenseFilter, ExpenseFilterProvider } from "./expense-filter";
-import { ExpenseTable } from "./expense-table";
-import { ExpenseAreaChartSkeleton } from "./skeletons/expense-area-chart-skeleton";
-import { ExpensePieChartSkeleton } from "./skeletons/expense-pie-chart-skeleton";
-import { ExpenseTableSkeleton } from "./skeletons/expense-table-skeleton";
+import {
+  ExpenseFilter,
+  ExpenseFilterProvider,
+} from "@/components/dashboard/expense-table/expense-filter";
+import { ExpenseTableContainer } from "@/components/dashboard/expense-table/expense-table-container";
+import { ExpenseTableSkeleton } from "@/components/dashboard/skeletons/expense-table-skeleton";
+import { getTeamForUser } from "@/actions/team";
+import { api } from "@/trpc/server";
+import dummyOrders from "../dummy-orders.json";
+
+interface ShopifyOrder {
+  id: number;
+  shopify_gid: string;
+  total_amount: number;
+  shopify_account_id: number;
+  created_at: string;
+}
 
 export default async function Dashboard() {
   const user = await getUser();
@@ -18,7 +30,27 @@ export default async function Dashboard() {
     redirect("/sign-in");
   }
 
+  const teamData = await getTeamForUser(user.id);
+  if (!teamData) {
+    throw new Error("Team not found");
+  }
+
+  if (!teamData.shopifyAccount?.id) {
+    throw new Error("Shopify account not found");
+  }
+
   const expenses = await getAllTeamExpenses(user.id);
+
+  // Fetch date filter data
+  const dateData = await api.filterRouter.getDateFilter();
+
+  // Get orders from dummy data that fall within the date range
+  const startDate = new Date(dateData.startDate);
+  const endDate = new Date(dateData.endDate);
+  const orders = (dummyOrders as ShopifyOrder[]).filter((order) => {
+    const orderDate = new Date(order.created_at);
+    return orderDate >= startDate && orderDate <= endDate;
+  });
 
   return (
     <ExpenseFilterProvider>
@@ -29,10 +61,12 @@ export default async function Dashboard() {
 
             <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
               {userWithTeam.teamId ? (
-                <ExpenseTable
+                <ExpenseTableContainer
                   totalRevenue={1000000}
                   expenses={expenses}
                   teamId={userWithTeam.teamId}
+                  dateRange={{ startDate, endDate }}
+                  orders={orders}
                 />
               ) : (
                 <ExpenseTableSkeleton />

@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
-const DateFilterRouter = createTRPCRouter({
+const FilterRouter = createTRPCRouter({
   updateDateFilter: protectedProcedure
     .input(
       z.object({
@@ -15,6 +15,7 @@ const DateFilterRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      console.log("Starting updateDateFilter mutation with input:", input);
       const user = await getUserWithTeam(ctx.session.user.id);
       if (!user || !user.teamId) {
         throw new TRPCError({
@@ -24,6 +25,7 @@ const DateFilterRouter = createTRPCRouter({
       }
 
       try {
+        console.log("Updating date filter for team:", user.teamId);
         await db
           .update(teams)
           .set({
@@ -32,6 +34,7 @@ const DateFilterRouter = createTRPCRouter({
           })
           .where(eq(teams.id, user.teamId));
 
+        console.log("Date filter updated successfully");
         return { success: true };
       } catch (error) {
         console.error("Error updating date filter:", error);
@@ -66,11 +69,18 @@ const DateFilterRouter = createTRPCRouter({
       });
     }
 
+    if (!team.dateFilterStart || !team.dateFilterEnd) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Date filter not set",
+      });
+    }
+
     return {
-      startDate: team.dateFilterStart?.toISOString().split("T")[0] || null,
-      endDate: team.dateFilterEnd?.toISOString().split("T")[0] || null,
+      startDate: team.dateFilterStart,
+      endDate: team.dateFilterEnd,
     };
   }),
 });
 
-export default DateFilterRouter;
+export default FilterRouter;
