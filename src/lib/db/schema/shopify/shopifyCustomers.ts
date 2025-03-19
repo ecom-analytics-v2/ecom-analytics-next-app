@@ -1,15 +1,13 @@
 import { relations } from "drizzle-orm";
 import { index, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { shopifyAccounts } from "./shopifyAccounts";
-import { shopifyOrderProducts } from "./shopifyOrderProducts";
 
-export const shopifyProducts = pgTable(
-  "shopify_products",
+export const shopifyCustomers = pgTable(
+  "shopify_customers",
   {
     id: serial("id").primaryKey(),
     shopifyGid: text("shopify_gid").notNull(),
-    title: text("title").notNull(),
-    handle: text("handle").notNull(),
+    displayName: text("display_name").notNull(),
     shopifyAccountId: serial("shopify_account_id")
       .notNull()
       .references(() => shopifyAccounts.id),
@@ -17,15 +15,14 @@ export const shopifyProducts = pgTable(
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },
   (table) => ({
-    shopifyGidIndex: index("sp_gid_idx").on(table.shopifyGid),
-    shopifyAccountIdIndex: index("sa_aid_idx").on(table.shopifyAccountId),
+    shopifyGidIndex: index("sc_gid_idx").on(table.shopifyGid),
+    shopifyAccountIdIndex: index("sc_aid_idx").on(table.shopifyAccountId),
   })
 );
 
-export const shopifyProductsRelations = relations(shopifyProducts, ({ one, many }) => ({
+export const shopifyCustomersRelations = relations(shopifyCustomers, ({ one, many }) => ({
   shopifyAccount: one(shopifyAccounts, {
-    fields: [shopifyProducts.shopifyAccountId],
+    fields: [shopifyCustomers.shopifyAccountId],
     references: [shopifyAccounts.id],
   }),
-  shopifyOrderProducts: many(shopifyOrderProducts),
 }));

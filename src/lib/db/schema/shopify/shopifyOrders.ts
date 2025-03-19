@@ -1,3 +1,4 @@
+import { createId } from "@paralleldrive/cuid2";
 import { relations } from "drizzle-orm";
 import { decimal, index, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { shopifyAccounts } from "./shopifyAccounts";
@@ -14,12 +15,15 @@ export const orderStatusEnum = pgEnum("order_status", [
 export const shopifyOrders = pgTable(
   "shopify_orders",
   {
-    id: serial("id").primaryKey(),
+    id: text("id")
+      .$defaultFn(() => createId())
+      .primaryKey(),
     shopifyGid: text("shopify_gid").notNull(),
     totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
     shopifyAccountId: serial("shopify_account_id")
       .notNull()
       .references(() => shopifyAccounts.id),
+    shopifyCreatedAt: timestamp("shopify_created_at").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },
   (table) => ({

@@ -9,6 +9,7 @@ export * from "./meta/metaCampaigns";
 export * from "./meta/metaInsightData";
 export * from "./shopify/shopifyAccounts";
 export * from "./shopify/shopifyBulkOperations";
+export * from "./shopify/shopifyCustomers";
 export * from "./shopify/shopifyOrderProducts";
 export * from "./shopify/shopifyOrders";
 export * from "./shopify/shopifyProducts";
@@ -21,3 +22,5 @@ export * from "./users";
 export * from "./googleAnalytics/googleAnalyticsAccounts";
 export * from "./googleAnalytics/googleAnalyticsEventData";
 export * from "./googleAnalytics/googleAnalyticsProperties";
+
+export * from "./googleAds/googleAdsAccounts";

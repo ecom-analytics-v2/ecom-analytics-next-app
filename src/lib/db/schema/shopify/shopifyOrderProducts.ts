@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { index, pgTable, serial, timestamp } from "drizzle-orm/pg-core";
+import { index, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { shopifyAccounts } from "./shopifyAccounts";
 import { shopifyOrders } from "./shopifyOrders";
 import { shopifyProducts } from "./shopifyProducts";
@@ -8,7 +8,7 @@ export const shopifyOrderProducts = pgTable(
   "shopify_order_products",
   {
     id: serial("id").primaryKey(),
-    shopifyOrderId: serial("shopify_order_id")
+    shopifyOrderId: text("shopify_order_id")
       .notNull()
       .references(() => shopifyOrders.id),
     shopifyProductId: serial("shopify_product_id")

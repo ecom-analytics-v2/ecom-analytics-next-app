@@ -1,10 +1,10 @@
 import { env } from "@/env";
-import { and, eq, SQL } from "drizzle-orm";
+// import { and, eq, SQL } from "drizzle-orm";
 import { NextRequest } from "next/server";
 import crypto from "node:crypto";
-import { db } from "../db/drizzle";
-import { shopifyWebhookSubscriptions } from "../db/schema";
-import { shopifyBulkOperations } from "../db/schema/shopify/shopifyBulkOperations";
+// import { db } from "../db/drizzle";
+// import { shopifyWebhookSubscriptions } from "../db/schema";
+// import { shopifyBulkOperations } from "../db/schema/shopify/shopifyBulkOperations";
 
 const shopifyRedirectUri = () => encodeURIComponent(`${env.BASE_URL}/api/oauth/shopify/callback`);
 export const generateShopifyState = () => crypto.randomBytes(14).toString("hex");
@@ -124,378 +124,378 @@ type ShopifyApiError = {
   };
 };
 
-type ShopifyReadProductsResponse = {
-  products: {
-    edges: {
-      node: ShopifyApiProduct;
-      cursor: string;
-    }[];
-    pageInfo: {
-      hasNextPage: string;
-    };
-  };
-};
+// type ShopifyReadProductsResponse = {
+//   products: {
+//     edges: {
+//       node: ShopifyApiProduct;
+//       cursor: string;
+//     }[];
+//     pageInfo: {
+//       hasNextPage: string;
+//     };
+//   };
+// };
 
-export interface ShopifyApiProduct {
-  id: string;
-  title: string;
-  handle: string;
-}
+// export interface ShopifyApiProduct {
+//   id: string;
+//   title: string;
+//   handle: string;
+// }
 
-export const readShopifyProducts = async (access_token: string, shop: string) => {
-  try {
-    const apiQuery = `query { products(first: 250) { edges { node { id title handle } cursor } pageInfo { hasNextPage } } }`;
-    const response = await queryShopifyApi<ShopifyReadProductsResponse>(
-      access_token,
-      shop,
-      apiQuery
-    );
-    if (!response) throw new Error("Failed to query Shopify API");
+// export const readShopifyProducts = async (access_token: string, shop: string) => {
+//   try {
+//     const apiQuery = `query { products(first: 250) { edges { node { id title handle } cursor } pageInfo { hasNextPage } } }`;
+//     const response = await queryShopifyApi<ShopifyReadProductsResponse>(
+//       access_token,
+//       shop,
+//       apiQuery
+//     );
+//     if (!response) throw new Error("Failed to query Shopify API");
 
-    return response.data.products.edges.map((p) => p.node);
-  } catch (e) {
-    return false;
-  }
-};
+//     return response.data.products.edges.map((p) => p.node);
+//   } catch (e) {
+//     return false;
+//   }
+// };
 
-type ShopifyReadOrdersResponse = {
-  orders: {
-    edges: {
-      node: ShopifyApiOrder;
-    }[];
-  };
-};
+// type ShopifyReadOrdersResponse = {
+//   orders: {
+//     edges: {
+//       node: ShopifyApiOrder;
+//     }[];
+//   };
+// };
 
-interface ShopifyApiOrder {
-  id: string;
-  lineItems: {
-    nodes: {
-      id: string;
-      product: {
-        id: string;
-      };
-    }[];
-  };
-  totalPriceSet: {
-    shopMoney: {
-      amount: string;
-    };
-  };
-  createdAt: string;
-}
+// interface ShopifyApiOrder {
+//   id: string;
+//   lineItems: {
+//     nodes: {
+//       id: string;
+//       product: {
+//         id: string;
+//       };
+//     }[];
+//   };
+//   totalPriceSet: {
+//     shopMoney: {
+//       amount: string;
+//     };
+//   };
+//   createdAt: string;
+// }
 
-export interface FormattedShopifyApiOrder {
-  id: string;
-  product_ids: string[];
-  total_amount: string;
-  created_at: string;
-}
+// export interface FormattedShopifyApiOrder {
+//   id: string;
+//   product_ids: string[];
+//   total_amount: string;
+//   created_at: string;
+// }
 
-interface ShopifyRunBulkOperationResponse {
-  bulkOperationRunQuery: {
-    bulkOperation: {
-      id: string;
-      status: string;
-    };
-    userErrors: any[];
-  };
-}
+// interface ShopifyRunBulkOperationResponse {
+//   bulkOperationRunQuery: {
+//     bulkOperation: {
+//       id: string;
+//       status: string;
+//     };
+//     userErrors: any[];
+//   };
+// }
 
-export const runShopifyBulkOperation = async (
-  access_token: string,
-  shop: string,
-  shopify_account_id: number,
-  query: string
-) => {
-  //Make sure we are subscribed to the Webhook BULK_OPERATIONS_FINISH
-  const whkSubscriptionExists = await db.query.shopifyWebhookSubscriptions.findFirst({
-    where: and(
-      eq(shopifyWebhookSubscriptions.shopifyTopic, "BULK_OPERATIONS_FINISH"),
-      eq(shopifyWebhookSubscriptions.shopifyAccountId, shopify_account_id)
-    ),
-  });
-  if (!whkSubscriptionExists) {
-    const whkSubscriptionId = await createShopifyWebhookSubscription(
-      access_token,
-      shop,
-      "BULK_OPERATIONS_FINISH",
-      `${env.BACKEND_BASE_URL}/webhooks/shopify/bulk-operations-finish`
-    );
-    if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
+// export const runShopifyBulkOperation = async (
+//   access_token: string,
+//   shop: string,
+//   shopify_account_id: number,
+//   query: string
+// ) => {
+//   //Make sure we are subscribed to the Webhook BULK_OPERATIONS_FINISH
+//   const whkSubscriptionExists = await db.query.shopifyWebhookSubscriptions.findFirst({
+//     where: and(
+//       eq(shopifyWebhookSubscriptions.shopifyTopic, "BULK_OPERATIONS_FINISH"),
+//       eq(shopifyWebhookSubscriptions.shopifyAccountId, shopify_account_id)
+//     ),
+//   });
+//   if (!whkSubscriptionExists) {
+//     const whkSubscriptionId = await createShopifyWebhookSubscription(
+//       access_token,
+//       shop,
+//       "BULK_OPERATIONS_FINISH",
+//       `${env.BACKEND_BASE_URL}/webhooks/shopify/bulk-operations-finish`
+//     );
+//     if (!whkSubscriptionId) throw new Error("Failed to create Shopify Webhook Subscription");
 
-    await db.insert(shopifyWebhookSubscriptions).values({
-      shopifyGid: whkSubscriptionId,
-      shopifyTopic: "BULK_OPERATIONS_FINISH",
-      shopifyAccountId: shopify_account_id,
-    });
-  }
+//     await db.insert(shopifyWebhookSubscriptions).values({
+//       shopifyGid: whkSubscriptionId,
+//       shopifyTopic: "BULK_OPERATIONS_FINISH",
+//       shopifyAccountId: shopify_account_id,
+//     });
+//   }
 
-  const apiQuery = `mutation {
-  bulkOperationRunQuery(
-    query:"""
-    ${query}
-    """
-  ) {
-    bulkOperation {
-      id
-      status
-    }
-    userErrors {
-      field
-      message
-    }
-  }
-}`;
+//   const apiQuery = `mutation {
+//   bulkOperationRunQuery(
+//     query:"""
+//     ${query}
+//     """
+//   ) {
+//     bulkOperation {
+//       id
+//       status
+//     }
+//     userErrors {
+//       field
+//       message
+//     }
+//   }
+// }`;
 
-  const response = await queryShopifyApi<ShopifyRunBulkOperationResponse>(
-    access_token,
-    shop,
-    apiQuery
-  );
-  if (!response) throw new Error("Failed to query Shopify API");
+//   const response = await queryShopifyApi<ShopifyRunBulkOperationResponse>(
+//     access_token,
+//     shop,
+//     apiQuery
+//   );
+//   if (!response) throw new Error("Failed to query Shopify API");
 
-  return response.data.bulkOperationRunQuery.bulkOperation;
-};
+//   return response.data.bulkOperationRunQuery.bulkOperation;
+// };
 
-interface ShopifyReadBulkOperationResponse {
-  node: ShopifyApiBulkOperation;
-}
+// interface ShopifyReadBulkOperationResponse {
+//   node: ShopifyApiBulkOperation;
+// }
 
-export interface ShopifyApiBulkOperation {
-  id: string;
-  url: null | string;
-  status: string;
-}
+// export interface ShopifyApiBulkOperation {
+//   id: string;
+//   url: null | string;
+//   status: string;
+// }
 
-export const readShopifyBulkOperation = async (
-  access_token: string,
-  shop: string,
-  bulk_operation_gid: string
-) => {
-  const apiQuery = `query {
-  node(id: "${bulk_operation_gid}") {
-    ... on BulkOperation {
-      id
-      status
-      url
-    }
-  }
-}`;
-  const response = await queryShopifyApi<ShopifyReadBulkOperationResponse>(
-    access_token,
-    shop,
-    apiQuery
-  );
-  if (!response) throw new Error("Failed to query Shopify API");
+// export const readShopifyBulkOperation = async (
+//   access_token: string,
+//   shop: string,
+//   bulk_operation_gid: string
+// ) => {
+//   const apiQuery = `query {
+//   node(id: "${bulk_operation_gid}") {
+//     ... on BulkOperation {
+//       id
+//       status
+//       url
+//     }
+//   }
+// }`;
+//   const response = await queryShopifyApi<ShopifyReadBulkOperationResponse>(
+//     access_token,
+//     shop,
+//     apiQuery
+//   );
+//   if (!response) throw new Error("Failed to query Shopify API");
 
-  return response.data.node;
-};
+//   return response.data.node;
+// };
 
-export const initReadAllShopifyOrders = async (
-  access_token: string,
-  shop: string,
-  shopify_account_id: number
-) => {
-  const apiQuery = `{
-      orders {
-        edges {
-          node {
-            id
-            totalPriceSet {
-              shopMoney {
-                amount
-              }
-            }
-            lineItems {
-              edges {
-                node {
-                  id
-                  product {
-                    id
-                  }
-                }
-              }
-            }
-            createdAt
-          }
-        }
-      }
-    }`;
-  const bulkOperation = await runShopifyBulkOperation(
-    access_token,
-    shop,
-    shopify_account_id,
-    apiQuery
-  );
+// export const initReadAllShopifyOrders = async (
+//   access_token: string,
+//   shop: string,
+//   shopify_account_id: number
+// ) => {
+//   const apiQuery = `{
+//       orders {
+//         edges {
+//           node {
+//             id
+//             totalPriceSet {
+//               shopMoney {
+//                 amount
+//               }
+//             }
+//             lineItems {
+//               edges {
+//                 node {
+//                   id
+//                   product {
+//                     id
+//                   }
+//                 }
+//               }
+//             }
+//             createdAt
+//           }
+//         }
+//       }
+//     }`;
+//   const bulkOperation = await runShopifyBulkOperation(
+//     access_token,
+//     shop,
+//     shopify_account_id,
+//     apiQuery
+//   );
 
-  await db.insert(shopifyBulkOperations).values({
-    shopifyGid: bulkOperation.id,
-    status: bulkOperation.status as unknown as SQL<unknown>,
-    local_purpose: "read_all_orders",
-    shopifyAccountId: shopify_account_id,
-  });
+//   await db.insert(shopifyBulkOperations).values({
+//     shopifyGid: bulkOperation.id,
+//     status: bulkOperation.status as unknown as SQL<unknown>,
+//     local_purpose: "read_all_orders",
+//     shopifyAccountId: shopify_account_id,
+//   });
 
-  return bulkOperation;
-};
+//   return bulkOperation;
+// };
 
-interface BulkOrderLineData {
-  id: string;
-  totalPriceSet?: {
-    shopMoney: {
-      amount: string;
-    };
-  };
-  product?: {
-    id: string;
-  };
-  __parentId?: string;
-  createdAt?: string;
-}
+// interface BulkOrderLineData {
+//   id: string;
+//   totalPriceSet?: {
+//     shopMoney: {
+//       amount: string;
+//     };
+//   };
+//   product?: {
+//     id: string;
+//   };
+//   __parentId?: string;
+//   createdAt?: string;
+// }
 
-export const getBulkOperationResulsAsArray = async (result_url: string) => {
-  try {
-    const response = await fetch(result_url);
-    if (!response.ok) throw new Error("Unable to fetch results URL");
+// export const getBulkOperationResulsAsArray = async (result_url: string) => {
+//   try {
+//     const response = await fetch(result_url);
+//     if (!response.ok) throw new Error("Unable to fetch results URL");
 
-    const data = await response.text();
-    const lines = data.split("\n").filter((l) => l.startsWith("{"));
-    const jsonLines = lines.map((l) => JSON.parse(l)) as BulkOrderLineData[];
+//     const data = await response.text();
+//     const lines = data.split("\n").filter((l) => l.startsWith("{"));
+//     const jsonLines = lines.map((l) => JSON.parse(l)) as BulkOrderLineData[];
 
-    return jsonLines;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
+//     return jsonLines;
+//   } catch (e) {
+//     console.log(e);
+//     return false;
+//   }
+// };
 
-export const convertBulkOrdersResult = async (bulk_orders_data: BulkOrderLineData[]) => {
-  let ShopifyOrders: FormattedShopifyApiOrder[] = [];
+// export const convertBulkOrdersResult = async (bulk_orders_data: BulkOrderLineData[]) => {
+//   let ShopifyOrders: FormattedShopifyApiOrder[] = [];
 
-  for (let i = 0; i < bulk_orders_data.length; i++) {
-    let line_data = bulk_orders_data[i]!;
+//   for (let i = 0; i < bulk_orders_data.length; i++) {
+//     let line_data = bulk_orders_data[i]!;
 
-    if (line_data.id.includes("/Order/")) {
-      ShopifyOrders.push({
-        id: line_data.id as string,
-        total_amount: line_data.totalPriceSet!.shopMoney.amount as string,
-        product_ids: [],
-        created_at: line_data.createdAt!,
-      });
-    } else if (line_data.id.includes("/LineItem/")) {
-      const ShopifyOrderIndex = ShopifyOrders.findIndex((o) => o.id === line_data.__parentId);
-      if (ShopifyOrderIndex === -1) continue;
-      if (!line_data.product) continue;
+//     if (line_data.id.includes("/Order/")) {
+//       ShopifyOrders.push({
+//         id: line_data.id as string,
+//         total_amount: line_data.totalPriceSet!.shopMoney.amount as string,
+//         product_ids: [],
+//         created_at: line_data.createdAt!,
+//       });
+//     } else if (line_data.id.includes("/LineItem/")) {
+//       const ShopifyOrderIndex = ShopifyOrders.findIndex((o) => o.id === line_data.__parentId);
+//       if (ShopifyOrderIndex === -1) continue;
+//       if (!line_data.product) continue;
 
-      const existingProductIds = ShopifyOrders[ShopifyOrderIndex]?.product_ids ?? [];
+//       const existingProductIds = ShopifyOrders[ShopifyOrderIndex]?.product_ids ?? [];
 
-      //@ts-ignore
-      ShopifyOrders[ShopifyOrderIndex] = {
-        ...ShopifyOrders[ShopifyOrderIndex],
-        product_ids: [...existingProductIds, ...[line_data.product.id]],
-      };
-    }
-  }
+//       //@ts-ignore
+//       ShopifyOrders[ShopifyOrderIndex] = {
+//         ...ShopifyOrders[ShopifyOrderIndex],
+//         product_ids: [...existingProductIds, ...[line_data.product.id]],
+//       };
+//     }
+//   }
 
-  return ShopifyOrders;
-};
+//   return ShopifyOrders;
+// };
 
-//{ orders(first: 250) { edges { node { id totalPriceSet { shopMoney { amount } } lineItems(first: 250) { nodes { id product { id } } } createdAt } } } }
+// //{ orders(first: 250) { edges { node { id totalPriceSet { shopMoney { amount } } lineItems(first: 250) { nodes { id product { id } } } createdAt } } } }
 
-//This method can read a maximum of 250 orders at once
-export const readShopifyOrders = async (access_token: string, shop: string, since_date?: Date) => {
-  try {
-    const apiQuery = `query { orders(first: 250) { edges { node { id totalPriceSet { shopMoney { amount } } lineItems(first: 250) { nodes { id product { id } } } createdAt } } } }`;
-    const response = await queryShopifyApi<ShopifyReadOrdersResponse>(access_token, shop, apiQuery);
-    if (!response) throw new Error("Failed to query Shopify API");
+// //This method can read a maximum of 250 orders at once
+// export const readShopifyOrders = async (access_token: string, shop: string, since_date?: Date) => {
+//   try {
+//     const apiQuery = `query { orders(first: 250) { edges { node { id totalPriceSet { shopMoney { amount } } lineItems(first: 250) { nodes { id product { id } } } createdAt } } } }`;
+//     const response = await queryShopifyApi<ShopifyReadOrdersResponse>(access_token, shop, apiQuery);
+//     if (!response) throw new Error("Failed to query Shopify API");
 
-    const orders = response.data.orders.edges.map((o) => ({
-      id: o.node.id,
-      product_ids: o.node.lineItems.nodes.map((n) => n.product.id),
-      total_amount: o.node.totalPriceSet.shopMoney.amount,
-      created_at: o.node.createdAt,
-    })) as FormattedShopifyApiOrder[];
+//     const orders = response.data.orders.edges.map((o) => ({
+//       id: o.node.id,
+//       product_ids: o.node.lineItems.nodes.map((n) => n.product.id),
+//       total_amount: o.node.totalPriceSet.shopMoney.amount,
+//       created_at: o.node.createdAt,
+//     })) as FormattedShopifyApiOrder[];
 
-    return orders;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
+//     return orders;
+//   } catch (e) {
+//     console.log(e);
+//     return false;
+//   }
+// };
 
-interface ShopifySubscribeWebhookResponse {
-  webhookSubscriptionCreate: {
-    userErrors: any[];
-    webhookSubscription: ShopifyApiWebhookSubscription;
-  };
-}
+// interface ShopifySubscribeWebhookResponse {
+//   webhookSubscriptionCreate: {
+//     userErrors: any[];
+//     webhookSubscription: ShopifyApiWebhookSubscription;
+//   };
+// }
 
-export interface ShopifyApiWebhookSubscription {
-  id: string;
-}
+// export interface ShopifyApiWebhookSubscription {
+//   id: string;
+// }
 
-export const createShopifyWebhookSubscription = async (
-  access_token: string,
-  shop: string,
-  topic: string,
-  callbackUrl: string
-) => {
-  try {
-    const apiQuery = `mutation {
-  webhookSubscriptionCreate(
-    topic: ${topic}
-    webhookSubscription: {
-      format: JSON,
-      callbackUrl: "${callbackUrl}"}
-  ) {
-    userErrors {
-      field
-      message
-    }
-    webhookSubscription {
-      id
-    }
-  }
-}`;
-    const response = await queryShopifyApi<ShopifySubscribeWebhookResponse>(
-      access_token,
-      shop,
-      apiQuery
-    );
-    if (!response) throw new Error(`Failed to query Shopify API: ${JSON.stringify(response)}`);
+// export const createShopifyWebhookSubscription = async (
+//   access_token: string,
+//   shop: string,
+//   topic: string,
+//   callbackUrl: string
+// ) => {
+//   try {
+//     const apiQuery = `mutation {
+//   webhookSubscriptionCreate(
+//     topic: ${topic}
+//     webhookSubscription: {
+//       format: JSON,
+//       callbackUrl: "${callbackUrl}"}
+//   ) {
+//     userErrors {
+//       field
+//       message
+//     }
+//     webhookSubscription {
+//       id
+//     }
+//   }
+// }`;
+//     const response = await queryShopifyApi<ShopifySubscribeWebhookResponse>(
+//       access_token,
+//       shop,
+//       apiQuery
+//     );
+//     if (!response) throw new Error(`Failed to query Shopify API: ${JSON.stringify(response)}`);
 
-    const webhookSubscriptionId = response.data.webhookSubscriptionCreate.webhookSubscription.id;
+//     const webhookSubscriptionId = response.data.webhookSubscriptionCreate.webhookSubscription.id;
 
-    return webhookSubscriptionId;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
+//     return webhookSubscriptionId;
+//   } catch (e) {
+//     console.log(e);
+//     return false;
+//   }
+// };
 
-interface ShopifyReadProductResponse {
-  product: null | ShopifyApiProduct;
-}
+// interface ShopifyReadProductResponse {
+//   product: null | ShopifyApiProduct;
+// }
 
-export const readShopifyProduct = async (
-  access_token: string,
-  shop: string,
-  product_id: number
-) => {
-  try {
-    const apiQuery = `query { product(id: \"gid://shopify/Product/${product_id}\")  { id title handle } }`;
-    const response = await queryShopifyApi<ShopifyReadProductResponse>(
-      access_token,
-      shop,
-      apiQuery
-    );
-    if (!response) throw new Error("Failed to query Shopify API");
+// export const readShopifyProduct = async (
+//   access_token: string,
+//   shop: string,
+//   product_id: number
+// ) => {
+//   try {
+//     const apiQuery = `query { product(id: \"gid://shopify/Product/${product_id}\")  { id title handle } }`;
+//     const response = await queryShopifyApi<ShopifyReadProductResponse>(
+//       access_token,
+//       shop,
+//       apiQuery
+//     );
+//     if (!response) throw new Error("Failed to query Shopify API");
 
-    return response.data.product;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-};
+//     return response.data.product;
+//   } catch (e) {
+//     console.log(e);
+//     return false;
+//   }
+// };
 
 export const verifyShopifyWebhook = (request: NextRequest) => {
   const shopifyHmac = request.headers.get("x-shopify-hmac-sha256");
