@@ -2,12 +2,12 @@ import { getUserWithTeam } from "@/actions/user";
 import { verifyToken } from "@/lib/auth/session";
 import { db } from "@/lib/db/drizzle";
 import { shopifyAccounts } from "@/lib/db/schema";
+import { triggerInitialShopifySync } from "@/lib/integrations/backend-client";
 import {
   exchangeShopifyCode,
   validateShopifyMessage,
   validateShopifyShopUrl,
 } from "@/lib/integrations/shopify";
-import { syncShopify } from "@/lib/integrations/sync/sync-shopify";
 import { and, eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -109,7 +109,7 @@ export const GET = async (request: NextRequest) => {
     })
     .where(eq(shopifyAccounts.id, shopifyAccount.id));
 
-  syncShopify(shopifyAccount.id);
+  triggerInitialShopifySync(shopifyAccount);
 
   return NextResponse.redirect("/dashboard/settings");
 };

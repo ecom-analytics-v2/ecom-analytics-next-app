@@ -7,24 +7,24 @@
  */
 
 import { getAllTeamExpenses } from "@/actions/expenses";
-import { getUser, getUserWithTeam } from "@/actions/user";
 import { getTeamForUser } from "@/actions/team";
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
+import { getUser, getUserWithTeam } from "@/actions/user";
 import { Card, CardContent } from "@/components/ui/card";
 import { api } from "@/trpc/server";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 // Component Imports
-import DatePickerWithRange from "@/components/dashboard/common/date-range-picker";
-import { ProfitOverTime } from "@/components/dashboard/charts/profit-over-time";
-import { MarketingEfficiencyRatio } from "@/components/dashboard/charts/marketing-efficiency-ratio";
-import { CostPerAcquisition } from "@/components/dashboard/charts/cost-per-acquisition";
 import { ContributionMargin } from "@/components/dashboard/charts/contribution-margin";
+import { CostPerAcquisition } from "@/components/dashboard/charts/cost-per-acquisition";
+import { MarketingEfficiencyRatio } from "@/components/dashboard/charts/marketing-efficiency-ratio";
+import { ProfitOverTime } from "@/components/dashboard/charts/profit-over-time";
+import DatePickerWithRange from "@/components/dashboard/common/date-range-picker";
 
 // Data Imports
-import dummyOrders from "./dummy-orders.json";
-import dummyAds from "./dummy-ads.json";
 import { Expense } from "@/lib/db/schema/expenses";
+import dummyAds from "./dummy-ads.json";
+import dummyOrders from "./dummy-orders.json";
 
 // Types
 interface ShopifyOrder {
@@ -224,7 +224,7 @@ function calculateDailyExpense(expense: any, orderCount: number, currentDate: Da
 /**
  * Chart wrapper component with loading skeleton
  */
-function ChartWrapper({
+export function ChartWrapper({
   children,
   className = "col-span-3 md:col-span-6 lg:col-span-9",
 }: {

@@ -23,3 +23,23 @@ export function formatCompactCurrency(amount: number): string {
   });
   return formatter.format(amount);
 }
+
+export const dateFormatter = (value: any, startDate: Date, endDate: Date) => {
+  const date = new Date(value);
+  const daysDiff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+  if (daysDiff <= 7) {
+    return new Intl.DateTimeFormat("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      timeZone: "UTC",
+    }).format(date);
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+};

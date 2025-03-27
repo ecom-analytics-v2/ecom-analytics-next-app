@@ -124,39 +124,39 @@ type ShopifyApiError = {
   };
 };
 
-// type ShopifyReadProductsResponse = {
-//   products: {
-//     edges: {
-//       node: ShopifyApiProduct;
-//       cursor: string;
-//     }[];
-//     pageInfo: {
-//       hasNextPage: string;
-//     };
-//   };
-// };
+type ShopifyReadProductsResponse = {
+  products: {
+    edges: {
+      node: ShopifyApiProduct;
+      cursor: string;
+    }[];
+    pageInfo: {
+      hasNextPage: string;
+    };
+  };
+};
 
-// export interface ShopifyApiProduct {
-//   id: string;
-//   title: string;
-//   handle: string;
-// }
+export interface ShopifyApiProduct {
+  id: string;
+  title: string;
+  handle: string;
+}
 
-// export const readShopifyProducts = async (access_token: string, shop: string) => {
-//   try {
-//     const apiQuery = `query { products(first: 250) { edges { node { id title handle } cursor } pageInfo { hasNextPage } } }`;
-//     const response = await queryShopifyApi<ShopifyReadProductsResponse>(
-//       access_token,
-//       shop,
-//       apiQuery
-//     );
-//     if (!response) throw new Error("Failed to query Shopify API");
+export const readShopifyProducts = async (access_token: string, shop: string) => {
+  try {
+    const apiQuery = `query { products(first: 250) { edges { node { id title handle } cursor } pageInfo { hasNextPage } } }`;
+    const response = await queryShopifyApi<ShopifyReadProductsResponse>(
+      access_token,
+      shop,
+      apiQuery
+    );
+    if (!response) throw new Error("Failed to query Shopify API");
 
-//     return response.data.products.edges.map((p) => p.node);
-//   } catch (e) {
-//     return false;
-//   }
-// };
+    return response.data.products.edges.map((p) => p.node);
+  } catch (e) {
+    return false;
+  }
+};
 
 // type ShopifyReadOrdersResponse = {
 //   orders: {

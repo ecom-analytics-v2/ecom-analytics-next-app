@@ -7,6 +7,7 @@ import { expenses } from "./expenses";
 import { invitations } from "./invitations";
 import { metaAccounts } from "./meta/metaAccounts";
 import { shopifyAccounts } from "./shopify/shopifyAccounts";
+import { subscriptions } from "./subscriptions";
 import { teamMembers } from "./teamMembers";
 
 export const teams = pgTable("teams", {
@@ -16,15 +17,15 @@ export const teams = pgTable("teams", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
   dateFilterStart: timestamp("date_filter_start").default(sql`NOW() - INTERVAL '30 days'`),
   dateFilterEnd: timestamp("date_filter_end").default(sql`NOW()`),
-  stripeCustomerId: text("stripe_customer_id").unique(),
-  stripeSubscriptionId: text("stripe_subscription_id").unique(),
-  stripeProductId: text("stripe_product_id"),
   planName: varchar("plan_name", { length: 50 }).default("free"),
-  subscriptionStatus: varchar("subscription_status", { length: 20 }),
+
+  stripeCustomerId: text("stripe_customer_id"),
+
   monthlyRevenue: integer("monthly_revenue"),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
+  subscription: one(subscriptions),
   teamMembers: many(teamMembers),
   activityLogs: many(activityLogs),
   invitations: many(invitations),
@@ -37,7 +38,6 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
 export const insertTeamSchema = createInsertSchema(teams, {
   name: (schema) => schema.name.min(1).max(100),
   planName: z.enum(["free", "pro", "enterprise"]).optional(),
-  subscriptionStatus: z.enum(["active", "inactive", "cancelled"]).optional(),
   monthlyRevenue: z.number().int().nonnegative().optional(),
 });
 

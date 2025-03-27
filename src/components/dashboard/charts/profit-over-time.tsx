@@ -1,10 +1,10 @@
 "use client";
 import * as React from "react";
-import { Area, Bar, BarChart, CartesianGrid, XAxis, YAxis, ComposedChart, Legend } from "recharts";
+import { Area, Bar, BarChart, CartesianGrid, ComposedChart, Legend, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { formatCurrency } from "@/lib/utils";
+import { dateFormatter, formatCurrency } from "@/lib/utils";
 import { useState } from "react";
 
 const chartConfig = {
@@ -71,27 +71,6 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
     [totals, chartData]
   );
 
-  const dateFormatter = (value: any) => {
-    const date = new Date(value);
-    const daysDiff =
-      Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-    if (daysDiff <= 7) {
-      return new Intl.DateTimeFormat("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        timeZone: "UTC",
-      }).format(date);
-    }
-
-    return new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "numeric",
-      timeZone: "UTC",
-    }).format(date);
-  };
-
   const renderChart = () => {
     switch (activeChart) {
       case "combined":
@@ -102,7 +81,7 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
               dataKey="date"
               tickLine={false}
               axisLine={false}
-              tickFormatter={dateFormatter}
+              tickFormatter={(value) => dateFormatter(value, startDate, endDate)}
               tickMargin={10}
               minTickGap={32}
             />
@@ -191,7 +170,12 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
         return (
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} />
-            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => dateFormatter(value, startDate, endDate)}
+            />
             <YAxis
               tickLine={false}
               axisLine={false}
@@ -235,7 +219,12 @@ export function ProfitOverTime({ orders, startDate, endDate }: Props) {
         return (
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis dataKey="date" tickLine={false} axisLine={false} tickFormatter={dateFormatter} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => dateFormatter(value, startDate, endDate)}
+            />
             <YAxis
               tickLine={false}
               axisLine={false}

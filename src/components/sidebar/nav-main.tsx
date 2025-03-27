@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  BarChart2,
-  Cog,
-  CreditCard,
-  DollarSign,
-  FileText,
-  ShoppingBag,
-  TrendingUp,
-  Calculator,
-} from "lucide-react";
+import { BarChart2, Calculator, Cog, CreditCard, DollarSign, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -46,6 +37,11 @@ const navItems = [
     title: "Calculators",
     url: "/dashboard/calculators",
     icon: Calculator,
+  },
+  {
+    title: "Team Billing",
+    url: "/dashboard/billing",
+    icon: CreditCard,
   },
   {
     title: "Team Settings",

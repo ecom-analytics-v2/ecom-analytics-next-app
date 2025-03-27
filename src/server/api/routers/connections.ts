@@ -2,6 +2,7 @@ import { getUserWithTeam } from "@/actions/user";
 import { env } from "@/env";
 import { db } from "@/lib/db/drizzle";
 import { googleAccounts, metaAccounts, shopifyAccounts } from "@/lib/db/schema";
+import { triggerInitialShopifySync } from "@/lib/integrations/backend-client";
 import { initGoogleOAuth } from "@/lib/integrations/google";
 import { initMetaOAuth } from "@/lib/integrations/meta";
 import {
@@ -9,7 +10,6 @@ import {
   initShopifyOAuth,
   readShopifyProducts,
 } from "@/lib/integrations/shopify";
-import { syncShopify } from "@/lib/integrations/sync/sync-shopify";
 import {
   ConnectionStatus,
   ConnectShopifySchema,
@@ -148,7 +148,7 @@ const ConnectionsRouter = createTRPCRouter({
             message: "Failed to create local account record",
           });
 
-        syncShopify(insertedShopifyAccount.id);
+        triggerInitialShopifySync(insertedShopifyAccount);
 
         return {
           complete: true,
