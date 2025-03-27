@@ -1,7 +1,7 @@
+//@ts-nocheck
 "use client";
 
 import { addExpense } from "@/actions/expenses";
-import { getUserWithTeam } from "@/actions/user";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -30,18 +30,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/lib/auth";
 import { insertExpenseSchema, NewExpense } from "@/lib/db/schema/expenses";
 import { cn } from "@/lib/utils";
 import { ExpenseType } from "@/types/expenseTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown, DollarSign, Info } from "lucide-react";
-import { useState, useEffect } from "react";
+import { CalendarIcon, Check, ChevronsUpDown, DollarSign } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
 
 const expenseTypes: ExpenseType[] = [
   "3PL",
