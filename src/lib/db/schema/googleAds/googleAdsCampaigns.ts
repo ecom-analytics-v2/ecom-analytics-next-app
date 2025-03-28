@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { googleAds } from "./googleAds";
 import { googleAdsAccounts } from "./googleAdsAccounts";
 
 export const googleAdsCampaigns = pgTable("google_ads_campaigns", {
@@ -16,9 +17,10 @@ export const googleAdsCampaigns = pgTable("google_ads_campaigns", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const googleAdCampaignsRelations = relations(googleAdsCampaigns, ({ one }) => ({
+export const googleAdCampaignsRelations = relations(googleAdsCampaigns, ({ one, many }) => ({
   googleAdsAccount: one(googleAdsAccounts, {
     fields: [googleAdsCampaigns.googleAdsAccountId],
     references: [googleAdsAccounts.id],
   }),
+  googleAds: many(googleAds),
 }));

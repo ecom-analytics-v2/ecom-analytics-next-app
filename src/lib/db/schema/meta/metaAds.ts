@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { metaCampaigns } from "./metaCampaigns";
+import { metaInsightData } from "./metaInsightData";
 
 export const metaAds = pgTable("meta_ads", {
   id: serial("id").primaryKey(),
@@ -12,9 +13,10 @@ export const metaAds = pgTable("meta_ads", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const metaAdsRelations = relations(metaAds, ({ one }) => ({
+export const metaAdsRelations = relations(metaAds, ({ one, many }) => ({
   metaCampaign: one(metaCampaigns, {
     fields: [metaAds.metaCampaignId],
     references: [metaCampaigns.id],
   }),
+  metaInsightData: many(metaInsightData),
 }));

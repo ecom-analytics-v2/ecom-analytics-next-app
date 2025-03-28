@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { boolean, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { teams } from "../teams";
 import { users } from "../users";
+import { metaAdAccounts } from "./metaAdAccounts";
 
 export const metaAccounts = pgTable("meta_accounts", {
   id: serial("id").primaryKey(),
@@ -16,9 +17,10 @@ export const metaAccounts = pgTable("meta_accounts", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const metaAccountsRelations = relations(metaAccounts, ({ one }) => ({
+export const metaAccountsRelations = relations(metaAccounts, ({ one, many }) => ({
   team: one(teams, {
     fields: [metaAccounts.teamId],
     references: [teams.id],
   }),
+  metaAdAccounts: many(metaAdAccounts),
 }));

@@ -23,6 +23,9 @@ export * from "./googleAnalytics/googleAnalyticsAccounts";
 export * from "./googleAnalytics/googleAnalyticsEventData";
 export * from "./googleAnalytics/googleAnalyticsProperties";
 
+export * from "./googleAds/googleAds";
 export * from "./googleAds/googleAdsAccounts";
+export * from "./googleAds/googleAdsCampaigns";
+export * from "./googleAds/googleAdsPerformanceData";
 
 export * from "./subscriptions";
