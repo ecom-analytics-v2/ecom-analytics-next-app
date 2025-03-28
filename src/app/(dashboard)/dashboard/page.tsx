@@ -269,7 +269,7 @@ export default async function Dashboard() {
 
   const teamData = await getTeamForUser(user.id);
   if (!teamData?.shopifyAccount?.id) {
-    throw new Error("Team or Shopify account not found");
+    redirect("/dashboard/setup");
   }
 
   // Fetch and prepare data

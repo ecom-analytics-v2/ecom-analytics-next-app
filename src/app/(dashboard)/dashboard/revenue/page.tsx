@@ -3,7 +3,10 @@ import { getUser, getUserWithTeam } from "@/actions/user";
 import DatePickerWithRange from "@/components/dashboard/common/date-range-picker";
 import HealthMetrics from "@/components/dashboard/revenue-charts/health-metrics";
 import StandardLinechartChart from "@/components/dashboard/revenue-charts/standard-linechat";
+import { db } from "@/lib/db/drizzle";
+import { googleAccounts, shopifyAccounts } from "@/lib/db/schema";
 import { fetchRevenueCharts } from "@/lib/integrations/backend-client";
+import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { ChartWrapper } from "../page";
 
@@ -20,7 +23,23 @@ export default async function Dashboard() {
 
   const teamData = await getTeamForUser(user.id);
   if (!teamData) {
-    throw new Error("Team not found");
+    redirect("/dashboard/setup");
+  }
+
+  const teamHasShopifyAccount = await db.query.shopifyAccounts.findFirst({
+    where: eq(shopifyAccounts.teamId, teamData.id),
+  });
+
+  if (!teamHasShopifyAccount) {
+    redirect("/dashboard/setup");
+  }
+
+  const teamHasGoogleAccount = await db.query.googleAccounts.findFirst({
+    where: eq(googleAccounts.teamId, teamData.id),
+  });
+
+  if (!teamHasGoogleAccount) {
+    redirect("/dashboard/setup");
   }
 
   const startDate = teamData.dateFilterStart ?? new Date();

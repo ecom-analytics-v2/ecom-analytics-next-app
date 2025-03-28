@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/trpc/react";
 import { ConnectShopifySchema, GetConnectionStatusSchema } from "@/types/api/connections-router";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -103,14 +103,20 @@ const AccountConnection = ({
           <>
             {identifier === "meta" || identifier == "google" ? (
               <Link href={status.data.connect_url!}>
-                <Button>Connect</Button>
+                <Button>
+                  Connect <ExternalLink className="w-4 h-4 ml-2" />
+                </Button>
               </Link>
             ) : (
               <ShopifyAccountConnection refresh={() => status.refetch()} />
             )}
           </>
         )}
-        {status.isLoading && <Button disabled>Connect</Button>}
+        {status.isLoading && (
+          <Button disabled>
+            Connect <ExternalLink className="w-4 h-4 ml-2" />
+          </Button>
+        )}
       </CardContent>
     </Card>
   );
@@ -124,7 +130,7 @@ const ShopifyAccountConnection = ({ refresh }: { refresh: () => void }) => {
 
   const [shopifyShop, setShopifyShop] = useState<string>("");
   const [connectionType, setConnectionType] =
-    useState<FormType["connection_type"]>("official_client");
+    useState<FormType["connection_type"]>("custom_client");
 
   const [ccClientId, setCcClientId] = useState<string>("");
   const [ccClientSecret, setCcClientSecret] = useState<string>("");
@@ -160,7 +166,9 @@ const ShopifyAccountConnection = ({ refresh }: { refresh: () => void }) => {
           onValueChange={(value) => setConnectionType(value as FormType["connection_type"])}
         >
           <TabsList>
-            <TabsTrigger value="official_client">Official</TabsTrigger>
+            <TabsTrigger value="official_client" disabled={true}>
+              Official
+            </TabsTrigger>
             <TabsTrigger value="custom_client">Custom</TabsTrigger>
           </TabsList>
         </Tabs>
@@ -170,6 +178,7 @@ const ShopifyAccountConnection = ({ refresh }: { refresh: () => void }) => {
           <div className="flex flex-col gap-2 min-w-[250px]">
             <Label>Client ID / API Key</Label>
             <Input
+              className="bg-white/5"
               defaultValue={ccClientId}
               onChange={(e) => setCcClientId(e.currentTarget.value)}
             />
@@ -177,6 +186,7 @@ const ShopifyAccountConnection = ({ refresh }: { refresh: () => void }) => {
           <div className="flex flex-col gap-2 min-w-[250px]">
             <Label>Client Secret / API Key Secret</Label>
             <Input
+              className="bg-white/5"
               defaultValue={ccClientSecret}
               onChange={(e) => setCcClientSecret(e.currentTarget.value)}
             />
@@ -184,6 +194,7 @@ const ShopifyAccountConnection = ({ refresh }: { refresh: () => void }) => {
           <div className="flex flex-col gap-2 min-w-[250px]">
             <Label>Access Token</Label>
             <Input
+              className="bg-white/5"
               defaultValue={accessToken}
               onChange={(e) => setAccessToken(e.currentTarget.value)}
             />
@@ -193,6 +204,7 @@ const ShopifyAccountConnection = ({ refresh }: { refresh: () => void }) => {
       <div className="flex flex-col gap-2 min-w-[250px]">
         <Label>Shop Domain</Label>
         <Input
+          className="bg-white/5"
           placeholder="my-shop-here.myshopify.com"
           defaultValue={shopifyShop}
           onChange={(e) => setShopifyShop(e.currentTarget.value)}
