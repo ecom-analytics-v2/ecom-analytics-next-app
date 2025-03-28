@@ -7,6 +7,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const StandardLinechartChart = ({
   cardTitle,
+  cardDescription,
   dataKey,
   data,
   startDate,
@@ -14,15 +15,18 @@ const StandardLinechartChart = ({
   yAxisTickFormat = "dollar",
 }: {
   cardTitle: string;
+  cardDescription: string;
   dataKey: string;
   data: StandardLinechartData;
   startDate: Date;
   endDate: Date;
-  yAxisTickFormat?: "dollar" | "number" | "percentage";
+  yAxisTickFormat?: "dollar" | "number" | "number_2decimal" | "percentage";
 }) => {
   let yAxisTickFormatter = (value: any) => formatCompactCurrency(Math.abs(value));
   if (yAxisTickFormat === "percentage") {
     yAxisTickFormatter = (value: any) => `${value.toFixed(3)}%`;
+  } else if (yAxisTickFormat === "number_2decimal") {
+    yAxisTickFormatter = (value: any) => value.toFixed(2);
   } else if (yAxisTickFormat === "number") {
     yAxisTickFormatter = (value: any) => value;
   }
@@ -40,7 +44,7 @@ const StandardLinechartChart = ({
     <Card>
       <CardHeader>
         <CardTitle>{cardTitle}</CardTitle>
-        <CardDescription>Amet aute consequat ad sit commodo qui</CardDescription>
+        <CardDescription>{cardDescription}</CardDescription>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
         <ChartContainer config={chartConfig} className="aspect-auto h-[350px] w-full">

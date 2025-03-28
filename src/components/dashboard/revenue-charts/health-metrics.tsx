@@ -276,10 +276,10 @@ const HealthMetrics = ({
                      px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:px-8 sm:py-6"
             onClick={() => setActiveChart("combined")}
           >
-            <span className="text-xs text-muted-foreground">RPV v Profit</span>
+            <span className="text-xs text-muted-foreground whitespace-nowrap">RPV v Profit</span>
             <span className="text-lg font-bold leading-none sm:text-3xl">
               {/* {formatCompactCurrency(Number(0))} */}
-              0.00
+              -.----
             </span>
           </button>
 

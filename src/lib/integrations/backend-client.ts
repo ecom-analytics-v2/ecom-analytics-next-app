@@ -78,6 +78,8 @@ interface RevenueCharts {
   AverageOrderValue: StandardLinechartData;
   AverageCustomerPurchaseFrequency: StandardLinechartData;
   FirstPurchaseConversionRate: StandardLinechartData;
+
+  CustomerLifetimeValue: StandardLinechartData;
 }
 
 interface RevenueChartsResponse {

@@ -45,7 +45,7 @@ const BillingInitial = () => {
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Pro Plan</CardTitle>
           <p className="text-3xl font-bold">
-            $29<span className="text-lg text-muted-foreground">/mo</span>
+            $197<span className="text-lg text-muted-foreground">/mo</span>
           </p>
           <p className="text-muted-foreground">Unlock all features</p>
         </CardHeader>

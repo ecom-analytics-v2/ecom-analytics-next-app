@@ -21,7 +21,7 @@ const SetupRequirements = ({ nextStep }: { nextStep: () => void }) => {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 p-4">
+    <div className="md:max-w-[800px] w-full mx-auto space-y-6 p-4">
       <div className="space-y-2">
         <h1 className="text-2xl font-bold">Setup Requirements</h1>
         <p className="text-muted-foreground">

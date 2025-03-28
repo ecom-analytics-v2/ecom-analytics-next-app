@@ -45,11 +45,17 @@ export default async function Dashboard() {
   const startDate = teamData.dateFilterStart ?? new Date();
   const endDate = teamData.dateFilterEnd ?? new Date();
 
-  const revenueChartData = await fetchRevenueCharts(
-    teamData,
-    teamData.dateFilterStart ?? undefined,
-    teamData.dateFilterEnd ?? undefined
-  );
+  let revenueChartData;
+
+  try {
+    revenueChartData = await fetchRevenueCharts(
+      teamData,
+      teamData.dateFilterStart ?? undefined,
+      teamData.dateFilterEnd ?? undefined
+    );
+  } catch (e) {
+    return redirect("/error");
+  }
 
   return (
     <div className="flex-1 bg-muted/40 p-4">
@@ -78,6 +84,7 @@ export default async function Dashboard() {
           <ChartWrapper className="">
             <StandardLinechartChart
               cardTitle="Average Order Value"
+              cardDescription="The average order value"
               dataKey="aov"
               data={revenueChartData.AverageOrderValue}
               startDate={startDate}
@@ -88,11 +95,38 @@ export default async function Dashboard() {
           <ChartWrapper className="">
             <StandardLinechartChart
               cardTitle="First Purchase Conversion Rate"
+              cardDescription="The percentage of visitors who make their first purchase"
               dataKey="fpcr"
               data={revenueChartData.FirstPurchaseConversionRate}
               startDate={startDate}
               endDate={endDate}
               yAxisTickFormat="percentage"
+            />
+          </ChartWrapper>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartWrapper className="">
+            <StandardLinechartChart
+              cardTitle="Average Customer Purchase Frequency"
+              cardDescription="The average of customer purchase frequency"
+              dataKey="acpf"
+              data={revenueChartData.AverageCustomerPurchaseFrequency}
+              startDate={startDate}
+              endDate={endDate}
+              yAxisTickFormat="number"
+            />
+          </ChartWrapper>
+
+          <ChartWrapper className="">
+            <StandardLinechartChart
+              cardTitle="Customer Lifetime Value"
+              cardDescription="The average amount of money a customer spends on a product or service"
+              dataKey="clv"
+              data={revenueChartData.CustomerLifetimeValue}
+              startDate={startDate}
+              endDate={endDate}
+              yAxisTickFormat="dollar"
             />
           </ChartWrapper>
         </div>
