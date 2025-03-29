@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { index, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { shopifyAccounts } from "./shopifyAccounts";
+import { shopifyOrders } from "./shopifyOrders";
 
 export const shopifyCustomers = pgTable(
   "shopify_customers",
@@ -25,4 +26,5 @@ export const shopifyCustomersRelations = relations(shopifyCustomers, ({ one, man
     fields: [shopifyCustomers.shopifyAccountId],
     references: [shopifyAccounts.id],
   }),
+  orders: many(shopifyOrders),
 }));

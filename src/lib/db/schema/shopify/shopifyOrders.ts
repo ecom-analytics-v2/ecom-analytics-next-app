@@ -2,8 +2,8 @@ import { createId } from "@paralleldrive/cuid2";
 import { relations } from "drizzle-orm";
 import { decimal, index, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { shopifyAccounts } from "./shopifyAccounts";
+import { shopifyCustomers } from "./shopifyCustomers";
 import { shopifyOrderProducts } from "./shopifyOrderProducts";
-
 export const orderStatusEnum = pgEnum("order_status", [
   "pending",
   "processing",
@@ -24,6 +24,9 @@ export const shopifyOrders = pgTable(
       .notNull()
       .references(() => shopifyAccounts.id),
     shopifyCreatedAt: timestamp("shopify_created_at").notNull(),
+    customerId: serial("customer_id")
+      .notNull()
+      .references(() => shopifyCustomers.id),
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },
   (table) => ({
@@ -38,4 +41,8 @@ export const shopifyOrdersRelations = relations(shopifyOrders, ({ one, many }) =
     references: [shopifyAccounts.id],
   }),
   shopifyOrderProducts: many(shopifyOrderProducts),
+  customer: one(shopifyCustomers, {
+    fields: [shopifyOrders.customerId],
+    references: [shopifyCustomers.id],
+  }),
 }));
